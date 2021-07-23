@@ -76,15 +76,6 @@ nnoremap <leader>fm :Marks<CR>
 
 " (c)ode (d)iagnostics
 let g:which_key_map.c.d = {'name':'+diagnostics'}
-nnoremap <silent><nowait> <leader>cdl  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <leader>ce  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <leader>cc  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <leader>co  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <leader>cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent><nowait> <leader>cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
@@ -120,17 +111,6 @@ nmap <silent> <leader>cdn <Plug>(coc-diagnostic-next)
 let g:which_key_map.c.d.n = "Next Diagnostic"
 nmap <silent> <leader>cds :CocDiagnostics<CR>
 let g:which_key_map.c.d.s = "Show Diagnostics"
-
-nnoremap <silent> <leader><leader> :<C-u>CocFzfList<CR>
-nnoremap <silent> <leader>cda       :<C-u>CocFzfList diagnostics<CR>
-nnoremap <silent> <leader>cdb       :<C-u>CocFzfList diagnostics --current-buf<CR>
-" I don't find these useful, all could be listed with <leader><leader>
-" nnoremap <silent> <space>c       :<C-u>CocFzfList commands<CR>
-" nnoremap <silent> <space>e       :<C-u>CocFzfList extensions<CR>
-" nnoremap <silent> <space>l       :<C-u>CocFzfList location<CR>
-" nnoremap <silent> <space>o       :<C-u>CocFzfList outline<CR>
-" nnoremap <silent> <space>s       :<C-u>CocFzfList symbols<CR>
-" nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)

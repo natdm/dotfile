@@ -20,7 +20,6 @@ Plug 'sainnhe/edge'
 " searching
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf'
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'

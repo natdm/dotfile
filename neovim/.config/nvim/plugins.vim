@@ -264,9 +264,31 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " CocSnippets {{{
 let g:UltiSnipsSnippetsDir = $HOME."/.config/nvim/ultisnips"
 
-" hijacking tabs for snippets. I Can't seem to get ultisnips to expand with
-" tab, it only works with enter - so remapping it if the pum is open.
-inoremap <expr> <TAB> pumvisible() ? "\<c-y>" : "\<tab>"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " ctrl-[n/p] to scroll menu, then tab to complete.
 " ctrl-[j/k] to nav through snippet pieces
