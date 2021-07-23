@@ -17,6 +17,7 @@
     "signature.preferShownAbove": false,
     "suggest.disableMenu": false,
     "suggest.autoTrigger": "always",
+    "suggest.detailField": "preview",
 		"suggest.noselect": false,
     "diagnostic.checkCurrentLine": true,
 		"diagnostic.level": "hint",
@@ -41,5 +42,6 @@
             ],
             "open"
         ]
-    }
+    },
+    "dialog.confirmKey": "<tab>"
 }
