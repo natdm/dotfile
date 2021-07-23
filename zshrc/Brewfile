@@ -1,0 +1,54 @@
+# specify a directory to install
+cask_args appdir: '/Applications'
+
+# install packages
+tap 'caskroom/homebrew-cask' || true
+tap 'cuelang/tap' || true
+tap 'homebrew/bundle' || true
+tap 'homebrew/cask' || true
+tap 'homebrew/core' || true
+tap 'neovim/neovim' || true
+tap 'warrensbox/tap' || true
+
+# brew fles
+brew 'bat'
+brew 'bc'
+brew 'ctags'
+brew 'ctop'
+brew 'elixir'
+brew 'exa'
+brew 'fzf'
+brew 'git'
+brew 'glances'
+brew 'go'
+brew 'grip'
+brew 'htop'
+brew 'jq'
+brew 'k9s'
+brew 'kubernetes-cli'
+brew 'neovim'
+brew 'node'
+brew 'ranger'
+brew 'redis'
+brew 'rg'
+brew 'rga'
+brew 'ripgrep'
+brew 'stern'
+brew 'stow'
+brew 'tmate'
+brew 'tmux'
+brew 'tree'
+brew 'zsh'
+
+# has to be installed after kubectl
+brew 'kubectx'
+
+# Casks
+cask 'alacritty'
+cask 'docker'
+cask 'google-chrome'
+cask 'karabiner-elements'
+cask 'macvim'
+cask 'rectangle'
+cask 'slack'
+cask 'vlc'

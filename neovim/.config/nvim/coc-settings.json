@@ -1,0 +1,46 @@
+{
+    "coc.preferences.useQuickfixForLocations": true,
+		"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+    "coc.preferences.extensionUpdateCheck": "never",
+    "coc.preferences.messageLevel": "error",
+    "coc.preferences.formatOnType": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "yaml",
+        "markdown",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "elixir"
+    ],
+    "tsserver.formatOnType": true,
+    "signature.preferShownAbove": false,
+    "suggest.disableMenu": false,
+    "suggest.autoTrigger": "always",
+		"suggest.noselect": false,
+    "diagnostic.checkCurrentLine": true,
+		"diagnostic.level": "hint",
+    "diagnostic.format": "%message",
+    "diagnostic.refreshOnInsertMode": true,
+		"json.format.enable": true,
+    "languageserver": {},
+    "explorer.quitOnOpen": true,
+    "explorer.file.git.showUntrackedFiles": true,
+    "explorer.file.showHiddenFiles": true,
+    "explorer.buffer.showHiddenBuffers": true,
+    "explorer.previewAction.onHover": false,
+    "explorer.openAction.strategy": "select",
+    "explorer.keyMappings.global": {
+        "<cr>": [
+            "wait",
+            "expandable?",
+            [
+                "expanded?",
+                "collapse",
+                "expand"
+            ],
+            "open"
+        ]
+    },
+		"dialog.confirmKey": "<tab>"
+}

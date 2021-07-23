@@ -1,0 +1,40 @@
+# Snippet options: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt#L661
+global !p
+import re
+
+def buftext():
+	return '\n'.join(vim.current.window.buffer[:vim.current.window.cursor[0]+1])
+
+func_re = re.compile('func\s+(?:\((.*?)\)\s+)?(\w+?)\(')
+split_re = re.compile('\s+\*?')
+
+def get_name(text=buftext()):
+	matches = func_re.findall(text)
+	if len(matches) > 0:
+		m = matches[-1]
+		if len(m) == 2 and m[0] != "": 
+			return '{}.{}'.format(split_re.split(m[0])[-1], m[1])
+		return m[1]
+	return "methodName"
+endglobal
+
+snippet tr "opentracing" !b
+${1:sp}, ${2:ctx} := opentracing.StartSpanFromContext(${3:$2}, "${4:`!p snip.rv += get_name()`}")
+defer $1.Finish()
+endsnippet
+
+snippet trt "opentracing tags" !
+opentracing.Tags{"${1:foo}": ${2:bar}}
+endsnippet
+
+snippet httpfc "HTTPFunc closure" 
+func ${1:Name}(${2:args}) http.HandlerFunc {
+	return func(${3:w} http.ResponseWriter, ${4:r} *http.Request) {
+		${5}
+	}
+}
+endsnippet
+
+snippet cotx "Context param" !i
+ctx context.Context, ${1}
+endsnippet

@@ -1,0 +1,16 @@
+global !p
+def complete(t, opts):
+	if t:
+		opts = [ m[len(t):] for m in opts if m.startswith(t) ]
+	if len(opts) == 1:
+		return opts[0]
+	return '(' + '|'.join(opts) + ')'
+endglobal
+
+snippet ac "Autocomplete example" b
+some choice: $1`!p snip.rv=complete(t[1], ['new', 'old', 'foo', 'bar', 'incomplete', 'incompetent'])`
+endsnippet
+
+snippet "rep (\d+) (\w+)" "Repeat a word" r
+`!p snip.rv = int(match.group(1))*match.group(2)`
+endsnippet

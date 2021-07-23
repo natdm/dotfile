@@ -1,0 +1,23 @@
+snippet fun "Function"
+fn(${1}) ->
+	${2}
+end
+endsnippet
+
+snippet a "Arrow, for teh lazy"
+-> ${1}
+endsnippet
+
+snippet map "Map template"
+Enum.map(${1}, fn ${2:item} ->
+	${3:nil}
+end)
+endsnippet
+
+snippet upd "Update field in struct"
+${1} | ${2:field}: $2
+endsnippet
+
+snippet fld "Reassign field"
+${1:field}: $1
+endsnippet
