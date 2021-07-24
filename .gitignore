@@ -1,2 +1,3 @@
 **/.zcomp*
+.tokens
 zshrc/.config/zsh/.zsh_history
