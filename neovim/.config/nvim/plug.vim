@@ -56,6 +56,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vimwiki/vimwiki'
+Plug 'rhysd/committia.vim'
 call plug#end()
 
 colorscheme everforest
