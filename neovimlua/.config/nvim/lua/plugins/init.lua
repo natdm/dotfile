@@ -64,12 +64,17 @@ return require("packer").startup(
             end
         }
 
-        use "tpope/vim-rhubarb"
+	-- fugitive is a git plugin. rhubarb is required
+	-- to be able to open a file in browser.
         use "tpope/vim-fugitive"
+        use "tpope/vim-rhubarb"
 
         -- lsp
         use "neovim/nvim-lspconfig"
         use {
+	    -- prettier diagnostics, I don't use it a lot but
+	    -- but maybe I should. No keybindings, just
+	    -- :Trouble<cmd>
             "folke/trouble.nvim",
             requires = "kyazdani42/nvim-web-devicons",
             config = function()
@@ -96,6 +101,7 @@ return require("packer").startup(
                 "onsails/lspkind-nvim"
             }
         }
+
         -- languages
         use "fatih/vim-go"
         use "pangloss/vim-javascript"
@@ -106,15 +112,18 @@ return require("packer").startup(
         use "elixir-editors/vim-elixir"
         use "chrisbra/csv.vim"
         use "ellisonleao/glow.nvim"
+
         -- snippets
         use "L3MON4D3/LuaSnip"
         use {
 	    "saadparwaiz1/cmp_luasnip",
 	    config = require("plugins.configs.luasnip")
         }
+
         -- app integrations
         use "robbyrussell/oh-my-zsh"
         use "christoomey/vim-tmux-navigator"
+
         -- motions
         use "wellle/targets.vim"
         use {
@@ -125,22 +134,21 @@ return require("packer").startup(
         }
         use "tpope/vim-surround"
         use "jiangmiao/auto-pairs"
+
         -- patches
         -- cursorhold: https://github.com/neovim/neovim/issues/12587
         use "antoinemadec/FixCursorHold.nvim"
+
         -- other
         use "editorconfig/editorconfig-vim"
-        use "AndrewRadev/switch.vim" -- flipping values like booleans
+        use "AndrewRadev/switch.vim" -- flipping values like booleans, <l>ss
         use "simrat39/symbols-outline.nvim"
-        -- 'nathanaelkane/vim-indent-guides'
         use "yuttie/comfortable-motion.vim"
         use "easymotion/vim-easymotion"
         use {
             "hoob3rt/lualine.nvim",
             requires = {"kyazdani42/nvim-web-devicons", opt = true}
         }
-        use "majutsushi/tagbar"
-        use "liuchengxu/vim-which-key"
         use "vimwiki/vimwiki"
         use "rhysd/committia.vim"
         use {
@@ -162,6 +170,7 @@ return require("packer").startup(
                 vim.fn["firenvim#install"](0)
             end
         }
+
         -- personal ones
         use {
 	    "~/vimlibs/pulls",
