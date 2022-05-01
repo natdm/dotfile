@@ -35,3 +35,8 @@ augroup LongLines
   call matchadd('ExtendedCol', '\%81v', 1000)
 augroup END
 ]])
+
+-- make go have less whitespace, for god sake
+cmd([[
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
+]])
