@@ -1,0 +1,6 @@
+jira ls -q $JIRA_QUERY | \
+	fzf --preview 'echo {1} | sed s/:// | xargs jira view' | \
+	awk '{ print $1 }' | \
+	sed 's/://' | \
+	xargs jira view -b
+

@@ -1,0 +1,31 @@
+# Clone a git path to `code/(path)`
+# examples:
+# - git@github.com:elixir-lsp/elixir-ls.git
+# - https://github.com/elixir-lsp/elixir-ls.git
+
+# get the env for root of clone path, or set to ~/code (`:-` is cool..)
+codepath="${CODE_PATH:-${HOME}/code}"
+
+repo=$1
+repopath=${repo%.git}
+
+case "${repo}" in
+  git*)
+    repopath=${repopath#*\:}
+    ;;
+  https*)
+    repopath=${repopath#*\:\/\/}
+    ;;
+  *)
+    echo "neither git nor http"
+    exit 1
+    ;;
+esac
+
+repopath="${codepath}/${repopath}"
+mkdir -p "${repopath}"
+git clone "${repo}" "${repopath}"
+cd "${repopath}"
+
+
+
