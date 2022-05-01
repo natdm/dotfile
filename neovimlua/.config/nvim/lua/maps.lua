@@ -112,7 +112,6 @@ nmapl('fa', ':Ag<CR>')
 nmapl('fm', ':Marks<CR>')
 
 nmapsl('rc', ':tabedit /.dotfile/neovimlua/.config/nvim/init.lua<CR>')
-nmapsl('ct', ':TagbarToggle<CR>')
 
 nmapsl('bc', 'let @+ = expand("%")<CR>')
 nmapsl('u !', 'bcopy < uuidgen<CR>')
