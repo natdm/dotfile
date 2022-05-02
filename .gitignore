@@ -1,3 +1,4 @@
 **/.zcomp*
 zshrc/.env
 zshrc/.config/zsh/.zsh_history
+tmux/.tmux/plugins
