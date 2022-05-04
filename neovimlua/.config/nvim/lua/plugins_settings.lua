@@ -21,6 +21,5 @@ g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
 -- vimwiki
 g.vimwiki_list = {{path = '~/wiki/', syntax = 'markdown', ext = '.md'}}
 
-require('lualine').setup({options = {theme = "everforest"}})
 require('shade').setup({overlay_opacity = 80})
 

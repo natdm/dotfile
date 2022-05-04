@@ -162,16 +162,26 @@ nmapl('cb', ':!open % -a Google\\ Chrome<CR>')
 
 -- lsp-specific settings
 nmap('gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-nmaps('gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+nmaps('rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 nmaps('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 nmaps('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-nmaps('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- nmaps('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 nmaps('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 nmap('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- nmaps('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-nmapsl('cdn', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-nmapsl('cdp', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+
+-- The code below uses a mix of trouble and normal diagnostics
+nmapsl('df', '<cmd>lua vim.diagnostic.open_float()<CR>')
+nmapsl('dn', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+nmapsl('dp', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+-- nmapsl('dl', '<cmd>lua vim.diagnostic.setqflist()<CR>') -- this sets all for workspace. `setloclist` will set for buffer
 nmapl('rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>')
+
+-- Trouble diagnostics
+nmapsl("wd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
+nmapsl("dd", "<cmd>TroubleToggle document_diagnostics<CR>")
+nmapsl("gr", "<cmd>TroubleToggle lsp_references<CR>")
+nmapsl("dx", "<cmd>TroubleToggle<CR>")
 
 nmaps('<C-h>', '<C-w><C-h>')
 nmaps('<C-j>', '<C-w><C-j>')
@@ -195,12 +205,6 @@ nmapsl("pp", '<cmd>lua require("pulls").diff()<CR>')
 nmapsl("pn", '<cmd>lua require("pulls").diff_next()<CR>')
 nmapsl("pl", '<cmd>lua require("pulls").changes()<CR>')
 nmapsl("ph", '<cmd>lua require("pulls").highlight_changes()<CR>')
-
--- diagnostics
-nmapsl("dw", "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>")
-nmapsl("dd", "<cmd>TroubleToggle lsp_document_diagnostics<CR>")
-nmapsl("dr", "<cmd>TroubleToggle lsp_references<CR>")
-nmapsl("dl", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 
 nmapsl("ht", '<cmd>so $VIMRUNTIME/syntax/hitest.vim<CR>')
 

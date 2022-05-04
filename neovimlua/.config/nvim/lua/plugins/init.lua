@@ -147,7 +147,8 @@ return require("packer").startup(
         use "easymotion/vim-easymotion"
         use {
             "hoob3rt/lualine.nvim",
-            requires = {"kyazdani42/nvim-web-devicons", opt = true}
+            requires = {"kyazdani42/nvim-web-devicons", opt = true},
+	    config = require("plugins.configs.lualine")
         }
         use "vimwiki/vimwiki"
         use "rhysd/committia.vim"
@@ -163,6 +164,7 @@ return require("packer").startup(
 	    requires = {{"nvim-lua/plenary.nvim"}}
         }
         use {"rcarriga/nvim-notify"}
+	-- firenvim allows nvim in text fields in chrome.
         use {
             "glacambre/firenvim",
             config = require("plugins.configs.fire"),
