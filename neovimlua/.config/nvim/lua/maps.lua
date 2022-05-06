@@ -178,8 +178,9 @@ nmapsl('dp', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 nmapl('rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>')
 
 -- Trouble diagnostics
-nmapsl("wd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
+nmapsl("dw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
 nmapsl("dd", "<cmd>TroubleToggle document_diagnostics<CR>")
+nmapsl("df", "<cmd>TroubleToggle quickfix<CR>")
 nmapsl("gr", "<cmd>TroubleToggle lsp_references<CR>")
 nmapsl("dx", "<cmd>TroubleToggle<CR>")
 

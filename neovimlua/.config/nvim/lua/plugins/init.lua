@@ -112,6 +112,11 @@ return require("packer").startup(
         use "elixir-editors/vim-elixir"
         use "chrisbra/csv.vim"
         use "ellisonleao/glow.nvim"
+	-- specifically lua nvim development plugin
+        use {
+	        "folke/lua-dev.nvim",
+	        config = require("plugins.configs.luadev")
+        }
 
         -- snippets
         use "L3MON4D3/LuaSnip"
