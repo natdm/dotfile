@@ -19,6 +19,7 @@ local has_words_before = function()
 end
 
 cmp.setup({
+    preselect = cmp.PreselectMode.None, -- https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt#L706
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -28,11 +29,19 @@ cmp.setup({
         -- Youtube: How to set up nice formatting for your sources.
         format = lspkind.cmp_format {
             with_text = true,
-            menu = {nvim_lsp = "[lsp]", buffer = "[buf]", nvim_lua = "[api]", path = "[path]", luasnip = "[snip]", jira_issues = "[jira]"}
+            menu = {
+		    nvim_lsp = "[lsp]",
+		    buffer = "[buf]",
+		    nvim_lua = "[api]",
+		    path = "[path]",
+		    luasnip = "[snip]",
+		    jira_issues = "[jira]",
+		    gh_users = "[gh]"
+	    }
         }
     },
 
-    experimental = {native_menu = false, ghost_text = true},
+    experimental = {ghost_text = true},
     mapping = {
         ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
         ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),

@@ -61,11 +61,11 @@ local go_snippets = require('snippets.go')
 ls.add_snippets("all", {
 	s("foo", {t("bar"), i(0)})
 })
+ls.add_snippets("go", go_snippets)
 ls.snippets = {
 	lua = {
 		s("inspect", {t("print(vim.inspect("), i(1), t("))"), i(0)})
 	},
-	go = go_snippets,
 	markdown = {
 		s("suggestion", {
 			t("**suggestion**: "), i(1, "suggestion.."), t({"", ""}), i(0)

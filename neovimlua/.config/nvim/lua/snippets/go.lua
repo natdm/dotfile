@@ -128,7 +128,6 @@ local same = function(index)
 end
 
 return {
-
 	s("logflderr", {
 		t("WithError("), i(1, "err"), t(")"), i(0)
 	}),
