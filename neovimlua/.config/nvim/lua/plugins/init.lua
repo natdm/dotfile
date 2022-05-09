@@ -155,7 +155,6 @@ return require("packer").startup(
             requires = {"kyazdani42/nvim-web-devicons", opt = true},
 	    config = require("plugins.configs.lualine")
         }
-        use "vimwiki/vimwiki"
         use "rhysd/committia.vim"
         use {
 	    "nvim-treesitter/nvim-treesitter",
@@ -177,6 +176,13 @@ return require("packer").startup(
                 vim.fn["firenvim#install"](0)
             end
         }
+
+	use {
+	    "nvim-neorg/neorg",
+	    config = require("plugins.configs.neorg"),
+	    requires = "nvim-lua/plenary.nvim"
+	}
+
 
         -- personal ones
         use {
