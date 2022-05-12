@@ -171,14 +171,15 @@ nmap('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- nmaps('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
 -- The code below uses a mix of trouble and normal diagnostics
-nmapsl('df', '<cmd>lua vim.diagnostic.open_float()<CR>')
-nmapsl('dn', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-nmapsl('dp', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+-- currently disabled since I like trouble more.
+-- nmapsl('df', '<cmd>lua vim.diagnostic.open_float()<CR>')
+-- nmapsl('dn', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+-- nmapsl('dp', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 -- nmapsl('dl', '<cmd>lua vim.diagnostic.setqflist()<CR>') -- this sets all for workspace. `setloclist` will set for buffer
 nmapl('rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>')
 
 -- Trouble diagnostics
-nmapsl("dw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
+nmapsl("wd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
 nmapsl("dd", "<cmd>TroubleToggle document_diagnostics<CR>")
 nmapsl("df", "<cmd>TroubleToggle quickfix<CR>")
 nmapsl("gr", "<cmd>TroubleToggle lsp_references<CR>")
