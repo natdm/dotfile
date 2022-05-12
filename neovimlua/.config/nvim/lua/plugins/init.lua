@@ -65,7 +65,7 @@ return require("packer").startup(
         }
 
 	-- fugitive is a git plugin. rhubarb is required
-	-- to be able to open a file in browser.
+	-- to be able to open a file in browser (:GBrowse)
         use "tpope/vim-fugitive"
         use "tpope/vim-rhubarb"
 
@@ -80,9 +80,6 @@ return require("packer").startup(
             config = function()
                 require("trouble").setup({})
             end
-        }
-        use {"ray-x/lsp_signature.nvim",
-	    config = require("plugins.configs.lspsignature")
         }
         use "jose-elias-alvarez/null-ls.nvim"
         use "jose-elias-alvarez/nvim-lsp-ts-utils"

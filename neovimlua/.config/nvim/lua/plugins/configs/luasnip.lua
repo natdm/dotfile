@@ -37,6 +37,7 @@ local date_input = function(args, state, fmt)
 end
 
 local go_snippets = require('snippets.go')
+local all_snippets = require('snippets.all')
 
 -- local ts_locals = require 'nvim-treesitter.locals'
 -- local ts_utils = require 'nvim-treesitter.ts_utils'
@@ -58,9 +59,7 @@ local go_snippets = require('snippets.go')
 -- https://github.com/tjdevries/config_manager/blob/e96ce10806cafbd4f3a8ff19729b75342857ce71/xdg_config/nvim/after/plugin/luasnip.lua#L64
 -- this is badass, do this
 --
-ls.add_snippets("all", {
-	s("foo", {t("bar"), i(0)})
-})
+ls.add_snippets("all", all_snippets)
 ls.add_snippets("go", go_snippets)
 ls.snippets = {
 	lua = {

@@ -69,7 +69,13 @@ cmp.setup({
         end, {"i", "s"})
     },
     sources = {
-        --[[ {name = "treesitter"}, --]] {name = 'jira_issues'}, {name = 'gh_users'}, {name = 'luasnip'}, {name = 'nvim_lsp'}, {name = 'buffer', keyword_length = 3, max_item_count = 10}, {name = 'emoji'},
+        --{name = "treesitter"},
+	{name = 'jira_issues'},
+	{name = 'gh_users'},
+	{name = 'luasnip'},
+	{name = 'nvim_lsp'},
+	{name = 'buffer', keyword_length = 3, max_item_count = 10},
+	{name = 'emoji'},
         {name = 'path'}
     }
 })
