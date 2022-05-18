@@ -159,20 +159,42 @@ return {
 		s("cotx", {
 			t("ctx context.Context"), i(0)
 		}),
+		s("wcotx", {
+			c(1, {
+				t("ctx := context.Background()"),
+				t("ctx, cancel := context.WithCancel(ctx)"),
+				sn(nil, { -- tab to toggle, shitty
+					t("ctx, cancel := context.WithTimeout(ctx, "),
+					i(1),
+					t(")")
+				}),
+				sn(nil, {
+					t("ctx, cancel := context.WithDeadline(ctx, "),
+					i(1),
+					t(")")
+				}),
+				sn(nil, {
+					t("ctx = context.WithValue(ctx, "),
+					i(1),
+					t(")")
+				})
+			}),
+			i(0)
+		}),
 		s("iferr", {
 			t({"if err != nil {","\t"}), i(0), t({"","}"})
 		}),
 		s("errf", {
 			t("fmt.Errorf(\""), i(1, "text"), t(": %w\", "), i(2, "err"), t(")"), i(0)
 		}),
-	},
-	snippets = {
-		s("logflderr", {
+		s("witherr", {
 			t("WithError("), i(1, "err"), t(")"), i(0)
 		}),
-		s("logfld", {
+		s("withfld", {
 			t("WithField(\""), i(1, "key"), t("\": "), i(2, "value"), t(")"), i(0)
 		}),
+	},
+	snippets = {
 		s("logfn", {})
 	--	s("efi", {
 	   --  		i(1, { "val" }),
