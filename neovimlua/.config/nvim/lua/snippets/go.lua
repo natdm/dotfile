@@ -187,15 +187,21 @@ return {
 		s("errf", {
 			t("fmt.Errorf(\""), i(1, "text"), t(": %w\", "), i(2, "err"), t(")"), i(0)
 		}),
-		s("witherr", {
-			t("WithError("), i(1, "err"), t(")"), i(0)
-		}),
-		s("withfld", {
-			t("WithField(\""), i(1, "key"), t("\": "), i(2, "value"), t(")"), i(0)
+		s("wfld", {
+			c(1, {
+				sn(nil, {
+					t("WithField(\""), i(1), t("\": "), i(2), t(")"), i(0)
+				}),
+				sn(nil, {
+					t("WithFields(logrus.Fields{"), i(1), t("})"), i(0)
+				}),
+				sn(nil, {
+					t("WithError("), i(1), t(")"), i(0)
+				})
+			})
 		}),
 	},
 	snippets = {
-		s("logfn", {})
 	--	s("efi", {
 	   --  		i(1, { "val" }),
 	   --  		", ",
