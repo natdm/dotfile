@@ -5,7 +5,15 @@ ls.config.set_config({
     -- ext_base_prio = 300,
     -- minimal increase in priority.
     -- ext_prio_increase = 1,
-    enable_autosnippets = true
+    enable_autosnippets = true,
+    history = true,
+    -- ext_opts = {
+	    -- [require("luasnip.util.types").choiceNode] = {
+		   --  active = {
+			  --   virt_text = { { "V" } }
+		   --  }
+	    -- }
+    -- }
 })
 
 -- some shorthands...
@@ -42,6 +50,17 @@ local function bash(_, _, command)
 end
 
 return {
-	s("bash", f(bash, {}, { user_args = { "ls" } })),
-	s("date", f(date, {}, {}))
+	snippets = {
+		s("bash", f(bash, {}, { user_args = { "ls" } })),
+		s("date", f(date, {}, {}))
+	},
+	auto_snippets = {
+
+		s("autotrigger", {
+			t("autosnippet"),
+		}),
+		s("testchoice", {
+			t("I choose "), c(1, {t("this"), t("that")}), t(".."), i(0)
+		})
+	}
 }

@@ -55,7 +55,7 @@ return require("packer").startup(
             config = require("plugins.configs.nvimtree"),
             requires = "kyazdani42/nvim-web-devicons"
         }
-        -- git
+        -- git/github
         use {
             "lewis6991/gitsigns.nvim",
             requires = {"nvim-lua/plenary.nvim"},
@@ -63,6 +63,13 @@ return require("packer").startup(
                 require("gitsigns").setup()
             end
         }
+	use {
+		"ldelossa/gh.nvim",
+		requires = {"ldelossa/litee.nvim"},
+		config = function ()
+			require("plugins.configs.gh")
+		end
+	}
 
 	-- fugitive is a git plugin. rhubarb is required
 	-- to be able to open a file in browser (:GBrowse)

@@ -127,33 +127,68 @@ local same = function(index)
   end, { index })
 end
 
+vim.treesitter.set_query(
+	"go", "Go_Func_Name",
+	[[ [
+ (function_declaration name: (identifier) @name)
+ (method_declaration receiver: (parameter_list (parameter_declaration type: (type_identifier) @typ)) name: (field_identifier) @name)
+] ]]
+)
+
+function _G.go_func_name()
+  -- local cursor_node = ts_utils.get_node_at_cursor()
+  -- local scope = ts_locals.get_scope_tree(cursor_node, 0)
+  --
+  -- local function_node
+  -- for _, v in ipairs(scope) do
+  --   if v:type() == "function_declaration" or v:type() == "method_declaration" or v:type() == "func_literal" then
+  --     function_node = v
+  --     break
+  --   end
+  -- end
+
+  local query = vim.treesitter.get_query("go", "Go_Func_Name")
+  for _, node in query:iter_captures("function_declaration", 0) do
+	  print(vim.inspect(node))
+
+  end
+end
+
 return {
-	s("logflderr", {
-		t("WithError("), i(1, "err"), t(")"), i(0)
-	}),
-	s("logfld", {
-		t("WithField(\""), i(1, "key"), t("\": "), i(2, "value"), t(")"), i(0)
-	}),
-	s("cotx", {
-		t("ctx context.Context"), i(0)
-	}),
-	s("wrap", {
-		t("fmt.Errorf(\""), i(1, "text"), t(": %w\", "), i(2, "err"), t(")"), i(0)
-	}),
---	s("efi", {
-   --  		i(1, { "val" }),
-   --  		", ",
-   --  		i(2, { "err" }),
-   --  		" := ",
-   --  		i(3, { "f" }),
-   --  		"(",
-   --  		i(4),
-   --  		")",
-   --  		t { "", "if " },
-   --  		same(2),
-   --  		t { " != nil {", "\treturn " },
-   --  		d(5, go_ret_vals, { 2, 3 }),
-   --  		t { "", "}" },
-   --  		i(0),
-  	-- })
+	auto_snippets = {
+		s("cotx", {
+			t("ctx context.Context"), i(0)
+		}),
+		s("iferr", {
+			t({"if err != nil {","\t"}), i(0), t({"","}"})
+		}),
+		s("errf", {
+			t("fmt.Errorf(\""), i(1, "text"), t(": %w\", "), i(2, "err"), t(")"), i(0)
+		}),
+	},
+	snippets = {
+		s("logflderr", {
+			t("WithError("), i(1, "err"), t(")"), i(0)
+		}),
+		s("logfld", {
+			t("WithField(\""), i(1, "key"), t("\": "), i(2, "value"), t(")"), i(0)
+		}),
+		s("logfn", {})
+	--	s("efi", {
+	   --  		i(1, { "val" }),
+	   --  		", ",
+	   --  		i(2, { "err" }),
+	   --  		" := ",
+	   --  		i(3, { "f" }),
+	   --  		"(",
+	   --  		i(4),
+	   --  		")",
+	   --  		t { "", "if " },
+	   --  		same(2),
+	   --  		t { " != nil {", "\treturn " },
+	   --  		d(5, go_ret_vals, { 2, 3 }),
+	   --  		t { "", "}" },
+	   --  		i(0),
+		-- })
+	}
 }

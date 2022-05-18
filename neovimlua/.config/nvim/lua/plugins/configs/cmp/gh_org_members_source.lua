@@ -30,8 +30,6 @@ source.complete = function(self, _, callback)
                 for _, list in ipairs(result) do
 			for s in list:gmatch("[^\r\n]+") do
 				local _, _, username, typ, admin = string.find(s, '%["([^"]*)","(%a+)",(%a+)%]') -- ["username","User",false]
-				print(s)
-				print(username)
 				    table.insert(items, {
 					label = "@"..username,
 					documentation = { --

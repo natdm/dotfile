@@ -74,6 +74,7 @@ cmp.setup({
 	{name = 'gh_users'},
 	{name = 'luasnip'},
 	{name = 'nvim_lsp'},
+	{name = 'nvim_lua'},
 	{name = 'buffer', keyword_length = 3, max_item_count = 10},
 	{name = 'emoji'},
         {name = 'path'}

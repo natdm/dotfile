@@ -36,9 +36,6 @@ local date_input = function(args, state, fmt)
     return sn(nil, i(1, os.date(fmt)))
 end
 
-local go_snippets = require('snippets.go')
-local all_snippets = require('snippets.all')
-
 -- local ts_locals = require 'nvim-treesitter.locals'
 -- local ts_utils = require 'nvim-treesitter.ts_utils'
 -- local get_node_text = vim.treesitter.get_node_text
@@ -59,91 +56,22 @@ local all_snippets = require('snippets.all')
 -- https://github.com/tjdevries/config_manager/blob/e96ce10806cafbd4f3a8ff19729b75342857ce71/xdg_config/nvim/after/plugin/luasnip.lua#L64
 -- this is badass, do this
 --
-ls.add_snippets("all", all_snippets)
-ls.add_snippets("go", go_snippets)
-ls.snippets = {
-	lua = {
-		s("inspect", {t("print(vim.inspect("), i(1), t("))"), i(0)})
-	},
-	markdown = {
-		s("suggestion", {
-			t("**suggestion**: "), i(1, "suggestion.."), t({"", ""}), i(0)
-		}),
-		s("issue", {
-			t("**issue**: "), i(1, "issue.."), t({"", ""}), i(0)
-		}),
-		s("praise", {
-			t("**praise**: "), i(1, "praise.."), t({"", ""}), i(0)
-		}),
-		s("nitpick", {
-			t("**nitpick**: "), i(1, "nitpick.."), t({"", ""}), i(0)
-		}),
-		s("question", {
-			t("**question**: "), i(1, "question.."), t({"", ""}), i(0)
-		}),
-		s("thought", {
-			t("**thought**: "), i(1, "thought.."), t({"", ""}), i(0)
-		}),
-		s("typo", {
-			t("**typo**: "), i(1, "typo.."), t({"", ""}), i(0)
-		}),
+local go_snippets = require('snippets.go')
+local all_snippets = require('snippets.all')
+local lua_snippets = require("snippets.lua")
+local md_snippets = require("snippets.markdown")
+local ts_snippets = require("snippets.typescript")
+local vw_snippets = require("snippets.vimwiki")
 
-	},
-	typescript = {
-		s("for",{
-			t("for (let "),
-			i(1, "var"),
-			t(" = 0; "),
-			rep(1),
-			t(" < "),
-			i(2, "len"),
-			t("; "),
-			r(1),
-			t({"++) {","\t"}),
-			i(0),
-			t({"", "}"})
-
-		}),
-		s("pcom", {
-			t("export default class "), 
-			i(1, "ComponentName"), 
-			t(" extends pulumi.ComponentResource {"), 
-			t({"", "\tconstructor(componentOpts?: pulumi.ComponentResourceOptions) {", "\t\tsuper('pkg:index:"}),
-			rep(1), 
-			t("', '"), 
-			i(2, "short-name"), 
-			t({"', {}, componentOpts);","\t\t"}),
-			i(0),
-			t({"", "\t}", "}"})
-		}),
-		s("iface", {
-			t("export interface "), 
-			i(1, "InterfaceName"), 
-			t({" {", "\t"}),
-			i(0),
-			t({"", "}"})
-		}),
-		s("ifaced", {
-			t("export default interface "), 
-			i(1, "InterfaceName"), 
-			t({" {", "\t"}),
-			i(0),
-			t({"", "}"})
-		})
-	},
-    vimwiki = {
-        s("meta", { --
-            t("# "), i(1, "name"), t({"", "---", "", ""}), --
-            t("**Date**: "), d(2, date_input, {}, "%A, %B %d of %Y"), t({"", "", ""}), --
-            t("**Tags**: "), i(3, "ciot"), t({"", "", ""}), --
-            t({"**Author**: Nathan Hyland", "", "---", "", ""}), --
-            t({"## Description", ""}), --
-            i(0), t({"", "## Document", "", ""}), --
-            t({"## References", "", ""}) --
-        })
-    }
-}
-
-ls.autosnippets = { --
-    all = {s("autotrigger", {t("autosnippet")})}
-}
+ls.add_snippets("all", all_snippets.snippets)
+ls.add_snippets("all", all_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("go", go_snippets.snippets)
+ls.add_snippets("go", go_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("lua", lua_snippets.snippets)
+ls.add_snippets("lua", lua_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("markdown", md_snippets.snippets)
+ls.add_snippets("markdown", md_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("typescript", ts_snippets.snippets)
+ls.add_snippets("typescript", ts_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("vimwiki", vw_snippets.snippets)
+ls.add_snippets("vimwiki", vw_snippets.snippets, { type = "autosnippets" })
