@@ -202,6 +202,11 @@ return {
 		}),
 	},
 	snippets = {
+		s("kv", fmt([["{}": {}]], { -- "baz": Foo.Bar.Baz
+			f(function(import_name)
+			      local parts = vim.split(import_name[1][1], ".", true)
+			      return string.lower(parts[#parts]) or ""
+			end, { 1 }), i(1) })),
 	--	s("efi", {
 	   --  		i(1, { "val" }),
 	   --  		", ",
