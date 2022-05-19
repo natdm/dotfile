@@ -16,6 +16,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
+local rep = require("luasnip.extras").rep
 local fmt = require('luasnip.extras.fmt').fmt
 
 local get_node_text = vim.treesitter.get_node_text
@@ -145,6 +146,36 @@ end
 
 return {
 	auto_snippets = {
+		s("mthd", c(1, { -- create funcs or methods
+			fmt([[
+			// {cname} {comment}
+			func ({ref} {typ}) {name}({args}) {ret} {{
+				{body}
+			}}
+			]], {
+				ref = i(1),
+				typ = i(2),
+				name = i(3),
+				args = i(4),
+				ret = i(5),
+				cname = rep(3),
+				comment = i(6, "..."),
+				body = i(0)
+			}),
+			fmt([[
+			// {cname} {comment}
+			func {name}({args}) {ret} {{
+				{body}
+			}}
+			]], {
+				name = i(1),
+				args = i(2),
+				ret = i(3),
+				cname = rep(1),
+				comment = i(4, "..."),
+				body = i(0)
+			}),
+		})),
 		s("cotx", {
 			t("ctx context.Context"), i(0)
 		}),
@@ -191,6 +222,27 @@ return {
 		}),
 	},
 	snippets = {
+		s("test", fmt([[
+		func Test{name}(t *testing.T) {{
+			{body}
+		}}
+		]], {
+			name = i(1),
+			body = i(2)
+		})),
+		s("subtests", fmt([[
+		for {name}, {tc} := range {tests} {{
+			t.Run({name2}, func(t *testing.T) {{
+				{body}
+			}})
+		}}
+		]], {
+			name = i(1, "name"),
+			tc = i(2, "tc"),
+			tests = i(3, "tests"),
+			name2 = rep(1),
+			body = i(0)
+		})),
 		s("kv", fmt([["{}": {}]], { -- "baz": Foo.Bar.Baz
 			f(function(import_name)
 			      local parts = vim.split(import_name[1][1], ".", true)
@@ -200,22 +252,9 @@ return {
 			f(function(import_name)
 			      local parts = vim.split(import_name[1][1], ".", true)
 			      return parts[#parts] or ""
-			end, { 1 }), i(1), i(2)})),
-	--	s("efi", {
-	   --  		i(1, { "val" }),
-	   --  		", ",
-	   --  		i(2, { "err" }),
-	   --  		" := ",
-	   --  		i(3, { "f" }),
-	   --  		"(",
-	   --  		i(4),
-	   --  		")",
-	   --  		t { "", "if " },
-	   --  		same(2),
-	   --  		t { " != nil {", "\treturn " },
-	   --  		d(5, go_ret_vals, { 2, 3 }),
-	   --  		t { "", "}" },
-	   --  		i(0),
-		-- })
+			end, { 1 }),
+			i(1),
+			i(2)
+		})),
 	}
 }
