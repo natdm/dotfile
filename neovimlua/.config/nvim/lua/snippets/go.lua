@@ -18,6 +18,7 @@ local f = ls.function_node
 local c = ls.choice_node
 local rep = require("luasnip.extras").rep
 local fmt = require('luasnip.extras.fmt').fmt
+local conds = require("luasnip.extras.expand_conditions")
 
 local get_node_text = vim.treesitter.get_node_text
 
@@ -144,6 +145,8 @@ function _G.go_func_name()
   end
 end
 
+local begin_cond = { condition = conds.line_begin }
+
 return {
 	auto_snippets = {
 		s("mthd", c(1, { -- create funcs or methods
@@ -175,7 +178,7 @@ return {
 				comment = i(4, "..."),
 				body = i(0)
 			}),
-		})),
+		}), begin_cond),
 		s("cotx", {
 			t("ctx context.Context"), i(0)
 		}),
@@ -200,10 +203,13 @@ return {
 				})
 			}),
 			i(0)
-		}),
-		s("iferr", {
-			t({"if err != nil {","\t"}), i(0), t({"","}"})
-		}),
+		}, begin_cond),
+		-- for the bottom 2, I like two snippets -- `errn` to make the error cond, then `errf` to start wrapping.
+		s("errn", fmt([[
+		if {} != nil {{
+			return {}
+		}}
+		]], {i(1, "err"), i(0)})),
 		s("errf", {
 			t("fmt.Errorf(\""), i(1, "text"), t(": %w\", "), i(2, "err"), t(")"), i(0)
 		}),
@@ -224,13 +230,13 @@ return {
 			i(1),
 			rep(1),
 			i(0)
-		})),
+		}), begin_cond),
 		s("nok", fmt([[
 		if !ok {{
 			{}
 		}}
-		]], i(0))),
-		s("ret", {t("return ")})
+		]], i(0)), begin_cond),
+		s("ret", {t("return ")}, begin_cond)
 	},
 	snippets = {
 		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
