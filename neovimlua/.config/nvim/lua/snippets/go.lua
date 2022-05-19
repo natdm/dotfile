@@ -220,15 +220,26 @@ return {
 				})
 			})
 		}),
+		s("ap=", fmt([[{} = append({}, {})]], { -- appending
+			i(1),
+			rep(1),
+			i(0)
+		})),
+		s("nok", fmt([[
+		if !ok {{
+			{}
+		}}
+		]], i(0))),
+		s("ret", {t("return ")})
 	},
 	snippets = {
-		s("test", fmt([[
+		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
 		func Test{name}(t *testing.T) {{
 			{body}
 		}}
 		]], {
 			name = i(1),
-			body = i(2)
+			body = i(0)
 		})),
 		s("subtests", fmt([[
 		for {name}, {tc} := range {tests} {{
@@ -247,14 +258,13 @@ return {
 			f(function(import_name)
 			      local parts = vim.split(import_name[1][1], ".", true)
 			      return string.lower(parts[#parts]) or ""
-			end, { 1 }), i(1) })),
-		s("append", fmt([[{} = append({}, {})]], { -- "baz": Foo.Bar.Baz
-			f(function(import_name)
-			      local parts = vim.split(import_name[1][1], ".", true)
-			      return parts[#parts] or ""
 			end, { 1 }),
-			i(1),
-			i(2)
+			i(1)
 		})),
+		s({trig="def"}, fmt([[
+		defer func() {{
+			{}
+		}}()
+		]], i(0)))
 	}
 }
