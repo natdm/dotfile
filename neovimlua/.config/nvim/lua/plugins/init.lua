@@ -149,6 +149,11 @@ return require("packer").startup(
         use "antoinemadec/FixCursorHold.nvim"
 
         -- other
+	use {
+	  "folke/todo-comments.nvim",
+	  requires = "nvim-lua/plenary.nvim",
+	  config = require("todo-comments").setup({})
+	}
         use "editorconfig/editorconfig-vim"
         use "AndrewRadev/switch.vim" -- flipping values like booleans, <l>ss
         use "simrat39/symbols-outline.nvim"
