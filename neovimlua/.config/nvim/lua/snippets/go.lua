@@ -265,6 +265,11 @@ return {
 		defer func() {{
 			{}
 		}}()
+		]], i(0))),
+		s({trig="gof"}, fmt([[
+		go func() {{
+			{}
+		}}()
 		]], i(0)))
 	}
 }
