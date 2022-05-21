@@ -147,6 +147,59 @@ end
 
 local begin_cond = { condition = conds.line_begin }
 
+-- first_char will get the first character of a string,
+-- lowercase it, and return it.
+local first_char = function(str)
+      return string.sub(string.lower(str[1][1]), 1, 1) or ""
+end
+
+-- last_word will get the last word of a call (A.B.Charlie) returns charlie
+-- lowercased.
+local last_word = function(str)
+      local parts = vim.split(str[1][1], ".", true)
+      return string.lower(parts[#parts]) or ""
+end
+
+local test_snippet = function(a, snip, opts)
+	-- print("a")
+	-- print(vim.inspect(a))
+	-- print("snip")
+	local parser = vim.treesitter.get_parser(0, "ts")
+	local tstree = parser:parse()
+	for _, node in ipairs(snip.nodes) do
+		for ii, tree in ipairs(tstree) do
+			print(ii)
+		    local tsnode = tstree[ii]:root():named_descendant_for_range(
+			node.mark:pos_begin(1),
+			node.mark:pos_begin(2),
+			node.mark:pos_end(1),
+			node.mark:pos_end(2)
+		    )
+		    while tsnode ~= nil do
+			    print(tsnode:type())
+			    tsnode = tsnode:parent()
+		    end
+		end
+	    -- print(vim.inspect(node.mark:pos_begin()))
+	    -- print(vim.inspect(node.mark:pos_end()))
+	    -- local tsnode = tstree[1]:root():named_descendant_for_range(
+	    --     node.mark:pos_begin(1),
+	    --     node.mark:pos_begin(2),
+	    --     node.mark:pos_end(1),
+	    --     node.mark:pos_end(2)
+	    -- )
+	    -- while tsnode ~= nil do
+		   --  print(tsnode:type())
+		   --  tsnode = tsnode:parent()
+	    -- end
+	end
+	-- print("c")
+	-- print(vim.inspect(cc))
+	print("done")
+
+
+end
+
 return {
 	auto_snippets = {
 		s("mthd", c(1, { -- create funcs or methods
@@ -156,14 +209,14 @@ return {
 				{body}
 			}}
 			]], {
-				ref = i(1),
-				typ = i(2),
-				name = i(3),
-				args = i(4),
-				ret = i(5),
-				cname = rep(3),
-				comment = i(6, "..."),
-				body = i(0)
+				ref = f(first_char, { 1 }),
+				typ = i(1, "Type"),
+				name = i(2, "Name"),
+				args = i(3),
+				ret = i(4, "error"),
+				cname = rep(2),
+				comment = i(5, "..."),
+				body = i(6, "// TODO")
 			}),
 			fmt([[
 			// {cname} {comment}
@@ -171,12 +224,12 @@ return {
 				{body}
 			}}
 			]], {
-				name = i(1),
+				name = i(1, "Name"),
 				args = i(2),
-				ret = i(3),
+				ret = i(3, "error"),
 				cname = rep(1),
 				comment = i(4, "..."),
-				body = i(0)
+				body = i(5, "// TODO")
 			}),
 		}), begin_cond),
 		s("cotx", {
@@ -236,9 +289,10 @@ return {
 			{}
 		}}
 		]], i(0)), begin_cond),
-		s("ret", {t("return ")}, begin_cond)
+		s("rn", {t("return")}, begin_cond)
 	},
 	snippets = {
+		s("hello", {t("hiya!!"), i(1, "foo"), rep(1), f(test_snippet)}), -- learning how `f` works
 		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
 		func Test{name}(t *testing.T) {{
 			{body}
@@ -261,10 +315,7 @@ return {
 			body = i(0)
 		})),
 		s("kv", fmt([["{}": {}]], { -- "baz": Foo.Bar.Baz
-			f(function(import_name)
-			      local parts = vim.split(import_name[1][1], ".", true)
-			      return string.lower(parts[#parts]) or ""
-			end, { 1 }),
+			f(last_word, { 1 }),
 			i(1)
 		})),
 		s({trig="def"}, fmt([[

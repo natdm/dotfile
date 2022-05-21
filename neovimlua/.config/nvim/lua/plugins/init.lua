@@ -59,9 +59,7 @@ return require("packer").startup(
         use {
             "lewis6991/gitsigns.nvim",
             requires = {"nvim-lua/plenary.nvim"},
-            config = function()
-                require("gitsigns").setup()
-            end
+            config = require("plugins.configs.gitsigns")
         }
 	use {
 		"ldelossa/gh.nvim",
@@ -126,7 +124,7 @@ return require("packer").startup(
         use "L3MON4D3/LuaSnip"
         use {
 	    "saadparwaiz1/cmp_luasnip",
-	    config = require("plugins.configs.luasnip")
+	    config = require("plugins.configs.snippets")
         }
 
         -- app integrations
@@ -171,6 +169,11 @@ return require("packer").startup(
 	    config = require("plugins.configs.treesitter")
         }
         use "nvim-treesitter/playground"
+	use {
+	    "nvim-treesitter/nvim-treesitter-context",
+	    run = ":TSContextEnable",
+	    config = require("plugins.configs.treesitter-context")
+        }
         use "sunjon/shade.nvim"
         use {
 	    "nvim-telescope/telescope.nvim",

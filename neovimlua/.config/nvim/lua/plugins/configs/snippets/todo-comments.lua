@@ -50,10 +50,10 @@ local marks = {
     return fmt('<{}>', i(1, _G.luasnip.vars.username))
   end,
   date_signature = function()
-    return fmt('<{}{}>', { i(1, os.date '%d-%m-%y'), i(2, ', ' .. _G.luasnip.vars.username) })
+    return fmt('<{}{}>', { i(1, os.date '%m-%d-%y'), i(2, ', ' .. _G.luasnip.vars.username) })
   end,
   date = function()
-    return fmt('<{}>', i(1, os.date '%d-%m-%y'))
+    return fmt('<{}>', i(1, os.date '%m-%d-%y'))
   end,
   empty = function()
     return t ''
