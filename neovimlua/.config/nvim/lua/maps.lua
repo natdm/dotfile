@@ -107,7 +107,6 @@ nmapl('fz', ':FZF<CR>')
 nmapl('fr', ':Rg<CR>')
 -- Ripgrep looking at all lines in all files, including hidden, but exclude
 -- file names from search
-nmapl('fR', ':RG<CR>')
 nmapl('fa', ':Ag<CR>')
 nmapl('fm', ':Marks<CR>')
 
@@ -214,7 +213,7 @@ nmapsl("ss", '<cmd>Switch<CR>')
 -- co for Code Outline
 nmapsl("co",'<cmd>SymbolsOutline<CR>')
 -- shortcut to reload luasnip on changes
-nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/luasnip.lua<CR>")
+nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
 vim.api.nvim_set_keymap("i", "<Tab>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
 -- nmapl('crn', '<Plug>(coc-rename)')

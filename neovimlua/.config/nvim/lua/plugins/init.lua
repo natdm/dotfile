@@ -40,6 +40,7 @@ return require("packer").startup(
         use "xolox/vim-colorscheme-switcher"
         use "xolox/vim-misc"
         -- searching
+	-- NOTE: There's a telescope-fzf plugin that might be better suited for all this
         use "junegunn/fzf"
         use {
             "junegunn/fzf.vim",
@@ -169,25 +170,20 @@ return require("packer").startup(
 	    config = require("plugins.configs.treesitter")
         }
         use "nvim-treesitter/playground"
-	use {
-	    "nvim-treesitter/nvim-treesitter-context",
-	    run = ":TSContextEnable",
-	    config = require("plugins.configs.treesitter-context")
-        }
         use "sunjon/shade.nvim"
         use {
 	    "nvim-telescope/telescope.nvim",
 	    requires = {{"nvim-lua/plenary.nvim"}}
         }
         use {"rcarriga/nvim-notify"}
-	-- firenvim allows nvim in text fields in chrome.
-        use {
-            "glacambre/firenvim",
-            config = require("plugins.configs.fire"),
-            run = function()
-                vim.fn["firenvim#install"](0)
-            end
-        }
+	-- -- firenvim allows nvim in text fields in chrome.
+        -- use {
+        --     "glacambre/firenvim",
+        --     config = require("plugins.configs.fire"),
+        --     run = function()
+        --         vim.fn["firenvim#install"](0)
+        --     end
+        -- }
 
 	use {
 	    "nvim-neorg/neorg",
@@ -195,12 +191,11 @@ return require("packer").startup(
 	    requires = "nvim-lua/plenary.nvim"
 	}
 
-
-        -- personal ones
-        use {
-	    "~/vimlibs/pulls",
-	    config = require("plugins.configs.pulls")
-        }
+     --    -- personal ones
+     --    use {
+	    -- "~/vimlibs/pulls",
+	    -- config = require("plugins.configs.pulls")
+     --    }
     end
 )
 

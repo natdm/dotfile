@@ -16,6 +16,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
+local d = ls.dynamic_node
 local rep = require("luasnip.extras").rep
 local fmt = require('luasnip.extras.fmt').fmt
 local conds = require("luasnip.extras.expand_conditions")
@@ -24,6 +25,12 @@ local get_node_text = vim.treesitter.get_node_text
 
 local ts_locals = require "nvim-treesitter.locals"
 local ts_utils = require "nvim-treesitter.ts_utils"
+
+-- NOTE: if you can change the query below to this, you'll get more of the
+-- function to use
+-- (method_declaration name: (_) @name parameters: (_) @params result: (_) @id)
+-- (function_declaration name: (_) @name parameters: (_) @params result: (_) @id)
+-- (func_literal result: (_) @id)
 
 vim.treesitter.set_query(
   "go",
@@ -43,7 +50,7 @@ local transform = function(text, info)
       info.index = info.index + 1
 
       return c(info.index, {
-        t(string.format('errors.Wrap(%s, "%s")', info.err_name, info.func_name)),
+        t(string.format('fmt.Errorf("error in %s: %%w", %s)', info.func_name, info.err_name)),
         t(info.err_name),
       })
     else
@@ -112,11 +119,11 @@ local go_ret_vals = function(args)
   )
 end
 
-local same = function(index)
-  return f(function(args)
-    return args[1]
-  end, { index })
-end
+-- local same = function(index)
+--   return f(function(args)
+--     return args[1]
+--   end, { index })
+-- end
 
 vim.treesitter.set_query(
 	"go", "Go_Func_Name",
@@ -139,9 +146,8 @@ function _G.go_func_name()
   -- end
 
   local query = vim.treesitter.get_query("go", "Go_Func_Name")
-  for _, node in query:iter_captures("function_declaration", 0) do
+  for _, node in query:iter_captures(nil, 0) do
 	  print(vim.inspect(node))
-
   end
 end
 
@@ -164,40 +170,36 @@ local test_snippet = function(a, snip, opts)
 	-- print("a")
 	-- print(vim.inspect(a))
 	-- print("snip")
-	local parser = vim.treesitter.get_parser(0, "ts")
+	local parser = vim.treesitter.get_parser(0, "go")
 	local tstree = parser:parse()
-	for _, node in ipairs(snip.nodes) do
-		for ii, tree in ipairs(tstree) do
-			print(ii)
-		    local tsnode = tstree[ii]:root():named_descendant_for_range(
-			node.mark:pos_begin(1),
-			node.mark:pos_begin(2),
-			node.mark:pos_end(1),
-			node.mark:pos_end(2)
-		    )
-		    while tsnode ~= nil do
-			    print(tsnode:type())
-			    tsnode = tsnode:parent()
-		    end
-		end
-	    -- print(vim.inspect(node.mark:pos_begin()))
-	    -- print(vim.inspect(node.mark:pos_end()))
-	    -- local tsnode = tstree[1]:root():named_descendant_for_range(
-	    --     node.mark:pos_begin(1),
-	    --     node.mark:pos_begin(2),
-	    --     node.mark:pos_end(1),
-	    --     node.mark:pos_end(2)
-	    -- )
-	    -- while tsnode ~= nil do
-		   --  print(tsnode:type())
-		   --  tsnode = tsnode:parent()
-	    -- end
-	end
+  print(vim.inspect(vim.treesitter.query.get_node_text(tstree[1]:root(), 1)))
+	-- for _, node in ipairs(snip.nodes) do
+	--     print(vim.inspect(node.mark:pos_begin()))
+	--     print(vim.inspect(node.mark:pos_end()))
+	--     local tsnode = tstree[1]:root():named_descendant_for_range(
+	--         node.mark:pos_begin(1),
+	--         node.mark:pos_begin(2),
+	--         node.mark:pos_end(1),
+	--         node.mark:pos_end(2)
+	--     )
+	--     while tsnode ~= nil do
+	-- 	    print(tsnode:type())
+	-- 	    tsnode = tsnode:parent()
+	--     end
+	-- end
 	-- print("c")
 	-- print(vim.inspect(cc))
 	print("done")
+end
 
-
+local test_dynamic_node = function(pos)
+  return d(pos, function ()
+    -- https://youtu.be/KtQZRAkgLqo?t=1304
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    local lines = vim.api.nvim_buf_get_lines(0, 0, line+1, false)
+    -- all the lines up to the current cursor
+    return sn(nil, t("example"))
+  end, {})
 end
 
 return {
@@ -289,10 +291,29 @@ return {
 			{}
 		}}
 		]], i(0)), begin_cond),
-		s("rn", {t("return")}, begin_cond)
+		s("rn", {t("return")}, begin_cond),
+    s("efi", { -- this is cool but it seems to have bugs.
+      i(1, { "val" }),
+      t(", "),
+      i(2, { "err" }),
+      t(" := "),
+      i(3, { "f" }),
+      t("("),
+      i(4),
+      t(")"),
+      t { "", "if " },
+      rep(2),
+      t { " != nil {", "\treturn " },
+      d(5, go_ret_vals, { 2, 3 }),
+      t { "", "}" },
+      i(0),
+    }, begin_cond)
 	},
 	snippets = {
-		s("hello", {t("hiya!!"), i(1, "foo"), rep(1), f(test_snippet)}), -- learning how `f` works
+		s("foo", {t("hiya!!"), i(1, "foo"), rep(1), f(test_snippet)}), -- learning how `f` works
+    s("bar", fmt([[
+    func Test{}({}) {{ {} }}
+    ]], {i(1, "Bar"), test_dynamic_node(2), i(0)})),
 		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
 		func Test{name}(t *testing.T) {{
 			{body}
@@ -327,6 +348,6 @@ return {
 		go func() {{
 			{}
 		}}()
-		]], i(0)))
+		]], i(0))),
 	}
 }
