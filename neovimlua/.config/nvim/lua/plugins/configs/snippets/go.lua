@@ -133,6 +133,31 @@ vim.treesitter.set_query(
 ] ]]
 )
 
+-- NOTE: This is in the future to get the name and context var of
+-- a method or func that has context in it. To be used for completing
+-- things like spans.
+vim.treesitter.set_query("go", "Go_Context", [[ [
+(function_declaration 
+  name: (_) @name 
+  parameters: (parameter_list 
+		(parameter_declaration 
+		  name: (_) @ctx 
+		  type: (_) @type)
+		) 
+  (#eq? @type "context.Context")
+)
+(method_declaration 
+  name: (_) @name 
+  parameters: (parameter_list 
+		(parameter_declaration 
+		  name: (_) @ctx 
+		  type: (_) @type)
+		) 
+  (#eq? @type "context.Context")
+)
+] ]]
+)
+
 function _G.go_func_name()
   -- local cursor_node = ts_utils.get_node_at_cursor()
   -- local scope = ts_locals.get_scope_tree(cursor_node, 0)
@@ -172,7 +197,8 @@ local test_snippet = function(a, snip, opts)
 	-- print("snip")
 	local parser = vim.treesitter.get_parser(0, "go")
 	local tstree = parser:parse()
-  print(vim.inspect(vim.treesitter.query.get_node_text(tstree[1]:root(), 1)))
+	-- lines is the whole dang file..
+	local lines = vim.treesitter.query.get_node_text(tstree[1]:root(), 1)
 	-- for _, node in ipairs(snip.nodes) do
 	--     print(vim.inspect(node.mark:pos_begin()))
 	--     print(vim.inspect(node.mark:pos_end()))
@@ -197,8 +223,29 @@ local test_dynamic_node = function(pos)
     -- https://youtu.be/KtQZRAkgLqo?t=1304
     local line = vim.api.nvim_win_get_cursor(0)[1]
     local lines = vim.api.nvim_buf_get_lines(0, 0, line+1, false)
+    -- iterate backwards trying to find the nearest function
+    local method_match = "func%s%((%a+)%s(%a+)%)%s(%a+)%((%a+)%scontext.Context"
+    local func_match = "func%s(%a+)%((%a+)%scontext.Context"
+    for ii = #lines, 1, -1 do
+      local curr = lines[ii]
+      local _, _, alias, typ, name, ctx = string.find(curr, method_match)
+      if alias ~= nil then
+	      return sn(nil, fmt([[
+	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
+	      defer span.Finish()
+	      ]], {t(ctx), t(typ), t(name)}))
+      end
+      _, _, name, ctx = string.find(curr, func_match)
+      if name ~= nil then
+	      return sn(nil, fmt([[
+	      span, ctx := opentracing.StartSpanFromContext({}, "{}")
+	      defer span.Finish()
+	      ]], {t(ctx), t(name)}))
+      end
+
+    end
     -- all the lines up to the current cursor
-    return sn(nil, t("example"))
+    return sn(nil, t("no-match"))
   end, {})
 end
 
@@ -292,28 +339,26 @@ return {
 		}}
 		]], i(0)), begin_cond),
 		s("rn", {t("return")}, begin_cond),
-    s("efi", { -- this is cool but it seems to have bugs.
-      i(1, { "val" }),
-      t(", "),
-      i(2, { "err" }),
-      t(" := "),
-      i(3, { "f" }),
-      t("("),
-      i(4),
-      t(")"),
-      t { "", "if " },
-      rep(2),
-      t { " != nil {", "\treturn " },
-      d(5, go_ret_vals, { 2, 3 }),
-      t { "", "}" },
-      i(0),
-    }, begin_cond)
+		    s("efi", { -- this is cool but it seems to have bugs.
+		      i(1, { "val" }),
+		      t(", "),
+		      i(2, { "err" }),
+		      t(" := "),
+		      i(3, { "f" }),
+		      t("("),
+		      i(4),
+		      t(")"),
+		      t { "", "if " },
+		      rep(2),
+		      t { " != nil {", "\treturn " },
+		      d(5, go_ret_vals, { 2, 3 }),
+		      t { "", "}" },
+		      i(0),
+		    }, begin_cond)
 	},
 	snippets = {
 		s("foo", {t("hiya!!"), i(1, "foo"), rep(1), f(test_snippet)}), -- learning how `f` works
-    s("bar", fmt([[
-    func Test{}({}) {{ {} }}
-    ]], {i(1, "Bar"), test_dynamic_node(2), i(0)})),
+  	        s("opentrace", test_dynamic_node(1), begin_cond),
 		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
 		func Test{name}(t *testing.T) {{
 			{body}
