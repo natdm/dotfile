@@ -218,7 +218,7 @@ local test_snippet = function(a, snip, opts)
 	print("done")
 end
 
-local test_dynamic_node = function(pos)
+local opentrace_span = function(pos)
   return d(pos, function ()
     -- https://youtu.be/KtQZRAkgLqo?t=1304
     local line = vim.api.nvim_win_get_cursor(0)[1]
@@ -242,7 +242,6 @@ local test_dynamic_node = function(pos)
 	      defer span.Finish()
 	      ]], {t(ctx), t(name)}))
       end
-
     end
     -- all the lines up to the current cursor
     return sn(nil, t("no-match"))
@@ -357,8 +356,13 @@ return {
 		    }, begin_cond)
 	},
 	snippets = {
-		s("foo", {t("hiya!!"), i(1, "foo"), rep(1), f(test_snippet)}), -- learning how `f` works
-  	        s("opentrace", test_dynamic_node(1), begin_cond),
+		s("env", fmt([[
+		{}, ok := os.LookupEnv({})
+		if !ok {{
+			{}
+		}}
+		]], {i(1, "var"), i(2, "env"), i(0)}), begin_cond),
+  	        s("span", opentrace_span(1), begin_cond),
 		s({trig="test", dscr="func Test{???}(*testing.T) {...}"}, fmt([[
 		func Test{name}(t *testing.T) {{
 			{body}
