@@ -142,8 +142,19 @@ local opentrace_span = function(pos)
     -- iterate backwards trying to find the nearest function
     local method_test = "func%s%((%a+)%s(%a+)%)%s(%a+)%((%a+)%scontext.Context"
     local func_test = "func%s(%a+)%((%a+)%scontext.Context"
-    local package_test = "package%s(%a*)"
-    local _, _, pkg = string.find(lines[1], package_test)
+    local anon_fn_test = "(%a+) := func%((%a*)%s"
+    local pkg = ""
+
+    -- get the package first, loop from the start in case there's a comment.
+    for _, l in ipairs(lines) do
+	    local package_test = "^package%s(%a*)"
+	    _, _, pkg = string.find(l, package_test)
+	    if pkg ~= nil and pkg ~= "" then
+		    break
+	    end
+    end
+
+    -- np packge means no span, return nothing.
     if pkg == nil or pkg == "" then
 	    print("no package")
 	    return nil
@@ -151,15 +162,24 @@ local opentrace_span = function(pos)
 
     for ii = #lines, 1, -1 do
       local curr = lines[ii]
-      local _, _, alias, typ, name, ctx = string.find(curr, method_test)
-      if alias ~= nil then
+      local _, _, _, typ, name, ctx = string.find(curr, method_test)
+      if ctx ~= nil then
 	      return sn(nil, fmt([[
 	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}.{}")
 	      defer span.Finish()
 	      ]], {t(ctx), t(pkg), t(typ), t(name)}))
       end
+
       _, _, name, ctx = string.find(curr, func_test)
-      if name ~= nil then
+      if ctx ~= nil then
+	      return sn(nil, fmt([[
+	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
+	      defer span.Finish()
+	      ]], {t(ctx), t(pkg), t(name)}))
+      end
+
+      _, _, name, ctx = string.find(curr, anon_fn_test)
+      if ctx ~= nil then
 	      return sn(nil, fmt([[
 	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
 	      defer span.Finish()
