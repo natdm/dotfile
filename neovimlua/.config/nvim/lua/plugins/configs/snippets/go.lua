@@ -119,63 +119,6 @@ local go_ret_vals = function(args)
   )
 end
 
--- local same = function(index)
---   return f(function(args)
---     return args[1]
---   end, { index })
--- end
-
-vim.treesitter.set_query(
-	"go", "Go_Func_Name",
-	[[ [
- (function_declaration name: (identifier) @name)
- (method_declaration receiver: (parameter_list (parameter_declaration type: (type_identifier) @typ)) name: (field_identifier) @name)
-] ]]
-)
-
--- NOTE: This is in the future to get the name and context var of
--- a method or func that has context in it. To be used for completing
--- things like spans.
-vim.treesitter.set_query("go", "Go_Context", [[ [
-(function_declaration 
-  name: (_) @name 
-  parameters: (parameter_list 
-		(parameter_declaration 
-		  name: (_) @ctx 
-		  type: (_) @type)
-		) 
-  (#eq? @type "context.Context")
-)
-(method_declaration 
-  name: (_) @name 
-  parameters: (parameter_list 
-		(parameter_declaration 
-		  name: (_) @ctx 
-		  type: (_) @type)
-		) 
-  (#eq? @type "context.Context")
-)
-] ]]
-)
-
-function _G.go_func_name()
-  -- local cursor_node = ts_utils.get_node_at_cursor()
-  -- local scope = ts_locals.get_scope_tree(cursor_node, 0)
-  --
-  -- local function_node
-  -- for _, v in ipairs(scope) do
-  --   if v:type() == "function_declaration" or v:type() == "method_declaration" or v:type() == "func_literal" then
-  --     function_node = v
-  --     break
-  --   end
-  -- end
-
-  local query = vim.treesitter.get_query("go", "Go_Func_Name")
-  for _, node in query:iter_captures(nil, 0) do
-	  print(vim.inspect(node))
-  end
-end
-
 local begin_cond = { condition = conds.line_begin }
 
 -- first_char will get the first character of a string,
@@ -191,56 +134,36 @@ local last_word = function(str)
       return string.lower(parts[#parts]) or ""
 end
 
-local test_snippet = function(a, snip, opts)
-	-- print("a")
-	-- print(vim.inspect(a))
-	-- print("snip")
-	local parser = vim.treesitter.get_parser(0, "go")
-	local tstree = parser:parse()
-	-- lines is the whole dang file..
-	local lines = vim.treesitter.query.get_node_text(tstree[1]:root(), 1)
-	-- for _, node in ipairs(snip.nodes) do
-	--     print(vim.inspect(node.mark:pos_begin()))
-	--     print(vim.inspect(node.mark:pos_end()))
-	--     local tsnode = tstree[1]:root():named_descendant_for_range(
-	--         node.mark:pos_begin(1),
-	--         node.mark:pos_begin(2),
-	--         node.mark:pos_end(1),
-	--         node.mark:pos_end(2)
-	--     )
-	--     while tsnode ~= nil do
-	-- 	    print(tsnode:type())
-	-- 	    tsnode = tsnode:parent()
-	--     end
-	-- end
-	-- print("c")
-	-- print(vim.inspect(cc))
-	print("done")
-end
-
 local opentrace_span = function(pos)
   return d(pos, function ()
     -- https://youtu.be/KtQZRAkgLqo?t=1304
     local line = vim.api.nvim_win_get_cursor(0)[1]
     local lines = vim.api.nvim_buf_get_lines(0, 0, line+1, false)
     -- iterate backwards trying to find the nearest function
-    local method_match = "func%s%((%a+)%s(%a+)%)%s(%a+)%((%a+)%scontext.Context"
-    local func_match = "func%s(%a+)%((%a+)%scontext.Context"
+    local method_test = "func%s%((%a+)%s(%a+)%)%s(%a+)%((%a+)%scontext.Context"
+    local func_test = "func%s(%a+)%((%a+)%scontext.Context"
+    local package_test = "package%s(%a*)"
+    local _, _, pkg = string.find(lines[1], package_test)
+    if pkg == nil or pkg == "" then
+	    print("no package")
+	    return nil
+    end
+
     for ii = #lines, 1, -1 do
       local curr = lines[ii]
-      local _, _, alias, typ, name, ctx = string.find(curr, method_match)
+      local _, _, alias, typ, name, ctx = string.find(curr, method_test)
       if alias ~= nil then
+	      return sn(nil, fmt([[
+	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}.{}")
+	      defer span.Finish()
+	      ]], {t(ctx), t(pkg), t(typ), t(name)}))
+      end
+      _, _, name, ctx = string.find(curr, func_test)
+      if name ~= nil then
 	      return sn(nil, fmt([[
 	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
 	      defer span.Finish()
-	      ]], {t(ctx), t(typ), t(name)}))
-      end
-      _, _, name, ctx = string.find(curr, func_match)
-      if name ~= nil then
-	      return sn(nil, fmt([[
-	      span, ctx := opentracing.StartSpanFromContext({}, "{}")
-	      defer span.Finish()
-	      ]], {t(ctx), t(name)}))
+	      ]], {t(ctx), t(pkg), t(name)}))
       end
     end
     -- all the lines up to the current cursor
