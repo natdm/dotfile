@@ -62,9 +62,7 @@ return require("packer").startup(function(use)
 	use({
 		"ldelossa/gh.nvim",
 		requires = { "ldelossa/litee.nvim" },
-		config = function()
-			require("plugins.configs.gh")
-		end,
+		config = require("plugins.configs.gh"),
 	})
 
 	-- fugitive is a git plugin. rhubarb is required
@@ -74,19 +72,17 @@ return require("packer").startup(function(use)
 
 	-- lsp
 	use("neovim/nvim-lspconfig")
-	use {
-	    "ray-x/lsp_signature.nvim",
-	    config = require("plugins.configs.lspsignature")
-	}
+	use({
+		"ray-x/lsp_signature.nvim",
+		config = require("plugins.configs.lspsignature"),
+	})
 	use({
 		-- prettier diagnostics, I don't use it a lot but
 		-- but maybe I should. No keybindings, just
 		-- :Trouble<cmd>
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup({})
-		end,
+		config = require("trouble").setup({}),
 	})
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
@@ -107,6 +103,10 @@ return require("packer").startup(function(use)
 			"hrsh7th/cmp-emoji",
 			"onsails/lspkind-nvim",
 		},
+	})
+	use({
+		"j-hui/fidget.nvim",
+		config = require("fidget").setup({}),
 	})
 
 	-- languages
@@ -140,9 +140,7 @@ return require("packer").startup(function(use)
 	use("wellle/targets.vim")
 	use({
 		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
+		config = require("Comment").setup(),
 	})
 	use("tpope/vim-surround")
 	use("jiangmiao/auto-pairs")

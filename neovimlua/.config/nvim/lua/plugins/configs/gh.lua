@@ -15,4 +15,4 @@ require('litee.gh').setup({
     icon_set = "codicons",
     map_resize_keys = true
 })
-vim.cmd("FzfLua register_ui_select")
+-- vim.cmd("FzfLua register_ui_select")
