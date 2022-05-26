@@ -193,6 +193,10 @@ end
 
 return {
 	auto_snippets = {
+		s("debug", fmt([[
+		bs, _ := json.MarshalIndent({}, "", "\t")
+		fmt.Println(string(bs))
+		]], i(1, "out"))),
 		s("mthd", c(1, { -- create funcs or methods
 			fmt([[
 			// {cname} {comment}
@@ -299,6 +303,7 @@ return {
 		    }, begin_cond)
 	},
 	snippets = {
+		s("require", t("require, assert := require.New(t), assert.New(t)")),
 		s("env", fmt([[
 		{}, ok := os.LookupEnv({})
 		if !ok {{
@@ -314,19 +319,11 @@ return {
 			name = i(1),
 			body = i(0)
 		})),
-		s("subtests", fmt([[
-		for {name}, {tc} := range {tests} {{
-			t.Run({name2}, func(t *testing.T) {{
-				{body}
-			}})
-		}}
-		]], {
-			name = i(1, "name"),
-			tc = i(2, "tc"),
-			tests = i(3, "tests"),
-			name2 = rep(1),
-			body = i(0)
-		})),
+		s("subtest", fmt([[
+		t.Run("{}", func(t *testing.T) {{
+			{}
+		}})
+		]], {i(1, "name"), i(0)})),
 		s("kv", fmt([["{}": {}]], { -- "baz": Foo.Bar.Baz
 			f(last_word, { 1 }),
 			i(1)

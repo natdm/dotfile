@@ -1,7 +1,7 @@
 local o = vim.o -- global-setting (but be careful because there is a vim.g which is global)
 local wo = vim.wo -- window-only
 local bo = vim.bo -- buffer-only
-vim.cmd('filetype plugin on')
+vim.cmd("filetype plugin on")
 
 -- Global settings
 o.timeoutlen = 500
@@ -11,10 +11,10 @@ o.updatetime = 100
 o.hidden = true
 -- g.shortmess +=c
 o.termguicolors = true
-o.cmdheight = 2
-o.encoding = 'UTF-8'
+o.cmdheight = 1
+o.encoding = "UTF-8"
 -- set foldcolumn=3
-o.inccommand = 'nosplit'
+o.inccommand = "nosplit"
 o.undofile = true
 o.smartcase = true
 o.ignorecase = true

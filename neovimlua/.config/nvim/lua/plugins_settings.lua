@@ -1,7 +1,7 @@
 local g = vim.g
 -- This entire file is pretty much deprecated and these should be sent to other files for each specific plugin.
 
-g.user_emmet_leader_key = '<C-E>'
+g.user_emmet_leader_key = "<C-E>"
 
 g.cursorhold_updatetime = 100
 
@@ -15,11 +15,9 @@ g.indent_guides_color_change_percent = 4
 
 g.gitgutter_override_sign_column_highlight = 0
 
-
-g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
 -- vimwiki
-g.vimwiki_list = {{path = '~/wiki/', syntax = 'markdown', ext = '.md'}}
+g.vimwiki_list = { { path = "~/wiki/", syntax = "markdown", ext = ".md" } }
 
-require('shade').setup({overlay_opacity = 80})
-
+require("shade").setup({ overlay_opacity = 80 })

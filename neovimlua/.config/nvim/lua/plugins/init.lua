@@ -74,6 +74,10 @@ return require("packer").startup(function(use)
 
 	-- lsp
 	use("neovim/nvim-lspconfig")
+	use {
+	    "ray-x/lsp_signature.nvim",
+	    config = require("plugins.configs.lspsignature")
+	}
 	use({
 		-- prettier diagnostics, I don't use it a lot but
 		-- but maybe I should. No keybindings, just
@@ -190,10 +194,4 @@ return require("packer").startup(function(use)
 		config = require("plugins.configs.neorg"),
 		requires = "nvim-lua/plenary.nvim",
 	})
-
-	--    -- personal ones
-	--    use {
-	-- "~/vimlibs/pulls",
-	-- config = require("plugins.configs.pulls")
-	--    }
 end)

@@ -49,7 +49,7 @@ nmap('<Space>', '')
 g.mapleader = ' '
 
 nmap("<C-s>", "<cmd> lua Sig()<CR>")
-nmap('<C-c>', ':cclo')
+nmap('<C-c>', ':cclo<CR>')
 
 nmap('s', '<Plug>(easymotion-overwin-f)')
 
