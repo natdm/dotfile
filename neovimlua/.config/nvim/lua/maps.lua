@@ -74,6 +74,14 @@ imap('.', '.<c-g>u')
 imap('!', '!<c-g>u')
 imap('?', '?<c-g>u')
 
+-- stay in indent mode after indenting
+-- normal >/< mapping only does once and exits visual
+vmap('>', '>gv')
+vmap('<', '<gv')
+
+-- paste without yanking
+vmap('p', '"_dP')
+
 -- file explorer
 nmapsl('e', ':NvimTreeToggle<CR>')
 nmapsl('r', ':NvimTreeRefresh<CR>')
@@ -195,6 +203,13 @@ nmaps(']]', '<cmd> lua IncWidth()<CR>')
 nmaps('[[', '<cmd> lua DecWidth()<CR>')
 nmaps('}}', '<cmd> lua IncHeight()<CR>')
 nmaps('{{', '<cmd> lua DecHeight()<CR>')
+
+-- debugging, 'd' for debug
+nmapl('dc', '<cmd> lua require\'dap\'.continue()<CR>')
+nmapl('db', '<cmd> lua require\'dap\'.toggle_breakpoint()<CR>')
+nmapl('dt', '<cmd> lua require\'dap-go\'.debug_test()<CR>')
+
+--
 
 nmapsl("pr", '<cmd>lua require("pulls").reviews()<CR>')
 nmapsl("pi", '<cmd>lua require("pulls").issues()<CR>')
