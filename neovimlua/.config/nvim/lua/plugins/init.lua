@@ -32,6 +32,10 @@ return require("packer").startup(function(use)
 	use("EdenEast/nightfox.nvim")
 	use("Th3Whit3Wolf/space-nvim")
 	use("navarasu/onedark.nvim")
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+	})
 
 	-- colorscheme switching
 	use("xolox/vim-colorscheme-switcher")
@@ -63,6 +67,11 @@ return require("packer").startup(function(use)
 		"ldelossa/gh.nvim",
 		requires = { "ldelossa/litee.nvim" },
 		config = require("plugins.configs.gh"),
+	})
+	-- git conflicts
+	use({
+		"akinsho/git-conflict.nvim",
+		config = require("plugins.configs.gitconflict"),
 	})
 
 	-- fugitive is a git plugin. rhubarb is required
@@ -186,6 +195,18 @@ return require("packer").startup(function(use)
 	--         vim.fn["firenvim#install"](0)
 	--     end
 	-- }
+
+	-- debugging
+	use({
+		"mfussenegger/nvim-dap",
+		requires = {
+			{ "leoluz/nvim-dap-go" },
+			{ "rcarriga/nvim-dap-ui" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "nvim-telescope/telescope-dap.nvim" },
+		},
+		config = require("plugins.configs.nvim-dap"),
+	})
 
 	use({
 		"nvim-neorg/neorg",

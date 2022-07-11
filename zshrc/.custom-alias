@@ -144,7 +144,11 @@ alias -g V='| v'
 alias -g L='| less' 
 
 # if kubectl is installed, add the autocomplete and aliasing
-if hash kubectl 2>/dev/null; then
+if hash kubecolor 2>/dev/null; then
+	source <(kubectl completion zsh)
+	alias k='kubecolor'
+	compdef kubecolor=kubectl
+elif hash kubectl 2>/dev/null; then
 	source <(kubectl completion zsh)
 	alias k='kubectl'
 	complete -F __start_kubectl k

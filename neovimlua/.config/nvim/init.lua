@@ -10,9 +10,8 @@ require('lsp')
 local cmd = vim.cmd
 
 -- This has to be set after settings and plugins I guess
-require('onedark').setup { style = 'warm' }
-
-cmd("colorscheme onedark")
+vim.g.catppuccin_flavour = "frappe"
+cmd("colorscheme catppuccin")
 
 -- gray
 cmd [[highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080]]

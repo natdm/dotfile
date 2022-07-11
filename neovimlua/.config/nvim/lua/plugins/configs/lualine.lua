@@ -9,17 +9,18 @@ local colors = {
 	green = "#8ec07c",
 }
 
-local theme = {
-	normal = {
-		a = { fg = colors.black, bg = colors.green },
-		b = { fg = colors.black, bg = colors.grey },
-		c = { fg = colors.black, bg = colors.black },
-		z = { fg = colors.black, bg = colors.light_green },
-	},
-	insert = { a = { fg = colors.black, bg = colors.light_green } },
-	visual = { a = { fg = colors.black, bg = colors.orange } },
-	replace = { a = { fg = colors.black, bg = colors.green } },
-}
+local theme = "catppuccin"
+-- local theme = {
+-- 	normal = {
+-- 		a = { fg = colors.black, bg = colors.green },
+-- 		b = { fg = colors.black, bg = colors.grey },
+-- 		c = { fg = colors.black, bg = colors.black },
+-- 		z = { fg = colors.black, bg = colors.light_green },
+-- 	},
+-- 	insert = { a = { fg = colors.black, bg = colors.light_green } },
+-- 	visual = { a = { fg = colors.black, bg = colors.orange } },
+-- 	replace = { a = { fg = colors.black, bg = colors.green } },
+-- }
 
 local empty = require("lualine.component"):extend()
 function empty:draw(default_highlight)
