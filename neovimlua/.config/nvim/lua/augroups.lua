@@ -39,4 +39,12 @@ augroup END
 -- make go have less whitespace, for god sake
 cmd([[
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
+au! BufWritePre *_test.go TestFileRace
+]])
+
+
+cmd([[
+command TestFileRace :lua TestFileRace()
+command TestAllRace :lua TestAllRace()
+command TestSummary :lua TestSummary()
 ]])

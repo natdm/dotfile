@@ -1,4 +1,4 @@
-local ls = require("luasnip")
+ls = require("luasnip")
 
 ls.config.set_config({
 	-- treesitter-hl has 100, use something higher (default is 200).
@@ -143,6 +143,7 @@ local opentrace_span = function(pos)
 		local method_test = "func%s%((%a+)%s(%a+)%)%s(%a+)%((%a+)%scontext.Context"
 		local func_test = "func%s(%a+)%((%a+)%scontext.Context"
 		local anon_fn_test = "(%a+) := func%((%a*)%s"
+		local echo_func_test = "func%s(%a+)%((%a+)%secho.Context"
 		local pkg = ""
 
 		-- get the package first, loop from the start in case there's a comment.
@@ -163,41 +164,60 @@ local opentrace_span = function(pos)
 		for ii = #lines, 1, -1 do
 			local curr = lines[ii]
 			local _, _, _, typ, name, ctx = string.find(curr, method_test)
+			-- Check for a method and return the span
 			if ctx ~= nil then
 				return sn(
 					nil,
 					fmt(
 						[[
-	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}.{}")
-	      defer span.Finish()
+	      ctx, span := tracer.Start({}, "{}.{}.{}")
+	      defer span.End()
 	      ]],
 						{ t(ctx), t(pkg), t(typ), t(name) }
 					)
 				)
 			end
 
+			-- check for a function and return the span
 			_, _, name, ctx = string.find(curr, func_test)
 			if ctx ~= nil then
 				return sn(
 					nil,
 					fmt(
 						[[
-	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
-	      defer span.Finish()
+	      ctx, span := tracer.Start({}, "{}.{}")
+	      defer span.End()
 	      ]],
 						{ t(ctx), t(pkg), t(name) }
 					)
 				)
 			end
 
+			-- check for an Echo function and return the span
+			_, _, name, ctx = string.find(curr, echo_func_test)
+			if ctx ~= nil then
+				return sn(
+					nil,
+					fmt(
+						[[
+	      ctx, span := tracer.Start({}.Request().Context(), "{}.{}")
+	      defer span.End()
+	      ]],
+						{ t(ctx), t(pkg), t(name) }
+					)
+				)
+			end
+
+
+			-- check for anonymous functions
 			_, _, name, ctx = string.find(curr, anon_fn_test)
 			if ctx ~= nil then
 				return sn(
 					nil,
 					fmt(
 						[[
-	      span, ctx := opentracing.StartSpanFromContext({}, "{}.{}")
-	      defer span.Finish()
+	      ctx, span := tracer.Start({}, "{}.{}")
+	      defer span.End()
 	      ]],
 						{ t(ctx), t(pkg), t(name) }
 					)
