@@ -200,11 +200,11 @@ function _G.ExTest()
 end
 
 function _G.TestFileRace()
-	require("neotest").run.run({ path = vim.fn.expand("%"), extra_args = { "-race" } })
+	require("neotest").run.run({ vim.fn.expand("%"), extra_args = { "-race" } })
 end
 
 function _G.TestAllRace()
-	require("neotest").run.run({ extra_args = { "-race" } })
+	require("neotest").run.run({ vim.fn.getcwd(), extra_args = { "-race" } })
 end
 
 function _G.TestSummary()
