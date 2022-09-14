@@ -191,6 +191,7 @@ nmapsl("dd", "<cmd>TroubleToggle document_diagnostics<CR>")
 nmapsl("df", "<cmd>TroubleToggle quickfix<CR>")
 nmapsl("gr", "<cmd>TroubleToggle lsp_references<CR>")
 nmapsl("dx", "<cmd>TroubleToggle<CR>")
+nmapsl("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 nmaps('<C-h>', '<C-w><C-h>')
 nmaps('<C-j>', '<C-w><C-j>')

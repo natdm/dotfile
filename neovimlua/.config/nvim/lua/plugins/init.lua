@@ -32,6 +32,7 @@ return require("packer").startup(function(use)
 	use("EdenEast/nightfox.nvim")
 	use("Th3Whit3Wolf/space-nvim")
 	use("navarasu/onedark.nvim")
+	use("sam4llis/nvim-tundra")
 	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
@@ -58,6 +59,7 @@ return require("packer").startup(function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 	})
 	-- git/github
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
