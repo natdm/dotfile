@@ -194,21 +194,12 @@ return require("packer").startup(function(use)
 		config = require("plugins.configs.treesitter"),
 	})
 	use("nvim-treesitter/playground")
-	use("sunjon/shade.nvim")
+	-- use("sunjon/shade.nvim") -- this is busted, breaking gh
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({ "rcarriga/nvim-notify" })
-	-- -- firenvim allows nvim in text fields in chrome.
-	-- use {
-	--     "glacambre/firenvim",
-	--     config = require("plugins.configs.fire"),
-	--     run = function()
-	--         vim.fn["firenvim#install"](0)
-	--     end
-	-- }
-
 	-- debugging
 	use({
 		"mfussenegger/nvim-dap",
@@ -219,11 +210,5 @@ return require("packer").startup(function(use)
 			{ "nvim-telescope/telescope-dap.nvim" },
 		},
 		config = require("plugins.configs.nvim-dap"),
-	})
-
-	use({
-		"nvim-neorg/neorg",
-		config = require("plugins.configs.neorg"),
-		requires = "nvim-lua/plenary.nvim",
 	})
 end)

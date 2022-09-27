@@ -59,6 +59,9 @@ nmapsl('fx', ':set hlsearch!<CR>')
 -- n(ext)zz(center cursor)zv(open folds if any)
 nmap('n', 'nzzzv')
 nmap('N', 'Nzzzv')
+-- [c and ]c go to next diff sections, with zz to center
+nmap(']c', ']czz')
+nmap('[c', '[czz')
 
 -- a better way to collapse lines
 nmap('J', 'mzJ`z')

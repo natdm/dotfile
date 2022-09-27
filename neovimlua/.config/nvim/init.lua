@@ -10,9 +10,8 @@ require("lsp")
 local cmd = vim.cmd
 
 -- This has to be set after settings and plugins I guess
-vim.g.catppuccin_flavour = "frappe"
 vim.opt.background = "dark"
-cmd("colorscheme tundra")
+cmd("colorscheme everforest")
 
 -- gray
 cmd([[highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080]])

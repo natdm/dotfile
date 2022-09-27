@@ -168,3 +168,42 @@ fpath=( "$ZCONFIGDIR/functions" "${fpath[@]}" )
 autoload -Uz $fpath[1]/*(.:t)
 # git autocomplete
 autoload -Uz compinit && compinit
+dd_secret(){
+  cat <<EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: datadog
+      namespace: monitoring
+    type: Opaque
+    data:
+      api-key: $(echo -n "$DD_API_KEY" | openssl base64)
+EOF
+}
+
+hc_secret(){
+  cat <<EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: honeycomb
+      namespace: monitoring
+    type: Opaque
+    data:
+      api-key: $(echo -n "HC_API_KEY" | openssl base64)
+EOF
+}
+
+inst_otel(){
+  helm install otel-collector --set-string cluster=local -f $HOME/atomic-dev/otel-collector/values.yaml $HOME/atomic-dev/otel-collector/
+}
+
+otel_local(){
+  kubectl create namespace monitoring
+
+  dd_secret
+
+  hc_secret
+
+  inst_otel
+}

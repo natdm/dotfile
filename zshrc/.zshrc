@@ -186,7 +186,13 @@ git config --global difftool.nvimdiff.cmd "nvim -d \"$LOCAL\" \"$REMOTE\""
 git config --global core.editor nvim
 
 compdef _bb bb
-# add completion for zsh to any cobra autcomplete.
-# Requires https://github.com/lincheney/fzf-tab-completion#zsh cloned to home dir.
+## add completion for zsh to any cobra autcomplete. Requires https://github.com/lincheney/fzf-tab-completion#zsh cloned to home dir.
 source $HOME/fzf-tab-completion/zsh/fzf-zsh-completion.sh && bindkey '^I' fzf_completion
+
+
+# HSTR configuration - add this to ~/.zshrc
+alias hh=hstr                    # hh to be alias for hstr
+setopt histignorespace           # skip cmds w/ leading space from history
+export HSTR_CONFIG=hicolor       # get more colors
+bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 

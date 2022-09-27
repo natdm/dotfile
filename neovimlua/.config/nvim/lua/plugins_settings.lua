@@ -20,4 +20,4 @@ g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 -- vimwiki
 g.vimwiki_list = { { path = "~/wiki/", syntax = "markdown", ext = ".md" } }
 
-require("shade").setup({ overlay_opacity = 80 })
+-- require("shade").setup({ overlay_opacity = 80 })
