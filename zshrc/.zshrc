@@ -98,7 +98,7 @@ compinit
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git forgit z)
+plugins=(git forgit z zsh-alias-finder)
 # Git plugins: https://jasonm23.github.io/oh-my-git-aliases.html
 
 source $ZSH/oh-my-zsh.sh

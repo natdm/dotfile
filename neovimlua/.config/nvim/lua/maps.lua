@@ -215,22 +215,9 @@ nmapl('dt', '<cmd> lua require\'dap-go\'.debug_test()<CR>')
 
 --
 
-nmapsl("pr", '<cmd>lua require("pulls").reviews()<CR>')
-nmapsl("pi", '<cmd>lua require("pulls").issues()<CR>')
-nmapsl("pc", '<cmd>lua require("pulls").comments()<CR>')
-nmapsl("pt", '<cmd>lua require("pulls").tag_window()<CR>')
-nmapsl("pu", '<cmd>lua require("pulls").untag_window()<CR>')
-nmapsl("pd", '<cmd>lua require("pulls").description()<CR>')
-nmapsl("pp", '<cmd>lua require("pulls").diff()<CR>')
-nmapsl("pn", '<cmd>lua require("pulls").diff_next()<CR>')
-nmapsl("pl", '<cmd>lua require("pulls").changes()<CR>')
-nmapsl("ph", '<cmd>lua require("pulls").highlight_changes()<CR>')
-
 nmapsl("ht", '<cmd>so $VIMRUNTIME/syntax/hitest.vim<CR>')
 
 nmapsl("ss", '<cmd>Switch<CR>')
--- co for Code Outline
-nmapsl("co",'<cmd>SymbolsOutline<CR>')
 -- shortcut to reload luasnip on changes
 nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
 vim.api.nvim_set_keymap("i", "<Tab>", "<Plug>luasnip-next-choice", {})

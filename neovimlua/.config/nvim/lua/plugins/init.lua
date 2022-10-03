@@ -179,7 +179,6 @@ return require("packer").startup(function(use)
 	})
 	use("editorconfig/editorconfig-vim")
 	use("AndrewRadev/switch.vim") -- flipping values like booleans, <l>ss
-	use("simrat39/symbols-outline.nvim")
 	use("yuttie/comfortable-motion.vim")
 	use("easymotion/vim-easymotion")
 	use({
