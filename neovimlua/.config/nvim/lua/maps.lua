@@ -220,6 +220,7 @@ nmapsl("ht", '<cmd>so $VIMRUNTIME/syntax/hitest.vim<CR>')
 nmapsl("ss", '<cmd>Switch<CR>')
 -- shortcut to reload luasnip on changes
 nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
+nmap("<leader><leader>x", "source ~/.config/nvim/init.lua<CR>")
 vim.api.nvim_set_keymap("i", "<Tab>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
 -- nmapl('crn', '<Plug>(coc-rename)')
