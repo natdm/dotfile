@@ -1,4 +1,6 @@
-local bufnr = 31
+local bufnr = 5
+-- echo nvim_get_current_buf()
+-- source ~/.dotfile/neovimlua/.config/nvim/lua/autosave.lua
 
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("Foo", { clear = true }),
