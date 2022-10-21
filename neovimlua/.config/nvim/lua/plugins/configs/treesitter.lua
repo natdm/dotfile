@@ -9,7 +9,7 @@ require('nvim-treesitter.configs').setup({
         keybindings = {
             toggle_query_editor = 'o',
             toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
+            toggle_injected_languages = 'ttt',
             toggle_anonymous_nodes = 'a',
             toggle_language_display = 'I',
             focus_language = 'f',

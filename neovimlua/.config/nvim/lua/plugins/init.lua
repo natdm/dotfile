@@ -107,7 +107,7 @@ return require("packer").startup(function(use)
 		config = require("plugins.configs.cmp"),
 		requires = {
 			"hrsh7th/cmp-buffer", --
-			-- 'ray-x/cmp-treesitter', --
+			'ray-x/cmp-treesitter', --
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
