@@ -30,7 +30,12 @@ end, {})
 vim.api.nvim_create_user_command("AutoRunStart", function()
 	print("Autorunning..")
 	local bufnr = vim.fn.input("Buffer: ")
+	if bufnr == "" then
+		bufnr = vim.api.nvim_get_current_buf()
+	else
+		bufnr = tonumber(bufnr)
+	end
 	local pattern = vim.fn.input("Pattern: ")
 	local command = vim.split(vim.fn.input("Command: "), " ")
-	attach_to_buffer(tonumber(bufnr), pattern, command)
+	attach_to_buffer(bufnr, pattern, command)
 end, {})
