@@ -4,6 +4,7 @@ require("plugins")
 require("plugins_settings")
 require("maps")
 require("augroups")
+require("autosave")
 require("functions")
 require("lsp")
 
