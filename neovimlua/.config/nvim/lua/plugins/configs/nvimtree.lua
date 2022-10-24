@@ -5,6 +5,7 @@ g.nvim_tree_width = 60
 
 require("nvim-web-devicons").setup({ default = true })
 require("nvim-tree").setup({
+	view = {adaptive_size = true},
 	renderer = {
 		highlight_opened_files = "name",
 		icons = {
