@@ -36,6 +36,9 @@ vim.api.nvim_create_user_command("AutoRunStart", function()
 		bufnr = tonumber(bufnr)
 	end
 	local pattern = vim.fn.input("Pattern: ")
-	local command = vim.split(vim.fn.input("Command: "), " ")
-	attach_to_buffer(bufnr, pattern, command)
+	local command = vim.fn.input("Command: ")
+	-- this takes 'coreutils' installed with brew, for it to work
+	command = "timeout --signal=SIGINT 10 " .. command
+	print("On save, running: " .. command)
+	attach_to_buffer(bufnr, pattern, vim.split(command, " "))
 end, {})
