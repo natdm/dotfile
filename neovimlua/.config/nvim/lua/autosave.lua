@@ -1,10 +1,9 @@
 -- echo nvim_get_current_buf()
--- source ~/.dotfile/neovimlua/.config/nvim/lua/autosave.lua
 
 local print_output = function(output_bufnr)
 	return function(_, data)
 		if data and data[1] ~= "" then
-			vim.api.nvim_buf_set_lines(output_bufnr, -0, 0, false, data)
+			vim.api.nvim_buf_set_lines(output_bufnr, 0, 0, false, data)
 		end
 	end
 end
@@ -13,6 +12,7 @@ local attach_to_buffer = function(output_bufnr, pattern, command)
 		group = vim.api.nvim_create_augroup("AutoRun", { clear = true }),
 		pattern = pattern,
 		callback = function()
+			-- clear the buffer
 			vim.api.nvim_buf_set_lines(output_bufnr, 0, -1, false, {})
 			vim.fn.jobstart(command, {
 				stdout_buffer = true,
@@ -37,7 +37,7 @@ vim.api.nvim_create_user_command("AutoRunStart", function()
 	end
 	local pattern = vim.fn.input("Pattern: ")
 	local command = vim.fn.input("Command: ")
-	-- this takes 'coreutils' installed with brew, for it to work
+	-- this takes 'coreutils', installed with brew, for it to work
 	command = "timeout --signal=SIGINT 10 " .. command
 	print("On save, running: " .. command)
 	attach_to_buffer(bufnr, pattern, vim.split(command, " "))
