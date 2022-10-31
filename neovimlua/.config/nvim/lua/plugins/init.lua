@@ -107,7 +107,7 @@ return require("packer").startup(function(use)
 		config = require("plugins.configs.cmp"),
 		requires = {
 			"hrsh7th/cmp-buffer", --
-			'ray-x/cmp-treesitter', --
+			"ray-x/cmp-treesitter", --
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
@@ -130,6 +130,10 @@ return require("packer").startup(function(use)
 	use("elixir-editors/vim-elixir")
 	use("chrisbra/csv.vim")
 	use("ellisonleao/glow.nvim")
+	use({
+		"MunifTanjim/prettier.nvim",
+		config = require("plugins.configs.prettier"),
+	})
 	-- specifically lua nvim development plugin
 	use({
 		"folke/lua-dev.nvim",
