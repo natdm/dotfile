@@ -99,7 +99,6 @@ return require("packer").startup(function(use)
 		"jose-elias-alvarez/null-ls.nvim",
 		config = require("plugins.configs.null-ls"),
 	})
-	use("jose-elias-alvarez/nvim-lsp-ts-utils")
 
 	-- completion
 	use({
@@ -120,14 +119,9 @@ return require("packer").startup(function(use)
 		config = require("fidget").setup({}),
 	})
 
-	-- languages
+	-- languages, only put languages I personally or professionally use here
+	-- (and are not in lsp)
 	use("fatih/vim-go")
-	use("pangloss/vim-javascript")
-	use("leafgarland/typescript-vim")
-	use("peitalin/vim-jsx-typescript")
-	use("styled-components/vim-styled-components")
-	use("mattn/emmet-vim")
-	use("elixir-editors/vim-elixir")
 	use("chrisbra/csv.vim")
 	use("ellisonleao/glow.nvim")
 	-- specifically lua nvim development plugin

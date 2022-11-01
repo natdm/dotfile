@@ -16,9 +16,8 @@ ls.config.set_config({
 local go_snippets = require('plugins.configs.snippets.go')
 local all_snippets = require('plugins.configs.snippets.all')
 local lua_snippets = require("plugins.configs.snippets.lua")
-local md_snippets = require("plugins.configs.snippets.markdown")
-local ts_snippets = require("plugins.configs.snippets.typescript")
 local vw_snippets = require("plugins.configs.snippets.vimwiki")
+local md_snippets = require("plugins.configs.snippets.markdown")
 require('todo-comments') -- just import, it registers itself
 
 ls.add_snippets("all", all_snippets.snippets)
@@ -31,8 +30,6 @@ ls.add_snippets("markdown", md_snippets.snippets)
 ls.add_snippets("markdown", md_snippets.auto_snippets, { type = "autosnippets" })
 ls.add_snippets("gitcommit", md_snippets.snippets)
 ls.add_snippets("gitcommit", md_snippets.auto_snippets, { type = "autosnippets" })
-ls.add_snippets("typescript", ts_snippets.snippets)
-ls.add_snippets("typescript", ts_snippets.auto_snippets, { type = "autosnippets" })
 ls.add_snippets("vimwiki", vw_snippets.snippets)
 ls.add_snippets("vimwiki", vw_snippets.snippets, { type = "autosnippets" })
 
