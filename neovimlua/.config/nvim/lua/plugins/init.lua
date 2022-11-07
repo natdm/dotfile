@@ -19,6 +19,7 @@ cmd([[
 cmd("autocmd BufWritePost plugins.lua PackerCompile")
 
 return require("packer").startup(function(use)
+	use("wbthomason/packer.nvim")
 	-- colorscheme
 	use("tjdevries/colorbuddy.vim") -- colorscheme creator, needed for a few of these
 	use("rakr/vim-one")
@@ -115,6 +116,7 @@ return require("packer").startup(function(use)
 			"onsails/lspkind-nvim",
 		},
 	})
+
 	use({
 		"j-hui/fidget.nvim",
 		config = require("fidget").setup({}),
@@ -136,7 +138,7 @@ return require("packer").startup(function(use)
 	})
 	-- specifically lua nvim development plugin
 	use({
-		"folke/lua-dev.nvim",
+		"folke/neodev.nvim",
 		config = require("plugins.configs.luadev"),
 	})
 
@@ -176,11 +178,11 @@ return require("packer").startup(function(use)
 	use("antoinemadec/FixCursorHold.nvim")
 
 	-- other
-	use({
-		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
-		config = require("todo-comments").setup({}),
-	})
+	-- use({
+	-- 	"folke/todo-comments.nvim",
+	-- 	requires = "nvim-lua/plenary.nvim",
+	-- 	config = require("todo-comments").setup({}),
+	-- })
 	use("editorconfig/editorconfig-vim")
 	use("AndrewRadev/switch.vim") -- flipping values like booleans, <l>ss
 	use("yuttie/comfortable-motion.vim")

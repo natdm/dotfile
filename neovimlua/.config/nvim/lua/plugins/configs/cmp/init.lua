@@ -8,7 +8,7 @@ require("plugins.configs.cmp.gh_org_members_source")
 -- cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- The following example advertise capabilities to `clangd`.
 require("lspconfig").clangd.setup({ capabilities = capabilities })
