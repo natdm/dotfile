@@ -15,7 +15,7 @@ augroup end
 -- Autosave the buffer pretty much all the time.
 cmd([[
 augroup AutoSave
-  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })
 augroup end
 ]])
 
@@ -42,11 +42,8 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
 au! BufWritePre *_test.go TestFileRace
 ]])
 
-
 cmd([[
 command TestFileRace :lua TestFileRace()
 command TestAllRace :lua TestAllRace()
 command TestSummary :lua TestSummary()
 ]])
-
-

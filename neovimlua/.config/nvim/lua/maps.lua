@@ -171,7 +171,7 @@ nmapsl("ybl", ":CopyBufferPathL<CR>")
 nmapl("cb", ":!open % -a Google\\ Chrome<CR>")
 
 -- lsp-specific settings
-nmap("gf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+nmap("gf", "<cmd>lua vim.lsp.buf.format({ async = false })<CR>")
 nmaps("rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
 nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
