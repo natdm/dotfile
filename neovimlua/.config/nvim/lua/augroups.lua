@@ -1,4 +1,6 @@
 local cmd = vim.cmd
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Highlight the cursor line and column like crosshairs.
 cmd([[
@@ -20,12 +22,13 @@ augroup end
 ]])
 
 -- Highlight whatever was yanked, very briefly.
-cmd([[
-augroup LuaHighlight
-  au!
-  au TextYankPost * silent! lua require'vim.highlight'.on_yank()
-augroup END
-]])
+autocmd("TextYankPost", {
+	group = augroup("yank_highlight", {}),
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+	end,
+})
 
 -- Show a mark on any lines that are at the curren character count (81 at the moment).
 cmd([[
