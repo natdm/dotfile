@@ -9,7 +9,7 @@ end
 
 local on_attach = function(client, bufnr)
 	vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
-	vim.cmd("command! LspFormatting lua vim.lsp.buf.format({ async = true })")
+	-- vim.cmd("command! LspFormatting lua vim.lsp.buf.format({ async = true })")
 	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
 	vim.cmd("command! LspRangeCodeAction lua vim.lsp.buf.range_code_action()")
 	vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
@@ -31,30 +31,30 @@ local on_attach = function(client, bufnr)
 	buf_map(bufnr, "n", "<leader>cra", ":LspRangeCodeAction<CR>")
 	buf_map(bufnr, "n", "<Leader>a", ":LspDiagLine<CR>")
 	buf_map(bufnr, "i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })")
-	end
+	-- if client.resolved_capabilities.document_formatting then
+	-- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })")
+	-- end
 end
 
--- lspconfig.tsserver.setup({
---     on_attach = function(client, bufnr)
---         client.resolved_capabilities.document_formatting = false
---         client.resolved_capabilities.document_range_formatting = false
---         local ts_utils = require("nvim-lsp-ts-utils")
---         ts_utils.setup({})
---         ts_utils.setup_client(client)
---         buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
---         buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
---         buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
---         on_attach(client, bufnr)
---     end,
--- })
-
-null_ls.setup({
-	sources = {
-		null_ls.builtins.diagnostics.eslint,
-		null_ls.builtins.code_actions.eslint,
-		null_ls.builtins.formatting.prettier,
-	},
-	on_attach = on_attach,
+lspconfig.tsserver.setup({
+	on_attach = function(client, bufnr)
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+		local ts_utils = require("nvim-lsp-ts-utils")
+		ts_utils.setup({})
+		ts_utils.setup_client(client)
+		buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
+		buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
+		buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
+		on_attach(client, bufnr)
+	end,
 })
+
+-- null_ls.setup({
+-- 	sources = {
+-- 		null_ls.builtins.diagnostics.eslint,
+-- 		null_ls.builtins.code_actions.eslint,
+-- 		null_ls.builtins.formatting.prettier,
+-- 	},
+-- 	on_attach = on_attach,
+-- })
