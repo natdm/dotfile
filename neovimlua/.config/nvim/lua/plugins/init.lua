@@ -1,4 +1,3 @@
-local cmd = vim.cmd
 local fn = vim.fn
 
 -- Auto install packer.nvim if not exists
@@ -7,16 +6,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 	vim.cmd("packadd packer.nvim")
 end
-
-cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
-
--- Auto compile when there are changes in plugins.lua
-cmd("autocmd BufWritePost plugins.lua PackerCompile")
 
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
@@ -49,7 +38,7 @@ return require("packer").startup(function(use)
 		"junegunn/fzf.vim",
 		config = require("plugins.configs.fzf"),
 		run = function()
-			vim.fn["fzf#install()"](0)
+			fn["fzf#install()"](0)
 		end,
 	})
 	-- explorer
