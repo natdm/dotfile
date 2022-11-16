@@ -1,4 +1,4 @@
-local ls = require('luasnip')
+local ls = require("luasnip")
 
 -- some shorthands...
 local s = ls.snippet
@@ -8,7 +8,14 @@ local rep = require("luasnip.extras").rep
 
 return {
 	snippets = {
-		s("for",{
+		s("arrow", {
+			t("("),
+			i(1),
+			t(") => {"),
+			i(0),
+			t("}"),
+		}),
+		s("for", {
 			t("for (let "),
 			i(1, "var"),
 			t(" = 0; "),
@@ -17,11 +24,10 @@ return {
 			i(2, "len"),
 			t("; "),
 			rep(1),
-			t({"++) {","\t"}),
+			t({ "++) {", "\t" }),
 			i(0),
-			t({"", "}"})
-
+			t({ "", "}" }),
 		}),
 	},
-	auto_snippets = {}
+	auto_snippets = {},
 }

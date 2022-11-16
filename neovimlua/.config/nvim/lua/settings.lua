@@ -5,6 +5,7 @@ vim.cmd("filetype plugin on")
 
 -- Global settings
 o.timeoutlen = 500
+o.mouse = "" -- disable mouse in all modes. Use the keebs, you buffoon.
 o.visualbell = true
 o.number = true
 o.updatetime = 100
