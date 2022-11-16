@@ -84,6 +84,7 @@ return require("packer").startup(function(use)
 
 	-- lsp
 	use("neovim/nvim-lspconfig")
+	use("artempyanykh/marksman") -- markdown lsp
 	use({
 		"ray-x/lsp_signature.nvim",
 		config = require("plugins.configs.lspsignature"),
