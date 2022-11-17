@@ -45,6 +45,11 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
 au! BufWritePre *_test.go TestFileRace
 ]])
 
+-- Reset a zsh filetype to bash, since it's what I use more often
+cmd([[
+autocmd Filetype zsh set filetype=bash
+]])
+
 cmd([[
 command TestFileRace :lua TestFileRace()
 command TestAllRace :lua TestAllRace()
