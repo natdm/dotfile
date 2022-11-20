@@ -1,21 +1,18 @@
 local source = {}
 
 source.new = function()
-	local self = setmetatable({ cache = {} }, { __index = source })
-
-	return self
+	return setmetatable({ cache = {} }, { __index = source })
 end
 
 source.complete = function(self, _, callback)
 	local bufnr = vim.api.nvim_get_current_buf()
 
 	if not self.cache[bufnr] then
-		local env_vars = vim.fn.environ()
 		local items = {}
-		for k, _ in pairs(env_vars) do
+		for k, _ in pairs(vim.fn.environ()) do
 			table.insert(items, {
-				label = k,
-				value = "$" .. k,
+				value = k,
+				label = "$" .. k,
 			})
 		end
 		callback({ items = items, isIncomplete = false })
