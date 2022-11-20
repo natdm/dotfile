@@ -173,7 +173,6 @@ return require("packer").startup(function(use)
 	-- 	requires = "nvim-lua/plenary.nvim",
 	-- 	config = require("todo-comments").setup({}),
 	-- })
-	use({ "folke/paint.nvim", config = require("plugins.configs.paint") }) -- custom coloring, easier than agroups
 	use("editorconfig/editorconfig-vim")
 	use("AndrewRadev/switch.vim") -- flipping values like booleans, <l>ss
 	use("yuttie/comfortable-motion.vim")

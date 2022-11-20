@@ -6,7 +6,7 @@ require("null-ls").setup({
 			vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format({ async = true })<CR>")
 
 			-- format on save
-			vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
+			-- vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
 		end
 
 		if client.server_capabilities.documentRangeFormattingProvider then

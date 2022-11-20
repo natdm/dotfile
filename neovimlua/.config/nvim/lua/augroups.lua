@@ -15,11 +15,11 @@ augroup end
 ]])
 
 -- Autosave the buffer pretty much all the time.
-cmd([[
-augroup AutoSave
-  autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })
-augroup end
-]])
+-- cmd([[
+-- augroup AutoSave
+--   autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })
+-- augroup end
+-- ]])
 
 -- Highlight whatever was yanked, very briefly.
 autocmd("TextYankPost", {

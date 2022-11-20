@@ -3,6 +3,7 @@ local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 lspkind.init()
 require("plugins.configs.cmp.jira_source")
+require("plugins.configs.cmp.env_vars")
 require("plugins.configs.cmp.gh_org_members_source")
 
 -- cmp-nvim-lsp
@@ -30,6 +31,7 @@ cmp.setup({
 		format = lspkind.cmp_format({
 			with_text = true,
 			menu = {
+				env_vars = "[env]",
 				nvim_lsp = "[lsp]",
 				buffer = "[buf]",
 				nvim_lua = "[api]",
@@ -71,6 +73,7 @@ cmp.setup({
 	sources = {
 		--{name = "treesitter"},
 		{ name = "jira_issues" },
+		{ name = "env_vars" },
 		{ name = "gh_users" },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
