@@ -167,7 +167,7 @@ function check_last_exit_code() {
 # download and source fzf-docker
 [[ -d "$HOME/.docker/fzf-docker" ]] || git clone https://github.com/MartinRamm/fzf-docker.git $HOME/.docker/fzf-docker
 
-# RPROMPT is the right side of the zsh prompt:w
+# RPROMPT is the right side of the zsh prompt
 RPROMPT='$(check_last_exit_code)'
 
 # source ~/.zshplugins/fzf-tab/fzf-tab.plugin.zsh
