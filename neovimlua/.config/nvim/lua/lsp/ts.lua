@@ -15,7 +15,6 @@ lspconfig.tsserver.setup({
 		buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
 		buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
 		vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
-		-- vim.cmd("command! LspFormatting lua vim.lsp.buf.format({ async = true })")
 		vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
 		vim.cmd("command! LspRangeCodeAction lua vim.lsp.buf.range_code_action()")
 		vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
@@ -37,6 +36,7 @@ lspconfig.tsserver.setup({
 		buf_map(bufnr, "n", "<leader>cra", ":LspRangeCodeAction<CR>")
 		buf_map(bufnr, "n", "<Leader>a", ":LspDiagLine<CR>")
 		buf_map(bufnr, "i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })")
+		-- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })")
+		-- vim.cmd("command! LspFormatting lua vim.lsp.buf.format({ async = true })")
 	end,
 })

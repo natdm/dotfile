@@ -40,15 +40,55 @@ augroup END
 ]])
 
 -- make go have less whitespace, for god sake
-cmd([[
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
-au! BufWritePre *_test.go TestFileRace
-]])
+
+autocmd("BufNewFile,BufRead", {
+	pattern = "*.go",
+	callback = function()
+		vim.cmd("setlocal noexpandtab tabstop=2 shiftwidth=2")
+		_G.TestFileRace()
+	end,
+})
+autocmd("BufWritePre", {
+	pattern = "*_test.go",
+	callback = function()
+		-- for some reason I can't pass _G.TestFileRace as a param, must br called
+		_G.TestFileRace()
+	end,
+})
+autocmd("Filetype", {
+	pattern = "zsh", -- bash has better support, so move zsh to bash
+	callback = function()
+		vim.cmd("set filetype=bash")
+	end,
+})
+
+autocmd("BufRead", {
+	pattern = "*.cql", -- for Cassandra queries
+	callback = function()
+		vim.cmd("set filetype=sql")
+	end,
+})
 
 -- Reset a zsh filetype to bash, since it's what I use more often
-cmd([[
-autocmd Filetype zsh set filetype=bash
-]])
+-- cmd([[
+-- autocmd Filetype zsh set filetype=bash
+-- ]])
+
+local set_bash_elixir_script_ft = function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 0, false)
+	if string.find(lines[1], "elixir") then
+		vim.cmd("set filetype=elixir")
+	end
+end
+
+-- if the bash script has an elixir exec, set the filetype to elixir
+-- This could be extended to different filetypes
+autocmd("BufNewFile,BufRead", {
+	group = augroup("bash_elixir", {}),
+	pattern = "*.sh",
+	callback = set_bash_elixir_script_ft,
+})
 
 cmd([[
 command TestFileRace :lua TestFileRace()

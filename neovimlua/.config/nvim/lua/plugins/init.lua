@@ -120,6 +120,10 @@ return require("packer").startup(function(use)
 	use("styled-components/vim-styled-components")
 	use("mattn/emmet-vim")
 	use("elixir-editors/vim-elixir")
+	use({
+		"mhanberg/elixir.nvim",
+		config = require("plugins.configs.elixir"),
+	})
 	use("chrisbra/csv.vim")
 	use("ellisonleao/glow.nvim")
 	use({
@@ -182,6 +186,7 @@ return require("packer").startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		config = require("plugins.configs.lualine"),
 	})
+	use("eandrju/cellular-automaton.nvim")
 	use("rhysd/committia.vim")
 	use({
 		"nvim-treesitter/nvim-treesitter",

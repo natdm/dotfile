@@ -92,6 +92,7 @@ nmapsl("r", ":NvimTreeRefresh<CR>")
 -- prev/next diff and center
 nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
 nmapl("hH", '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>zz')
+nmapl("mir", ":CellularAutomaton make_it_rain<CR>")
 
 -- this could be written better, they have examples for it in gitsigns
 -- but it works fine.
