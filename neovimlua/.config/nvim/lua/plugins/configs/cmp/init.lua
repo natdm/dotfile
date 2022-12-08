@@ -5,6 +5,7 @@ lspkind.init()
 require("plugins.configs.cmp.jira_source")
 require("plugins.configs.cmp.env_vars")
 require("plugins.configs.cmp.gh_org_members_source")
+-- require("plugins.configs.cmp.home_assistant")
 
 -- cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-nvim-lsp
@@ -39,6 +40,7 @@ cmp.setup({
 				luasnip = "[snip]",
 				jira_issues = "[jira]",
 				gh_users = "[gh]",
+				home_assistant = "[ha]",
 			},
 		}),
 	},
@@ -73,6 +75,7 @@ cmp.setup({
 	sources = {
 		--{name = "treesitter"},
 		{ name = "jira_issues" },
+		-- { name = "home_assistant", max_item_count = 10 },
 		{ name = "env_vars" },
 		{ name = "gh_users" },
 		{ name = "luasnip" },

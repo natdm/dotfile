@@ -4,6 +4,10 @@ local locals = require("nvim-treesitter.locals")
 local query = require("nvim-treesitter.query")
 local api = vim.api
 
+function _G.runbash()
+	print(api.nvim_get_current_line())
+end
+
 function _G.put(...)
 	local objects = {}
 	for i = 1, select("#", ...) do
