@@ -11,7 +11,7 @@
 	(string_fragment) @html
   (template_string) @html
  ]
- (#contains? @html "<html" "<div>" "<p>" "<body>" "<head>")
+ (#contains? @html  "<!DOCTYPE html>" "<html" "<div>" "<p>" "<body>" "<head>")
 )
 
 
