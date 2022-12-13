@@ -9,9 +9,12 @@ source.complete = function(self, _, callback)
 
 	if not self.cache[bufnr] then
 		local items = {}
-		local label = "$"
-		if vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript" then
-						label = ""
+		local label = ""
+		if
+						vim.bo.filetype == "sh" or
+						vim.bo.filetype == "bash" or
+						vim.bo.filetype == "zsh" then
+						label = "$"
 		end
 		for k, _ in pairs(vim.fn.environ()) do
 			table.insert(items, {
@@ -26,7 +29,7 @@ source.complete = function(self, _, callback)
 end
 
 source.get_trigger_characters = function()
-	return { "$", "process.env.", "process.env[']", "os.Getenv("}
+	return { "$", "process.env.", "process.env[']", "os.Getenv(", "os.Lookupenv("}
 end
 
 local available_file_types = {
@@ -35,6 +38,7 @@ local available_file_types = {
 				["zsh"] = true,
 				["javascript"] = true,
 				["typescript"] = true,
+				["go"] = true,
 }
 
 source.is_available = function()
