@@ -47,6 +47,14 @@ cmp.setup({
 
 	experimental = { ghost_text = true },
 	mapping = {
+					-- ["<tab>"] = cmp.mapping(function(fallback)
+					-- 				print("hello!")
+					-- 				if  luasnip.choice_active() then
+					-- 								luasnip.change_choice(1)
+					-- 				else
+					-- 								fallback()
+					-- 				end
+					-- end),
 		["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 		["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),

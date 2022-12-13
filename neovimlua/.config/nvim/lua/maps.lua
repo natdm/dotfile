@@ -179,23 +179,18 @@ nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 -- nmaps('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 nmaps("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
--- nmaps('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+nmap("[a", "<cmd>lua vim.diagnostics.goto_next()<CR>")
+nmap("]a", "<cmd>lua vim.diagnostics.goto_next()<CR>")
 
--- The code below uses a mix of trouble and normal diagnostics
--- currently disabled since I like trouble more.
--- nmapsl('df', '<cmd>lua vim.diagnostic.open_float()<CR>')
--- nmapsl('dn', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
--- nmapsl('dp', '<cmd>lua vim.diagnostic.goto_next()<CR>')
--- nmapsl('dl', '<cmd>lua vim.diagnostic.setqflist()<CR>') -- this sets all for workspace. `setloclist` will set for buffer
 nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
 -- Trouble diagnostics
-nmapsl("wd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
-nmapsl("dd", "<cmd>TroubleToggle document_diagnostics<CR>")
-nmapsl("df", "<cmd>TroubleToggle quickfix<CR>")
-nmapsl("gr", "<cmd>TroubleToggle lsp_references<CR>")
-nmapsl("dx", "<cmd>TroubleToggle<CR>")
-nmapsl("ca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
+nmapsl("lwd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
+nmapsl("ldd", "<cmd>TroubleToggle document_diagnostics<CR>")
+nmapsl("lf", "<cmd>TroubleToggle quickfix<CR>")
+nmapsl("lr", "<cmd>TroubleToggle lsp_references<CR>")
+nmapsl("lx", "<cmd>TroubleToggle<CR>")
+nmapsl("lca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 nmaps("<C-h>", "<C-w><C-h>")
 nmaps("<C-j>", "<C-w><C-j>")
@@ -224,8 +219,14 @@ nmapsl("ss", "<cmd>Switch<CR>")
 -- shortcut to reload luasnip on changes
 nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
 nmap("<leader><leader>x", "source ~/.config/nvim/init.lua<CR>")
-vim.api.nvim_set_keymap("i", "<Tab>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
+vim.keymap.set('i', '<Tab>', function()
+				if require('luasnip').choice_active() then
+								return "<Plug>luasnip-next-choice"
+				else
+								return "<Tab>"
+				end
+end, {expr = true})
+-- vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
 -- nmapl('crn', '<Plug>(coc-rename)')
 -- vmapl('cm', '<Plug>(coc-format-selected)')
 -- nmapl('cm', '<Plug>(coc-format-selected)')

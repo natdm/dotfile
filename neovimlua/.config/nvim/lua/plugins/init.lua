@@ -86,10 +86,10 @@ return require("packer").startup(function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		config = require("trouble").setup({}),
 	})
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		config = require("plugins.configs.null-ls"),
-	})
+	-- use({
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	config = require("plugins.configs.null-ls"),
+	-- })
 	use("jose-elias-alvarez/nvim-lsp-ts-utils")
 
 	-- completion
