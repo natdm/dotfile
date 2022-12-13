@@ -22,12 +22,12 @@ source.complete = function(self, _, callback)
 end
 
 source.get_trigger_characters = function()
-	return { "$" }
+	return { "$", "process.env." }
 end
 
 source.is_available = function()
 	local ft = vim.bo.filetype
-	return ft == "sh" or ft == "bash" or ft == "zsh"
+	return ft == "sh" or ft == "bash" or ft == "zsh" or ft == "javascript"
 end
 
 require("cmp").register_source("env_vars", source.new())

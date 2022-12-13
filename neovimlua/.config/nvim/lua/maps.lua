@@ -201,6 +201,7 @@ nmaps("<C-h>", "<C-w><C-h>")
 nmaps("<C-j>", "<C-w><C-j>")
 nmaps("<C-k>", "<C-w><C-k>")
 nmaps("<C-l>", "<C-w><C-l>")
+nmapl("pp", "<cmd>Prettier<CR>")
 
 -- Just aliasing this as C-p since it was available. Supress any non-pending currently showing notifications.
 nmaps("<C-p>", '<cmd> lua require("notify").dismiss()<CR>')

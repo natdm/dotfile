@@ -1,4 +1,5 @@
 require("lsp.lua")
+require("lsp.python")
 require("lsp.elixir")
 require("lsp.efm")
 require("lsp.go")

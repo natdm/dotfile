@@ -113,7 +113,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- languages
-	use('gleam-lang/gleam.vim')
+	use("gleam-lang/gleam.vim")
 	use("fatih/vim-go")
 	use("pangloss/vim-javascript")
 	use("leafgarland/typescript-vim")

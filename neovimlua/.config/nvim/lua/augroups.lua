@@ -55,6 +55,13 @@ autocmd("BufWritePre", {
 		_G.TestFileRace()
 	end,
 })
+autocmd("BufWritePre", {
+	pattern = "*.js",
+	callback = function()
+		-- for some reason I can't pass _G.TestFileRace as a param, must br called
+		vim.cmd("Prettier")
+	end,
+})
 autocmd("Filetype", {
 	pattern = "zsh", -- bash has better support, so move zsh to bash
 	callback = function()
