@@ -1,4 +1,4 @@
-ls = require("luasnip")
+local ls = require("luasnip")
 
 ls.config.set_config({
 	-- treesitter-hl has 100, use something higher (default is 200).
@@ -207,7 +207,6 @@ local opentrace_span = function(pos)
 					)
 				)
 			end
-
 
 			-- check for anonymous functions
 			_, _, name, ctx = string.find(curr, anon_fn_test)

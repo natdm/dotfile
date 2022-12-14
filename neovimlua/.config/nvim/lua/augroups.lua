@@ -48,6 +48,7 @@ autocmd("BufNewFile,BufRead", {
 		_G.TestFileRace()
 	end,
 })
+
 autocmd("BufWritePre", {
 	pattern = "*_test.go",
 	callback = function()
@@ -55,13 +56,22 @@ autocmd("BufWritePre", {
 		_G.TestFileRace()
 	end,
 })
-autocmd("BufWritePre", {
+
+autocmd("BufWritePost", {
 	pattern = "*.js",
 	callback = function()
 		-- for some reason I can't pass _G.TestFileRace as a param, must br called
 		vim.cmd("Prettier")
 	end,
 })
+
+autocmd("BufWritePost", {
+	pattern = "*.lua",
+	callback = function()
+		vim.cmd("FormatWrite")
+	end,
+})
+
 autocmd("Filetype", {
 	pattern = "zsh", -- bash has better support, so move zsh to bash
 	callback = function()

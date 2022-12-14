@@ -219,13 +219,13 @@ nmapsl("ss", "<cmd>Switch<CR>")
 -- shortcut to reload luasnip on changes
 nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
 nmap("<leader><leader>x", "source ~/.config/nvim/init.lua<CR>")
-vim.keymap.set('i', '<Tab>', function()
-				if require('luasnip').choice_active() then
-								return "<Plug>luasnip-next-choice"
-				else
-								return "<Tab>"
-				end
-end, {expr = true})
+vim.keymap.set("i", "<S-Tab>", function()
+	if require("luasnip").choice_active() then
+		return "<Plug>luasnip-next-choice"
+	else
+		return "<S-Tab>"
+	end
+end, { expr = true })
 -- vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
 -- nmapl('crn', '<Plug>(coc-rename)')
 -- vmapl('cm', '<Plug>(coc-format-selected)')
