@@ -136,6 +136,7 @@ return require("packer").startup(function(use)
 		"folke/neodev.nvim",
 		config = require("plugins.configs.luadev"),
 	})
+	use({ "mhartington/formatter.nvim", config = require("plugins.configs.formatter") })
 
 	-- tests
 	use({
