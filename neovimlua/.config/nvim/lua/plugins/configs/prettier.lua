@@ -1,6 +1,4 @@
-local prettier = require("prettier")
-
-prettier.setup({
+require("prettier").setup({
 	bin = "prettier", -- or `'prettierd'` (v0.22+)
 	filetypes = {
 		"css",

@@ -114,7 +114,7 @@ return require("packer").startup(function(use)
 
 	-- languages
 	use("gleam-lang/gleam.vim")
-	use("fatih/vim-go")
+	use("arp242/gopher.vim")
 	use("pangloss/vim-javascript")
 	use("leafgarland/typescript-vim")
 	use("peitalin/vim-jsx-typescript")
@@ -127,10 +127,16 @@ return require("packer").startup(function(use)
 	})
 	use("chrisbra/csv.vim")
 	use("ellisonleao/glow.nvim")
-	use({
-		"MunifTanjim/prettier.nvim",
-		config = require("plugins.configs.prettier"),
-	})
+	-- Disabling prettier for now since it uses nullls and I'm trying
+	-- to consolidate language server functionality. I'm using
+	-- numtostr prettierls which has more basic functionality.
+	--
+	-- use({
+	-- 	"MunifTanjim/prettier.nvim",
+	-- 	config = require("plugins.configs.prettier"),
+	-- })
+	use("numToStr/prettierrc.nvim")
+
 	-- specifically lua nvim development plugin
 	use({
 		"folke/neodev.nvim",

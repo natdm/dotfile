@@ -57,6 +57,11 @@ return {
 		s("date", f(date, {}, {})),
 	},
 	auto_snippets = {
+		s({ trig = "digit(%d)(%d)", regTrig = true }, {
+			f(function(arg, snip) -- arg is if additional args are passed in. So complicated.
+				return string.format("%d - %d", snip.captures[1], snip.captures[2])
+			end),
+		}),
 
 		s("autotrigger", {
 			t("autosnippet"),

@@ -431,9 +431,10 @@ return {
 				[[
 		t.Run("{}", func(t *testing.T) {{
 			{}
+			{}
 		}})
 		]],
-				{ i(1, "name"), i(0) }
+				{ i(1, "name"), c(2, { t("t.Parallel()"), t("") }), i(0) }
 			)
 		),
 		s(

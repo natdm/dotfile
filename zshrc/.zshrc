@@ -9,12 +9,11 @@ setopt auto_cd
 # this doesn't seem to work
 export EDITOR=nvim
 export VISUAL=nvim
-export DOOM_PATH="~/.emacs.d/bin/doom"
 export GO_BINARIES="/Users/$(whoami)/go/bin"
 export PATH="$PATH:$DOOM_PATH:$GO_BINARIES"
 export FZF_PATH="/usr/local/bin/fzf"
 export FZF_DEFAULT_COMMAND="rg --files --hiden"
-export FZF_DEFAULT_OPS="--layout=reverse --info=inline --bind ctrl-a:select-all,ctrl-n:down,ctrl-p:up --color=bg+:#2c323c,spinner:#c678dd,hl:#5c6370,fg:#abb2bf,header:#5c6370,info:#e5c07b,pointer:#c678dd,marker:#e06c75,fg+:#abb2bf,prompt:#c678dd,hl+:#c678dd"
+export FZF_DEFAULT_OPS="-m --layout=reverse --info=inline --bind ctrl-a:select-all,ctrl-n:down,ctrl-p:up --color=bg+:#2c323c,spinner:#c678dd,hl:#5c6370,fg:#abb2bf,header:#5c6370,info:#e5c07b,pointer:#c678dd,marker:#e06c75,fg+:#abb2bf,prompt:#c678dd,hl+:#c678dd"
 export TERM="xterm-256color"
 [ -f ~/.env ] && source ~/.env
 # Set name of the theme to load --- if set to "random", it will

@@ -57,13 +57,13 @@ autocmd("BufWritePre", {
 	end,
 })
 
-autocmd("BufWritePost", {
-	pattern = "*.js",
-	callback = function()
-		-- for some reason I can't pass _G.TestFileRace as a param, must br called
-		vim.cmd("Prettier")
-	end,
-})
+-- autocmd("BufWritePost", {
+-- 	pattern = "*.js",
+-- 	callback = function()
+-- 		-- for some reason I can't pass _G.TestFileRace as a param, must br called
+-- 		vim.cmd("Prettier")
+-- 	end,
+-- })
 
 autocmd("BufWritePost", {
 	pattern = "*.lua",

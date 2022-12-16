@@ -176,11 +176,12 @@ nmap("gf", "<cmd>lua vim.lsp.buf.format({ async = false })<CR>")
 nmaps("rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
 nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
--- nmaps('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+nmaps("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 nmaps("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-nmap("[a", "<cmd>lua vim.diagnostics.goto_next()<CR>")
-nmap("]a", "<cmd>lua vim.diagnostics.goto_next()<CR>")
+nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>") -- no idea why but everyone does `K`
+nmap("f", "<cmd>lua vim.diagnostic.open_float()<CR>") -- F for float
+nmap("dn", "<cmd>lua vim.diagnostic.goto_prev()<CR>") -- dn: diag next
+nmap("dp", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- dp: diag prev
 
 nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
@@ -189,7 +190,7 @@ nmapsl("lwd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
 nmapsl("ldd", "<cmd>TroubleToggle document_diagnostics<CR>")
 nmapsl("lf", "<cmd>TroubleToggle quickfix<CR>")
 nmapsl("lr", "<cmd>TroubleToggle lsp_references<CR>")
-nmapsl("lx", "<cmd>TroubleToggle<CR>")
+nmapsl("tt", "<cmd>TroubleToggle<CR>")
 nmapsl("lca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 nmaps("<C-h>", "<C-w><C-h>")
