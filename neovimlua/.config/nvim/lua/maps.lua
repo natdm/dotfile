@@ -86,8 +86,7 @@ vmap("<", "<gv")
 vmap("p", '"_dP')
 
 -- file explorer
-nmapsl("e", ":NvimTreeToggle<CR>")
-nmapsl("r", ":NvimTreeRefresh<CR>")
+nmaps("t", ":NvimTreeToggle<CR>")
 
 -- prev/next diff and center
 nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
@@ -211,6 +210,8 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 nmapl("dc", "<cmd> lua require'dap'.continue()<CR>")
 nmapl("db", "<cmd> lua require'dap'.toggle_breakpoint()<CR>")
 nmapl("dt", "<cmd> lua require'dap-go'.debug_test()<CR>")
+nmapl(",", "<C-^>")
+vmap("r", "y:%s/<C-r>0//g<left><left>")
 
 --
 
@@ -220,52 +221,12 @@ nmapsl("ss", "<cmd>Switch<CR>")
 -- shortcut to reload luasnip on changes
 nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
 nmap("<leader><leader>x", "source ~/.config/nvim/init.lua<CR>")
-vim.keymap.set("i", "<S-Tab>", function()
+vim.keymap.set("s", "<S-Tab>", function()
 	if require("luasnip").choice_active() then
+		print("in choice")
 		return "<Plug>luasnip-next-choice"
 	else
+		print("NOT in choice")
 		return "<S-Tab>"
 	end
 end, { expr = true })
--- vim.api.nvim_set_keymap("s", "<Tab>", "<Plug>luasnip-next-choice", {})
--- nmapl('crn', '<Plug>(coc-rename)')
--- vmapl('cm', '<Plug>(coc-format-selected)')
--- nmapl('cm', '<Plug>(coc-format-selected)')
--- vmapl('a', '<Plug>(coc-codeaction-selected)')
--- nmapl('a', '<Plug>(coc-codeaction-selected)')
--- nmapl('ca', '<Plug>(coc-codeaction)')
--- nmapl('cf', '<Plug>(coc-fix-current)')
--- nmapl('crf', '<Plug>(coc-references)')
--- nmapl('cdp', '<Plug>(coc-diagnostic-prev)')
--- nmapl('cdn', '<Plug>(coc-diagnostic-next)')
--- nmapl('cds', ':CocDiagnostics<CR>')
--- nmapsl('e', ':CocCommand explorer<CR>')
--- -- Remap keys for gotos
--- nmap('gd', '<Plug>(coc-definition)')
--- nmap('gy', '<Plug>(coc-type-definition)')
--- nmap('gi', '<Plug>(coc-implementation)')
--- nmap('gr', '<Plug>(coc-references)')
-
--- function show_documentation()
--- local filetype = vim.bo.filetype
-
--- if filetype == 'vim' or filetype == 'help' then
--- vim.api.nvim_command('h ' .. filetype)
--- else
--- todo: LSP
--- vim.fn.CocActionAsync('doHover')
--- end
--- end
-
--- function _G.smart_scroll_f()
---     return vim.fn['coc#float#has_scroll']() and vim.fn['coc#float#scroll'](1) or t'<C-f>'
--- end
-
--- function _G.smart_scroll_b()
---     return vim.fn['coc#float#has_scroll']() and vim.fn['coc#float#scroll'](0) or t'<C-b>'
--- end
-
--- maybe this is a better way, since this won't work...
--- https://github.com/kristijanhusak/neovim-config/blob/bleeding-edge/nvim/lua/partials/completion.lua#L52
--- map('n', '<c-f>', 'v:lua.smart_scroll_f()', {nowait = true, expr = true})
--- map('n', '<c-b>', 'v:lua.smart_scroll_b()', {nowait = true, expr = true})

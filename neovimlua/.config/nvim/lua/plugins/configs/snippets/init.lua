@@ -19,6 +19,7 @@ local lua_snippets = require("plugins.configs.snippets.lua")
 local md_snippets = require("plugins.configs.snippets.markdown")
 local ts_snippets = require("plugins.configs.snippets.typescript")
 local vw_snippets = require("plugins.configs.snippets.vimwiki")
+local elixir_snippets = require("plugins.configs.snippets.elixir")
 -- require('todo-comments') -- just import, it registers itself
 
 ls.add_snippets("all", all_snippets.snippets)
@@ -37,3 +38,5 @@ ls.add_snippets("javascript", ts_snippets.snippets)
 ls.add_snippets("javascript", ts_snippets.auto_snippets, { type = "autosnippets" })
 ls.add_snippets("vimwiki", vw_snippets.snippets)
 ls.add_snippets("vimwiki", vw_snippets.snippets, { type = "autosnippets" })
+ls.add_snippets("elixir", elixir_snippets.snippets)
+ls.add_snippets("elixir", elixir_snippets.auto_snippets, { type = "autosnippets" })
