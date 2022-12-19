@@ -74,10 +74,11 @@ return require("packer").startup(function(use)
 	-- lsp
 	use("neovim/nvim-lspconfig")
 	use("artempyanykh/marksman") -- markdown lsp
-	-- use({ -- this has an elixir bug, https://github.com/ray-x/lsp_signature.nvim/issues/213
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	config = require("plugins.configs.lspsignature"),
-	-- })
+	use(
+		-- this has an elixir bug, https://github.com/ray-x/lsp_signature.nvim/issues/213
+		-- so all the setups are done per language.
+		"ray-x/lsp_signature.nvim"
+	)
 	use({
 		-- prettier diagnostics, I don't use it a lot but
 		-- but maybe I should. No keybindings, just

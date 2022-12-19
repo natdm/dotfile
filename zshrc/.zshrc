@@ -38,6 +38,7 @@ compinit
 [[ -d "$ZSH_CUSTOM/plugins/forgit" ]] || git clone https://github.com/wfxr/forgit.git $ZSH_CUSTOM/plugins/forgit
 # Check for any work specific sourcefiles
 [[ -f "$HOME/.localrc" ]] && source "$HOME/.localrc"
+[[ -f "$HOME/.personal" ]] && source "$HOME/.personal"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

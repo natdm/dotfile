@@ -1,3 +1,4 @@
+local signature_setup = require("plugins.configs.lspsignature").signature_setup
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
 	vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
 		silent = true,
@@ -5,6 +6,9 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
 end
 
 require("lspconfig").tsserver.setup({
+	on_attach = function(client, bufnr)
+		require("lsp_signature").on_attach(signature_setup, bufnr)
+	end,
 	-- settings = {documentFormatting = true},
 	-- on_attach = function(client, bufnr)
 	-- local ts_utils = require("nvim-lsp-ts-utils")

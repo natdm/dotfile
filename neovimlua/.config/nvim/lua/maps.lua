@@ -82,9 +82,6 @@ imap("?", "?<c-g>u")
 vmap(">", ">gv")
 vmap("<", "<gv")
 
--- paste without yanking
-vmap("p", '"_dP')
-
 -- file explorer
 nmaps("t", ":NvimTreeToggle<CR>")
 
@@ -135,11 +132,11 @@ nmapsl("rh", ':exe "resize " . (winheight(0) * 2/3)<CR>')
 nmapsl("tn", ":tabnew<CR>")
 nmapsl("tx", ":tabclose<CR>")
 nmapsl("ts", ":tab split<CR> ")
--- Normalize spacing
--- nmap <silent> <leader>r= <C-W>=
--- Breakout split in to new tab
-nmapsl("tb", "<C-W>T")
 
+-- Breakout split in to new tab -- commented out since I should just learn it.
+-- nmapsl("tb", "<C-W>T")
+
+-- window splits
 nmapsl("wsh", ":topleft vnew<CR><ESC>")
 nmapsl("wsj", ":botright new<CR><ESC>")
 nmapsl("wsk", ":topleft new<CR><ESC>")
@@ -153,7 +150,9 @@ nmapsl("bsl", ":rightbelow vnew<CR><ESC>")
 
 nmapsl("bf", ":BufOnly<CR> ")
 
-vmapsl("p", '"_dP')
+-- Paste and don't yank the underlying buffer, overriding default `p`
+vmap("p", '"_dP')
+vmap("p", '"_dP')
 
 nmap("H", "^")
 nmap("L", "$")
@@ -185,22 +184,21 @@ nmap("dp", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- dp: diag prev
 nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
 -- Trouble diagnostics
-nmapsl("lwd", "<cmd>TroubleToggle workspace_diagnostics<CR>")
-nmapsl("ldd", "<cmd>TroubleToggle document_diagnostics<CR>")
-nmapsl("lf", "<cmd>TroubleToggle quickfix<CR>")
-nmapsl("lr", "<cmd>TroubleToggle lsp_references<CR>")
+nmapsl("tq", "<cmd>TroubleToggle quickfix<CR>")
+nmapsl("tr", "<cmd>TroubleToggle lsp_references<CR>")
 nmapsl("tt", "<cmd>TroubleToggle<CR>")
-nmapsl("lca", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
+nmapsl("ta", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
+-- Why the hell was C-w ever a thing?
 nmaps("<C-h>", "<C-w><C-h>")
 nmaps("<C-j>", "<C-w><C-j>")
 nmaps("<C-k>", "<C-w><C-k>")
 nmaps("<C-l>", "<C-w><C-l>")
-nmapl("pp", "<cmd>Prettier<CR>")
 
 -- Just aliasing this as C-p since it was available. Supress any non-pending currently showing notifications.
 nmaps("<C-p>", '<cmd> lua require("notify").dismiss()<CR>')
 
+-- changing window widths
 nmaps("]]", "<cmd> lua IncWidth()<CR>")
 nmaps("[[", "<cmd> lua DecWidth()<CR>")
 nmaps("}}", "<cmd> lua IncHeight()<CR>")
@@ -209,18 +207,20 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 -- debugging, 'd' for debug
 nmapl("dc", "<cmd> lua require'dap'.continue()<CR>")
 nmapl("db", "<cmd> lua require'dap'.toggle_breakpoint()<CR>")
-nmapl("dt", "<cmd> lua require'dap-go'.debug_test()<CR>")
-nmapl(",", "<C-^>")
-vmap("r", "y:%s/<C-r>0//g<left><left>")
+nmapl("dt", "<cmd> lua require'dap-gc'.debug_test()<CR>")
 
 --
 
-nmapsl("ht", "<cmd>so $VIMRUNTIME/syntax/hitest.vim<CR>")
+-- do a search/replace of the current highlighted word
+vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
 
-nmapsl("ss", "<cmd>Switch<CR>")
--- shortcut to reload luasnip on changes
-nmap("<leader><leader>s", "<cmd>source ~/.config/nvim/lua/plugins/configs/snippets/init.lua<CR>")
-nmap("<leader><leader>x", "source ~/.config/nvim/init.lua<CR>")
+-- go to the previous file
+nmapl(",", "<C-^>")
+
+-- view highlight groups
+nmapsl("ht", "<cmd>sc $VIMRUNTIME/syntax/hitest.vim<CR>")
+
+-- shortcut to toggle between luasnip choices
 vim.keymap.set("s", "<S-Tab>", function()
 	if require("luasnip").choice_active() then
 		print("in choice")
