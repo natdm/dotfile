@@ -115,7 +115,11 @@ return require("packer").startup(function(use)
 
 	-- languages
 	use("gleam-lang/gleam.vim")
-	use("arp242/gopher.vim")
+	-- use("arp242/gopher.vim") - this is a pita, I'd rather the old go plugin
+	use({
+		"fatih/vim-go",
+		config = require("plugins.configs.vim-go"),
+	})
 	use("pangloss/vim-javascript")
 	use("leafgarland/typescript-vim")
 	use("peitalin/vim-jsx-typescript")
