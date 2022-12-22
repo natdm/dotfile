@@ -5,6 +5,13 @@
   argument: [(raw_string) (string)] @typescript (#offset! @typescript 0 1 0 -1)
 )
 
+(
+ command 
+  name: (command_name) @_cmd (#any-of? @_cmd "python" "python3")
+  argument: (word) @_arg (#eq? @_arg "-c") 
+  argument: [(raw_string) (string)] @python
+	(#offset! @python 0 1 0 -1)
+)
 
 (
  command 

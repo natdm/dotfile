@@ -20,6 +20,7 @@ local md_snippets = require("plugins.configs.snippets.markdown")
 local ts_snippets = require("plugins.configs.snippets.typescript")
 local vw_snippets = require("plugins.configs.snippets.vimwiki")
 local elixir_snippets = require("plugins.configs.snippets.elixir")
+local python_snippets = require("plugins.configs.snippets.python")
 -- require('todo-comments') -- just import, it registers itself
 
 ls.add_snippets("all", all_snippets.snippets)
@@ -40,3 +41,5 @@ ls.add_snippets("vimwiki", vw_snippets.snippets)
 ls.add_snippets("vimwiki", vw_snippets.snippets, { type = "autosnippets" })
 ls.add_snippets("elixir", elixir_snippets.snippets)
 ls.add_snippets("elixir", elixir_snippets.auto_snippets, { type = "autosnippets" })
+ls.add_snippets("python", python_snippets.snippets)
+ls.add_snippets("python", python_snippets.auto_snippets, { type = "autosnippets" })

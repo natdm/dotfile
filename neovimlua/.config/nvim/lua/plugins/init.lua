@@ -114,6 +114,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- languages
+	use("python/black")
 	use("gleam-lang/gleam.vim")
 	-- use("arp242/gopher.vim") - this is a pita, I'd rather the old go plugin
 	use({

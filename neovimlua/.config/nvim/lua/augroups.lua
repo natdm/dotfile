@@ -39,20 +39,27 @@ augroup LongLines
 augroup END
 ]])
 
--- make go have less whitespace, for god sake
-
 autocmd("BufNewFile,BufRead", {
 	pattern = "*.go",
+	desc = "make go have less whitespace, for god sake",
 	callback = function()
 		vim.cmd("setlocal noexpandtab tabstop=2 shiftwidth=2")
 		_G.TestFileRace()
 	end,
 })
 
+autocmd("BufRead", {
+	pattern = "*/zsh/functions/*",
+	desc = "Update any zsh functions in my personal dotfiles to be shown as bash",
+	callback = function()
+		vim.cmd("set filetype=bash")
+	end,
+})
+
 autocmd("BufWritePre", {
 	pattern = "*_test.go",
+	desc = "test go methods on save",
 	callback = function()
-		-- for some reason I can't pass _G.TestFileRace as a param, must br called
 		_G.TestFileRace()
 	end,
 })
@@ -67,13 +74,23 @@ autocmd("BufWritePre", {
 
 autocmd("BufWritePost", {
 	pattern = "*.lua",
+	desc = "format lua on save",
 	callback = function()
 		vim.cmd("FormatWrite")
 	end,
 })
 
+autocmd("BufWritePost", {
+	pattern = "*.py",
+	desc = "format python on save",
+	callback = function()
+		vim.cmd("silent !black -q %")
+	end,
+})
+
 autocmd("Filetype", {
-	pattern = "zsh", -- bash has better support, so move zsh to bash
+	pattern = "zsh",
+	desc = "bash has better support, so move zsh to bash",
 	callback = function()
 		vim.cmd("set filetype=bash")
 	end,
@@ -81,6 +98,7 @@ autocmd("Filetype", {
 
 autocmd("BufRead", {
 	pattern = "*.cql", -- for Cassandra queries
+	desc = "represent cassandra queries as sql so we get some color",
 	callback = function()
 		vim.cmd("set filetype=sql")
 	end,
@@ -103,6 +121,7 @@ end
 -- This could be extended to different filetypes
 autocmd("BufNewFile,BufRead", {
 	group = augroup("bash_elixir", {}),
+	desc = "set a bash type to elixir if it's a bash script execing elixir",
 	pattern = "*.sh",
 	callback = set_bash_elixir_script_ft,
 })
