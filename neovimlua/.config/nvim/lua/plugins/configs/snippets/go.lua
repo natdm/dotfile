@@ -374,6 +374,7 @@ return {
 		}, begin_cond),
 	},
 	snippets = {
+		s("handler", { t("w http.ResponseWriter, r *http.Request") }),
 		s(
 			"forfn",
 			fmt(

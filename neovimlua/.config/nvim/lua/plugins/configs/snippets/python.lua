@@ -5,13 +5,37 @@ local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
+local c = ls.choice_node
 local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 local conds = require("luasnip.extras.expand_conditions")
 
 return {
 	snippets = {
-		s("__main", { t('if __name__ == "__main__":') }),
+		s(
+			"main",
+			fmt(
+				[[
+			def main() -> None:
+				{}
+
+
+			if __name__ == "__main__":
+				main()
+			]],
+				{ i(0, "pass") }
+			)
+		),
+		s(
+			"name",
+			fmt(
+				[[
+		if __name__ == "__main__":
+			{}
+		]],
+				{ i(1) }
+			)
+		),
 	},
 	auto_snippets = {
 		s(

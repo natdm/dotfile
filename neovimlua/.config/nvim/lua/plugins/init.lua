@@ -79,14 +79,14 @@ return require("packer").startup(function(use)
 		-- so all the setups are done per language.
 		"ray-x/lsp_signature.nvim"
 	)
-	use({
-		-- prettier diagnostics, I don't use it a lot but
-		-- but maybe I should. No keybindings, just
-		-- :Trouble<cmd>
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = require("trouble").setup({}),
-	})
+	-- use({
+	-- 	-- prettier diagnostics, I don't use it a lot but
+	-- 	-- but maybe I should. No keybindings, just
+	-- 	-- :Trouble<cmd>
+	-- 	"folke/trouble.nvim",
+	-- 	requires = "kyazdani42/nvim-web-devicons",
+	-- 	config = require("trouble").setup({}),
+	-- })
 	-- use({
 	-- 	"jose-elias-alvarez/null-ls.nvim",
 	-- 	config = require("plugins.configs.null-ls"),
@@ -144,10 +144,7 @@ return require("packer").startup(function(use)
 	use("numToStr/prettierrc.nvim")
 
 	-- specifically lua nvim development plugin
-	use({
-		"folke/neodev.nvim",
-		config = require("plugins.configs.luadev"),
-	})
+	use("folke/neodev.nvim")
 	use({ "mhartington/formatter.nvim", config = require("plugins.configs.formatter") })
 
 	-- tests
@@ -224,5 +221,12 @@ return require("packer").startup(function(use)
 			{ "nvim-telescope/telescope-dap.nvim" },
 		},
 		config = require("plugins.configs.nvim-dap"),
+	})
+
+	-- swagger
+	use({
+		"vinnymeller/swagger-preview.nvim",
+		run = "npm install -g swagger-ui-watcher",
+		config = require("plugins.configs.swagger"),
 	})
 end)

@@ -3,7 +3,11 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require("lspconfig").sumneko_lua.setup({
+require("neodev").setup({
+	-- add any options here, or leave empty to use the default settings
+})
+
+require("lspconfig").lua_dev.setup({
 	on_attach = function(client, bufnr)
 		require("lsp_signature").on_attach(signature_setup, bufnr)
 	end,

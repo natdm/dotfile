@@ -179,7 +179,7 @@ source ~/.custom-alias
 
 alias luamake=/Users/Nathan.Hyland/.lua/lua-language-server/3rd/luamake/luamake
 
-alias python="python3"
+alias py="python3"
 
 git config --global push.default current
 git config --global diff.tool nvimdiff
