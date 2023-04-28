@@ -125,7 +125,10 @@ return require("packer").startup(function(use)
 	use("leafgarland/typescript-vim")
 	use("peitalin/vim-jsx-typescript")
 	use("styled-components/vim-styled-components")
-	use("mattn/emmet-vim")
+	use({
+		"mattn/emmet-vim",
+		config = require("plugins.configs.emmet"),
+	})
 	use("elixir-editors/vim-elixir")
 	use({
 		"mhanberg/elixir.nvim",

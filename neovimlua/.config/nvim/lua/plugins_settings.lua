@@ -1,8 +1,6 @@
 local g = vim.g
 -- This entire file is pretty much deprecated and these should be sent to other files for each specific plugin.
 
-g.user_emmet_leader_key = "<C-E>"
-
 g.cursorhold_updatetime = 100
 
 -- markdown stuff
