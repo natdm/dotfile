@@ -8,6 +8,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require("packer").startup(function(use)
+	use({
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	})
 	use("wbthomason/packer.nvim")
 	-- colorscheme
 	use("tjdevries/colorbuddy.vim") -- colorscheme creator, needed for a few of these
@@ -72,26 +77,25 @@ return require("packer").startup(function(use)
 	use("tpope/vim-rhubarb")
 
 	-- lsp
-	use("neovim/nvim-lspconfig")
 	use("artempyanykh/marksman") -- markdown lsp
 	use(
 		-- this has an elixir bug, https://github.com/ray-x/lsp_signature.nvim/issues/213
 		-- so all the setups are done per language.
 		"ray-x/lsp_signature.nvim"
 	)
-	-- use({
-	-- 	-- prettier diagnostics, I don't use it a lot but
-	-- 	-- but maybe I should. No keybindings, just
-	-- 	-- :Trouble<cmd>
-	-- 	"folke/trouble.nvim",
-	-- 	requires = "kyazdani42/nvim-web-devicons",
-	-- 	config = require("trouble").setup({}),
-	-- })
+	use({
+		-- prettier diagnostics, I don't use it a lot but
+		-- but maybe I should. No keybindings, just
+		-- :Trouble<cmd>
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = require("trouble").setup({}),
+	})
 	-- use({
 	-- 	"jose-elias-alvarez/null-ls.nvim",
 	-- 	config = require("plugins.configs.null-ls"),
 	-- })
-	use("jose-elias-alvarez/nvim-lsp-ts-utils")
+	-- use("jose-elias-alvarez/nvim-lsp-ts-utils")
 
 	-- completion
 	use({
@@ -144,7 +148,7 @@ return require("packer").startup(function(use)
 	-- 	"MunifTanjim/prettier.nvim",
 	-- 	config = require("plugins.configs.prettier"),
 	-- })
-	use("numToStr/prettierrc.nvim")
+	-- use("numToStr/prettierrc.nvim")
 
 	-- specifically lua nvim development plugin
 	use("folke/neodev.nvim")

@@ -8,6 +8,25 @@ end
 require("lspconfig").tsserver.setup({
 	on_attach = function(client, bufnr)
 		require("lsp_signature").on_attach(signature_setup, bufnr)
+		-- require("eslint").setup({
+		-- 	bin = "eslint", -- or `eslint_d`
+		-- 	code_actions = {
+		-- 		enable = true,
+		-- 		apply_on_save = {
+		-- 			enable = true,
+		-- 			types = { "directive", "problem", "suggestion", "layout" },
+		-- 		},
+		-- 		disable_rule_comment = {
+		-- 			enable = true,
+		-- 			location = "separate_line", -- or `same_line`
+		-- 		},
+		-- 	},
+		-- 	diagnostics = {
+		-- 		enable = true,
+		-- 		report_unused_disable_directives = false,
+		-- 		run_on = "type", -- or `save`
+		-- 	},
+		-- })
 	end,
 	-- settings = {documentFormatting = true},
 	-- on_attach = function(client, bufnr)
@@ -42,4 +61,13 @@ require("lspconfig").tsserver.setup({
 	-- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })")
 	-- vim.cmd("command! LspFormatting lua vim.lsp.buf.format({ async = true })")
 	-- end,
+})
+
+require("lspconfig").eslint.setup({
+	on_attach = function(client, bufnr)
+		-- vim.api.nvim_create_autocmd("BufWritePre", {
+		-- 	buffer = bufnr,
+		-- 	command = "EslintFixAll",
+		-- })
+	end,
 })

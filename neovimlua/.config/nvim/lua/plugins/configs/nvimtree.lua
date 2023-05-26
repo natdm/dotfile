@@ -5,6 +5,11 @@ g.nvim_tree_width = 60
 
 require("nvim-web-devicons").setup({ default = true })
 require("nvim-tree").setup({
+	git = {
+		enable = true,
+		ignore = false,
+		timeout = 500,
+	},
 	disable_netrw = false,
 	view = { adaptive_size = true },
 	renderer = {
