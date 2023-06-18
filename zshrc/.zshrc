@@ -151,6 +151,7 @@ export PATH="$HOME/tools/lua-language-server/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/libpq/lib"
 export CPPFLAGS="-I/usr/local/opt/libpq/include"
 export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
+export PATH="$PATH:/Users/nathanhyland/.temporalio/bin"
 
 # function to show the last exit code of the function ran, on the right side of the terminal
 function check_last_exit_code() {
