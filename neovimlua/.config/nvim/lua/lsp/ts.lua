@@ -1,4 +1,6 @@
-local signature_setup = require("plugins.configs.lspsignature").signature_setup
+local util = require("lspconfig/util")
+local lsputils = require("lsp.all")
+
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
 	vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
 		silent = true,
@@ -6,8 +8,26 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
 end
 
 require("lspconfig").tsserver.setup({
+	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+	init_options = {
+		preferences = {
+			includeInlayParameterNameHints = "all",
+			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			includeInlayFunctionParameterTypeHints = true,
+			includeInlayVariableTypeHints = true,
+			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayEnumMemberValueHints = true,
+			importModuleSpecifierPreference = "non-relative",
+		},
+	},
 	on_attach = function(client, bufnr)
-		require("lsp_signature").on_attach(signature_setup, bufnr)
+		-- this should do some inlayHintProvider stuff
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
+		lsputils.on_attach(client, bufnr)
+		-- end inlay hint stuff
+
 		-- require("eslint").setup({
 		-- 	bin = "eslint", -- or `eslint_d`
 		-- 	code_actions = {
@@ -65,9 +85,10 @@ require("lspconfig").tsserver.setup({
 
 require("lspconfig").eslint.setup({
 	on_attach = function(client, bufnr)
-		-- vim.api.nvim_create_autocmd("BufWritePre", {
-		-- 	buffer = bufnr,
-		-- 	command = "EslintFixAll",
-		-- })
+		-- fix any ESLint issues before executing the save
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "EslintFixAll",
+		})
 	end,
 })

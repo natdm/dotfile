@@ -117,7 +117,8 @@ z() {
 
 alias zv='z && v'
 alias j='jobs'
-alias v='nvim'
+alias vv='nvim'
+alias v='~/Downloads/nvim-macos/bin/nvim'
 alias pu='pulumi'
 alias pup='pu up'
 alias pud='pu destroy'

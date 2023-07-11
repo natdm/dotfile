@@ -1,7 +1,7 @@
-local signature_setup = require("plugins.configs.lspsignature").signature_setup
+local lsputils = require("lsp.all")
 
 require("lspconfig").gopls.setup({
 	on_attach = function(client, bufnr)
-		require("lsp_signature").on_attach(signature_setup, bufnr)
+		lsputils.on_attach(client, bufnr)
 	end,
 })

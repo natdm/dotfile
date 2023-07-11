@@ -130,4 +130,5 @@ cmd([[
 command TestFileRace :lua TestFileRace()
 command TestAllRace :lua TestAllRace()
 command TestSummary :lua TestSummary()
+command InlayOff :lua vim.lsp.buf.inlay_hint(0, false)
 ]])
