@@ -8,6 +8,17 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require("packer").startup(function(use)
+	use("bennypowers/template-literal-comments.nvim")
+	use("github/copilot.vim")
+	use({
+		"bennypowers/template-literal-comments.nvim",
+		config = require("template-literal-comments").setup(),
+		opt = true,
+		ft = {
+			"javascript",
+			"typescript",
+		},
+	})
 	use({
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
@@ -15,27 +26,8 @@ return require("packer").startup(function(use)
 	})
 	use("wbthomason/packer.nvim")
 	-- colorscheme
-	use("tjdevries/colorbuddy.vim") -- colorscheme creator, needed for a few of these
-	use("rakr/vim-one")
-	use("rebelot/kanagawa.nvim")
 	use("sainnhe/everforest")
-	use("sainnhe/edge")
-	use("sainnhe/sonokai")
-	use("bluz71/vim-nightfly-guicolors")
-	use("glepnir/zephyr-nvim")
-	use("Th3Whit3Wolf/onebuddy")
-	use("EdenEast/nightfox.nvim")
-	use("Th3Whit3Wolf/space-nvim")
-	use("navarasu/onedark.nvim")
-	use("sam4llis/nvim-tundra")
-	use({
-		"catppuccin/nvim",
-		as = "catppuccin",
-	})
 
-	-- colorscheme switching
-	use("xolox/vim-colorscheme-switcher")
-	use("xolox/vim-misc")
 	-- searching
 	-- NOTE: There's a telescope-fzf plugin that might be better suited for all this
 	use("junegunn/fzf")
@@ -79,19 +71,14 @@ return require("packer").startup(function(use)
 	-- lsp
 	use("artempyanykh/marksman") -- markdown lsp
 	use({
-		-- prettier diagnostics, I don't use it a lot but
-		-- but maybe I should. No keybindings, just
-		-- :Trouble<cmd>
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = require("trouble").setup({}),
 	})
-	-- use({
-	-- 	"jose-elias-alvarez/null-ls.nvim",
-	-- 	config = require("plugins.configs.null-ls"),
-	-- })
-	-- use("jose-elias-alvarez/nvim-lsp-ts-utils")
-
+	use({
+		"scalameta/nvim-metals",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
 	-- completion
 	use({
 		"hrsh7th/nvim-cmp",
@@ -116,7 +103,6 @@ return require("packer").startup(function(use)
 
 	-- languages
 	use("python/black")
-	use("gleam-lang/gleam.vim")
 	-- use("arp242/gopher.vim") - this is a pita, I'd rather the old go plugin
 	use({
 		"fatih/vim-go",
@@ -124,27 +110,23 @@ return require("packer").startup(function(use)
 	})
 	use("pangloss/vim-javascript")
 	use("leafgarland/typescript-vim")
-	use("peitalin/vim-jsx-typescript")
-	use("styled-components/vim-styled-components")
 	use({
 		"mattn/emmet-vim",
 		config = require("plugins.configs.emmet"),
 	})
-	use("elixir-editors/vim-elixir")
-	use({
-		"mhanberg/elixir.nvim",
-		config = require("plugins.configs.elixir"),
-	})
 	use("chrisbra/csv.vim")
-	use("ellisonleao/glow.nvim")
+	use({
+		"ellisonleao/glow.nvim",
+		config = require("plugins.configs.glow"),
+	})
 	-- Disabling prettier for now since it uses nullls and I'm trying
 	-- to consolidate language server functionality. I'm using
 	-- numtostr prettierls which has more basic functionality.
 	--
-	-- use({
-	-- 	"MunifTanjim/prettier.nvim",
-	-- 	config = require("plugins.configs.prettier"),
-	-- })
+	use({
+		"MunifTanjim/prettier.nvim",
+		config = require("plugins.configs.prettier"),
+	})
 	-- use("numToStr/prettierrc.nvim")
 
 	-- specifically lua nvim development plugin
@@ -193,7 +175,6 @@ return require("packer").startup(function(use)
 	-- 	config = require("todo-comments").setup({}),
 	-- })
 	use("editorconfig/editorconfig-vim")
-	use("AndrewRadev/switch.vim") -- flipping values like booleans, <l>ss
 	use("yuttie/comfortable-motion.vim")
 	use("easymotion/vim-easymotion")
 	use({
@@ -201,7 +182,6 @@ return require("packer").startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		config = require("plugins.configs.lualine"),
 	})
-	use("eandrju/cellular-automaton.nvim")
 	use("rhysd/committia.vim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -216,6 +196,7 @@ return require("packer").startup(function(use)
 	})
 	-- use({ "rcarriga/nvim-notify" })
 	-- debugging
+	use("leoluz/nvim-dap-go")
 	use({
 		"mfussenegger/nvim-dap",
 		requires = {

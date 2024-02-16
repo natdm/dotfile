@@ -136,17 +136,19 @@ nmapsl("ts", ":tab split<CR> ")
 -- Breakout split in to new tab -- commented out since I should just learn it.
 -- nmapsl("tb", "<C-W>T")
 
--- window splits
-nmapsl("wsh", ":topleft vnew<CR><ESC>")
-nmapsl("wsj", ":botright new<CR><ESC>")
-nmapsl("wsk", ":topleft new<CR><ESC>")
-nmapsl("wsl", ":botright vnew<CR><ESC>")
+if not vim.g.vscode then
+	-- window splits
+	nmapsl("wsh", ":topleft vnew<CR><ESC>")
+	nmapsl("wsj", ":botright new<CR><ESC>")
+	nmapsl("wsk", ":topleft new<CR><ESC>")
+	nmapsl("wsl", ":botright vnew<CR><ESC>")
 
--- buffer splits
-nmapsl("bsh", ":leftabove vnew<CR><ESC>")
-nmapsl("bsj", ":rightbelow new<CR><ESC>")
-nmapsl("bsk", ":leftabove new<CR><ESC>")
-nmapsl("bsl", ":rightbelow vnew<CR><ESC>")
+	-- buffer splits
+	nmapsl("bsh", ":leftabove vnew<CR><ESC>")
+	nmapsl("bsj", ":rightbelow new<CR><ESC>")
+	nmapsl("bsk", ":leftabove new<CR><ESC>")
+	nmapsl("bsl", ":rightbelow vnew<CR><ESC>")
+end
 
 nmapsl("bf", ":BufOnly<CR> ")
 

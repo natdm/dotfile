@@ -36,10 +36,11 @@ wo.cursorline = true
 wo.signcolumn = "yes" -- needed for Gitsigns
 -- buffer settings
 -- On pressing tab, insert 2 spaces
-bo.expandtab=true
+bo.expandtab = true
 
 -- show existing tab with 2 spaces width
-o.tabstop=2
-bo.softtabstop = 0
+o.tabstop = 2
+bo.softtabstop = 2
 -- when indenting with '>', use 2 spaces width. For some reason this doesn't work in vimwiki.
 bo.shiftwidth = 2
+vim.cmd("set clipboard+=unnamedplus")

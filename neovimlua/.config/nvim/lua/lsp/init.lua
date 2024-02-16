@@ -16,3 +16,4 @@ require("mason-lspconfig").setup({
 require("lsp.lua")
 require("lsp.go")
 require("lsp.ts")
+require("lsp.scala")

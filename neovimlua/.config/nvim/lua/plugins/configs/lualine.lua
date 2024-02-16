@@ -9,7 +9,6 @@ local colors = {
 	green = "#8ec07c",
 }
 
-local theme = "catppuccin"
 -- local theme = {
 -- 	normal = {
 -- 		a = { fg = colors.black, bg = colors.green },

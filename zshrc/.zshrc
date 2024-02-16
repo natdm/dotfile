@@ -141,9 +141,9 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.work ] && source ~/.work
 
 # Force a tmux session, https://fedoramagazine.org/4-tips-better-tmux-sessions/
-if [ -z "$TMUX" ]; then
-	tmux attach -t default || tmux new -s default
-fi
+# if [ -z "$TMUX" ]; then
+# 	tmux attach -t default || tmux new -s default
+# fi
 setopt inc_append_history_time
 #shopt -s autocd # cd by typing a dirs name
 export PATH="/usr/local/sbin:/usr/local/opt/libpq/bin:$HOME/scripts:$PATH"
