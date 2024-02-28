@@ -1,20 +1,9 @@
 local o = vim.o -- global-setting (but be careful because there is a vim.g which is global)
 local wo = vim.wo -- window-only
 local bo = vim.bo -- buffer-only
-local g = vim.g
+vim.cmd("filetype plugin on")
 
-vim.cmd("colorscheme everforest")
-
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-
--- disable netrw for nvimtree
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
-
-g.mapleader = " "
+-- Global settings
 o.timeoutlen = 500
 o.mouse = "" -- disable mouse in all modes. Use the keebs, you buffoon.
 o.visualbell = true
@@ -47,11 +36,11 @@ wo.cursorline = true
 wo.signcolumn = "yes" -- needed for Gitsigns
 -- buffer settings
 -- On pressing tab, insert 2 spaces
--- bo.expandtab = true
+bo.expandtab = true
 
 -- show existing tab with 2 spaces width
--- o.tabstop = 2
--- bo.softtabstop = 2
+o.tabstop = 2
+bo.softtabstop = 2
 -- when indenting with '>', use 2 spaces width. For some reason this doesn't work in vimwiki.
--- bo.shiftwidth = 2
+bo.shiftwidth = 2
 vim.cmd("set clipboard+=unnamedplus")

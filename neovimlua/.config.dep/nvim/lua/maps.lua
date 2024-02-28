@@ -83,7 +83,7 @@ vmap(">", ">gv")
 vmap("<", "<gv")
 
 -- file explorer
--- nmaps("t", ":NvimTreeToggle<CR>")
+nmaps("t", ":NvimTreeToggle<CR>")
 
 -- prev/next diff and center
 nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
@@ -192,13 +192,10 @@ nmapsl("tt", "<cmd>TroubleToggle<CR>")
 nmapsl("ta", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 -- Why the hell was C-w ever a thing?
--- commented out to be in the config for tmux-navigation
--- nmaps("<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>")
--- nmaps("<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>")
--- nmaps("<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>")
--- nmaps("<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>")
--- nmaps("<C-\\>", "<Cmd>NvimTmuxNavigateLastActive<CR>")
--- nmaps("<C-Space>", "<Cmd>NvimTmuxNavigateNext<CR>")
+nmaps("<C-h>", "<C-w><C-h>")
+nmaps("<C-j>", "<C-w><C-j>")
+nmaps("<C-k>", "<C-w><C-k>")
+nmaps("<C-l>", "<C-w><C-l>")
 
 -- Just aliasing this as C-p since it was available. Supress any non-pending currently showing notifications.
 nmaps("<C-p>", '<cmd> lua require("notify").dismiss()<CR>')
