@@ -34,6 +34,9 @@ local plugins = {
 	require("plugins.tmux-navigator"),
 	require("plugins.treesitter"),
 	require("plugins.trouble"),
+	require("plugins.fugitive"),
+	require("plugins.rhubarb"),
+	require("plugins.cmp"),
 }
 local opts = {}
 
