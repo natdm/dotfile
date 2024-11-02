@@ -53,6 +53,11 @@ nmap("<C-c>", ":cclo<CR>")
 
 nmap("s", "<Plug>(easymotion-overwin-f)")
 
+-- test commands (r for run, file/test/summary
+nmapl("rf", '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>')
+nmapl("rt", '<cmd>lua require("neotest").run.run()<CR>')
+nmapl("rs", '<cmd>lua require("neotest").summary.toggle()<CR>')
+
 nmapsl("fx", ":set hlsearch!<CR>")
 
 -- keep search resuls in the center of the screen. Thanks Primagen
@@ -186,10 +191,10 @@ nmap("dp", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- dp: diag prev
 nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
 -- Trouble diagnostics
-nmapsl("tq", "<cmd>TroubleToggle quickfix<CR>")
-nmapsl("tr", "<cmd>TroubleToggle lsp_references<CR>")
-nmapsl("tt", "<cmd>TroubleToggle<CR>")
-nmapsl("ta", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
+nmaps("tq", "<cmd>Trouble qflist toggle<CR>")
+-- nmaps("tr", "<cmd>TroubleToggle lsp_references toggle<CR>")
+nmaps("tt", "<cmd>Trouble diagnostics toggle<CR>")
+-- nmaps("ta", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 -- Why the hell was C-w ever a thing?
 -- commented out to be in the config for tmux-navigation
@@ -235,3 +240,4 @@ vim.keymap.set("s", "<S-Tab>", function()
 		return "<S-Tab>"
 	end
 end, { expr = true })
+

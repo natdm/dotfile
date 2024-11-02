@@ -8,14 +8,12 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-emoji",
-    "onsails/lspkind-nvim",
-    "hrsh7th/cmp-nvim-lsp-signature-help",
   },
   config = function()
     local cmp = require("cmp")
     -- local luasnip = require("luasnip")
-    local lspkind = require("lspkind")
-    lspkind.init()
+    -- local lspkind = require("lspkind")
+    -- lspkind.init()
     -- require("plugins.configs.cmp.jira_source")
     -- require("plugins.configs.cmp.env_vars")
     -- require("plugins.configs.cmp.gh_org_members_source")
@@ -23,11 +21,11 @@ return {
 
     -- cmp-nvim-lsp
     -- https://github.com/hrsh7th/cmp-nvim-lsp
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     -- The following example advertise capabilities to `clangd`.
-    require("lspconfig").clangd.setup({ capabilities = capabilities })
+    -- require("lspconfig").clangd.setup({ capabilities = capabilities })
 
     -- local has_words_before = function()
     --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -36,27 +34,27 @@ return {
 
     cmp.setup({
       preselect = cmp.PreselectMode.None, -- https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt#L706
-      snippet = {
+      -- snippet = {
         -- expand = function(args)
         --   luasnip.lsp_expand(args.body)
         -- end,
-      },
+      -- },
       formatting = {
         -- Youtube: How to set up nice formatting for your sources.
-        format = lspkind.cmp_format({
-          with_text = true,
-          menu = {
-            -- env_vars = "[env]",
-            nvim_lsp = "[lsp]",
-            buffer = "[buf]",
-            nvim_lua = "[api]",
-            path = "[path]",
-            -- luasnip = "[snip]",
-            -- jira_issues = "[jira]",
-            -- gh_users = "[gh]",
-            -- home_assistant = "[ha]",
-          },
-        }),
+       --  format = lspkind.cmp_format({
+       --    with_text = true,
+       --    menu = {
+       --      -- env_vars = "[env]",
+       --      nvim_lsp = "[lsp]",
+       --      buffer = "[buf]",
+       --      nvim_lua = "[api]",
+       --      path = "[path]",
+       --      -- luasnip = "[snip]",
+       --      -- jira_issues = "[jira]",
+       --      -- gh_users = "[gh]",
+       --      -- home_assistant = "[ha]",
+       --    },
+       --  }),
       },
 
       experimental = { ghost_text = true },
@@ -93,7 +91,7 @@ return {
         -- { name = "env_vars",               max_item_count = 10 },
         -- { name = "gh_users" },
         -- { name = "luasnip" },
-        { name = "nvim_lsp" },
+        -- { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "buffer",                 keyword_length = 3, max_item_count = 10 },
         { name = "emoji" },

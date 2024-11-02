@@ -9,6 +9,8 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
 
 -- disable netrw for nvimtree
 -- vim.g.loaded_netrw = 1
@@ -55,3 +57,25 @@ wo.signcolumn = "yes" -- needed for Gitsigns
 -- when indenting with '>', use 2 spaces width. For some reason this doesn't work in vimwiki.
 -- bo.shiftwidth = 2
 vim.cmd("set clipboard+=unnamedplus")
+
+vim.cmd([[
+" Build a quickfix list when multiple files are selected
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+  ]])
+
+-- local fzf_action = {}
+-- fzf_action["ctrl-t"] = "tab split"
+-- fzf_action["ctrl-x"] = "split"
+-- fzf_action["ctrl-v"] = "vsplit"
+-- fzf_action["ctrl-q"] = "fill_quickfix"
+-- g.fzf_action = fzf_action
