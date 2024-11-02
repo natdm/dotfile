@@ -21,6 +21,7 @@ local plugins = {
 	require("plugins.cmp"),
 	require("plugins.colortheme"),
 	require("plugins.comfortable-motion"),
+	require("plugins.conform"),
 	require("plugins.copilot"),
 	require("plugins.easymotion"),
 	require("plugins.fugitive"),
@@ -28,7 +29,7 @@ local plugins = {
 	require("plugins.fzf-vim"),
 	require("plugins.gh"),
 	require("plugins.git-signs"),
-	require("plugins.lsp"),
+--	require("plugins.lsp"),
   require("plugins.lsp_diagnostic_manipulation"),
 	require("plugins.lualine"),
 	require("plugins.neo-tree"),
@@ -37,7 +38,21 @@ local plugins = {
 	require("plugins.tmux-navigator"),
 	require("plugins.treesitter"),
 	require("plugins.trouble"),
-  require("plugins.spectre")
+  require("plugins.spectre"),
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("lazy-config.null-ls")  -- Separate file for the configuration
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    event = "BufReadPre",  -- Lazy load on buffer read
+    config = function()
+      require("lazy-config.lsp")  -- Separate file for LSP configuration
+    end,
+  },
 }
 local opts = {}
 
