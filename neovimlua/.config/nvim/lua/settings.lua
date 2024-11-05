@@ -3,8 +3,6 @@ local wo = vim.wo -- window-only
 local bo = vim.bo -- buffer-only
 local g = vim.g
 
-vim.cmd("colorscheme everforest")
-
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
@@ -58,24 +56,3 @@ wo.signcolumn = "yes" -- needed for Gitsigns
 -- bo.shiftwidth = 2
 vim.cmd("set clipboard+=unnamedplus")
 
-vim.cmd([[
-" Build a quickfix list when multiple files are selected
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-  ]])
-
--- local fzf_action = {}
--- fzf_action["ctrl-t"] = "tab split"
--- fzf_action["ctrl-x"] = "split"
--- fzf_action["ctrl-v"] = "vsplit"
--- fzf_action["ctrl-q"] = "fill_quickfix"
--- g.fzf_action = fzf_action
