@@ -51,12 +51,12 @@ g.mapleader = " "
 nmap("<C-s>", "<cmd> lua Sig()<CR>")
 nmap("<C-c>", ":cclo<CR>")
 
-nmap("s", "<Plug>(easymotion-overwin-f)")
+-- nmap("s", "<Plug>(easymotion-overwin-f)")
 
 -- test commands (r for run, file/test/summary
-nmapl("rf", '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>')
-nmapl("rt", '<cmd>lua require("neotest").run.run()<CR>')
-nmapl("rs", '<cmd>lua require("neotest").summary.toggle()<CR>')
+-- nmapl("rF", '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>')
+-- nmapl("rt", '<cmd>lua require("neotest").run.run()<CR>')
+-- nmapl("rs", '<cmd>lua require("neotest").summary.toggle()<CR>')
 
 nmapsl("fx", ":set hlsearch!<CR>")
 
@@ -91,13 +91,10 @@ vmap("<", "<gv")
 -- nmaps("t", ":NvimTreeToggle<CR>")
 
 -- prev/next diff and center
-nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
-nmapl("hH", '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>zz')
-nmapl("mir", ":CellularAutomaton make_it_rain<CR>")
+-- nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
+-- nmapl("hH", '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>zz')
+-- nmapl("hp", "<cmd>Gitsigns preview_hunk<CR>")
 
--- this could be written better, they have examples for it in gitsigns
--- but it works fine.
-nmapl("hp", "<cmd>Gitsigns preview_hunk<CR>")
 -- search for files within repo
 nmapl("ff", ":Files<CR>")
 nmapl("fh", ":History<CR>")
@@ -177,11 +174,11 @@ nmapsl("ybl", ":CopyBufferPathL<CR>")
 nmapl("cb", ":!open % -a Google\\ Chrome<CR>")
 
 -- lsp-specific settings
-nmap("gf", "<cmd>lua vim.lsp.buf.format({ async = false })<CR>")
+-- nmap("gf", "<cmd>lua vim.lsp.buf.format({ async = false })<CR>")
 nmaps("rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-nmaps("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+-- nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+-- nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+--nmaps("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 nmaps("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>") -- no idea why but everyone does `K`
 nmap("f", "<cmd>lua vim.diagnostic.open_float()<CR>") -- F for float
@@ -190,10 +187,10 @@ nmap("dp", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- dp: diag prev
 
 nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
--- Trouble diagnostics
-nmaps("tq", "<cmd>Trouble qflist toggle<CR>")
+-- Trouble diagnostics (commented out, set in the plugin)
+-- nmaps("tq", "<cmd>Trouble qflist toggle<CR>")
 -- nmaps("tr", "<cmd>TroubleToggle lsp_references toggle<CR>")
-nmaps("tt", "<cmd>Trouble diagnostics toggle<CR>")
+-- nmaps("tt", "<cmd>Trouble diagnostics toggle<CR>")
 -- nmaps("ta", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- apply a quickfix for neovim (Code Action)
 
 -- Why the hell was C-w ever a thing?
@@ -206,7 +203,7 @@ nmaps("tt", "<cmd>Trouble diagnostics toggle<CR>")
 -- nmaps("<C-Space>", "<Cmd>NvimTmuxNavigateNext<CR>")
 
 -- Just aliasing this as C-p since it was available. Supress any non-pending currently showing notifications.
-nmaps("<C-p>", '<cmd> lua require("notify").dismiss()<CR>')
+-- nmaps("<C-p>", '<cmd> lua require("notify").dismiss()<CR>')
 
 -- changing window widths
 nmaps("]]", "<cmd> lua IncWidth()<CR>")
@@ -215,22 +212,15 @@ nmaps("}}", "<cmd> lua IncHeight()<CR>")
 nmaps("{{", "<cmd> lua DecHeight()<CR>")
 
 -- debugging, 'd' for debug
-nmapl("dc", "<cmd> lua require'dap'.continue()<CR>")
-nmapl("db", "<cmd> lua require'dap'.toggle_breakpoint()<CR>")
-nmapl("dt", "<cmd> lua require'dap-gc'.debug_test()<CR>")
+-- nmapl("dc", "<cmd> lua require'dap'.continue()<CR>")
+-- nmapl("db", "<cmd> lua require'dap'.toggle_breakpoint()<CR>")
+-- nmapl("dt", "<cmd> lua require'dap-gc'.debug_test()<CR>")
 
 --
 
 -- do a search/replace of the current highlighted word
 vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
 
--- go to the previous file
-nmapl(",", "<C-^>")
-
--- view highlight groups
-nmapsl("ht", "<cmd>sc $VIMRUNTIME/syntax/hitest.vim<CR>")
-
--- shortcut to toggle between luasnip choices
 vim.keymap.set("s", "<S-Tab>", function()
 	if require("luasnip").choice_active() then
 		print("in choice")
@@ -240,4 +230,12 @@ vim.keymap.set("s", "<S-Tab>", function()
 		return "<S-Tab>"
 	end
 end, { expr = true })
+
+-- Increase and decrease split height (doing w and s for wasd
+-- vim.api.nvim_set_keymap('n', '<C-w>',    ':resize +2<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-s>',  ':resize -2<CR>', { noremap = true, silent = true })
+
+-- Increase and decrease split width
+-- vim.api.nvim_set_keymap('n', '<C-a>',  ':vertical resize -2<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-d>', ':vertical resize +2<CR>', { noremap = true, silent = true })
 

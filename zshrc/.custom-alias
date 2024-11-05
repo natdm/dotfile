@@ -84,7 +84,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # open vim with exact search from fzf
 function ve {
-	vim $(fzf -e --preview 'cat {}')
+	nvim $(fzf -e --preview 'cat {}')
 }
 
 function fbat {
@@ -118,7 +118,7 @@ z() {
 alias zv='z && v'
 alias j='jobs'
 alias vv='nvim'
-alias v='~/Downloads/nvim-macos/bin/nvim'
+alias v='nvim'
 alias pu='pulumi'
 alias pup='pu up'
 alias pud='pu destroy'

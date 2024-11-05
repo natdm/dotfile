@@ -1,7 +1,7 @@
--- ~/.config/nvim/lua/lazy-config/null-ls.lua
 local null_ls = require("null-ls")
 
 null_ls.setup({
+  debug = true,
   sources = {
     -- ESLint diagnostics and formatting, using eslint_d for speed
     null_ls.builtins.diagnostics.eslint_d.with({

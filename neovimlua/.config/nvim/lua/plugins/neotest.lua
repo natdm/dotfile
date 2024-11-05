@@ -8,15 +8,25 @@ return {
     -- being lazy, below is just for jest
     "nvim-neotest/neotest-jest"
   },
+  keys = {
+    { "n", "<leader>rt", "<cmd>lua require('neotest').run.run()<CR>" },
+    { "n", "<leader>rF", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>" },
+    { "n", "<leader>rs", "<cmd>lua require('neotest').summary.toggle()<CR>" },
+  },
   config = function ()
     require('neotest').setup({
       discovery = {
 	    	enabled = false,
 	    },
+      log_level = vim.log.levels.DEBUG,
+      summary = {
+        open = "botright vsplit | vertical resize 60",
+      },
       adapters = {
         require('neotest-jest')({
           jestCommand = "npm run test:unit --",
           jest_test_discovery = false,
+          log_level = vim.log.levels.DEBUG,
           jestConfigFile = function(file)
             if string.find(file, "/packages/") then
               local config = string.match(file, "(.-/[^/]+/)test") .. "jest.config.ts"
