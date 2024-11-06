@@ -9,9 +9,21 @@ return {
     "nvim-neotest/neotest-jest"
   },
   keys = {
-    { "n", "<leader>rt", "<cmd>lua require('neotest').run.run()<CR>" },
-    { "n", "<leader>rF", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>" },
-    { "n", "<leader>rs", "<cmd>lua require('neotest').summary.toggle()<CR>" },
+    {
+      "<leader>rt", 
+			"<cmd>lua require('neotest').run.run()<CR>", 
+			desc = "Run test" 
+    },
+    { 
+      "<leader>rF", 
+			"<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", 
+			desc = "Run test on file" 
+    },
+    {
+      "<leader>rs", 
+			"<cmd>lua require('neotest').summary.toggle()<CR>", 
+			desc = "Toggle test summary" 
+    },
   },
   config = function ()
     require('neotest').setup({

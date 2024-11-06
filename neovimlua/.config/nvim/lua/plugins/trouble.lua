@@ -19,16 +19,6 @@ return {
       desc = "Buffer Diagnostics (Trouble)",
     },
     {
-      "<leader>sS",
-      "<cmd>Trouble symbols toggle focus=false win.position=right<cr>",
-      desc = "Symbols (Trouble)",
-    },
-    {
-      "<leader>ss",
-      "<cmd>Trouble symbols toggle focus=false win.position=bottom<cr>",
-      desc = "Symbols (Trouble)",
-    },
-    {
       "<leader>tl",
       "<cmd>Trouble lsp toggle focus=false win.position=bottom<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",

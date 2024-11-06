@@ -51,13 +51,6 @@ g.mapleader = " "
 nmap("<C-s>", "<cmd> lua Sig()<CR>")
 nmap("<C-c>", ":cclo<CR>")
 
--- nmap("s", "<Plug>(easymotion-overwin-f)")
-
--- test commands (r for run, file/test/summary
--- nmapl("rF", '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>')
--- nmapl("rt", '<cmd>lua require("neotest").run.run()<CR>')
--- nmapl("rs", '<cmd>lua require("neotest").summary.toggle()<CR>')
-
 nmapsl("fx", ":set hlsearch!<CR>")
 
 -- keep search resuls in the center of the screen. Thanks Primagen
@@ -87,56 +80,15 @@ imap("?", "?<c-g>u")
 vmap(">", ">gv")
 vmap("<", "<gv")
 
--- file explorer
--- nmaps("t", ":NvimTreeToggle<CR>")
-
--- prev/next diff and center
--- nmapl("hh", '<cmd>lua require"gitsigns.actions".next_hunk()<CR>zz')
--- nmapl("hH", '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>zz')
--- nmapl("hp", "<cmd>Gitsigns preview_hunk<CR>")
-
--- search for files within repo
--- nmapl("ff", ":Files<CR>")
--- nmapl("fh", ":History<CR>")
--- search for buffers
--- nmapl("fu", ":Buffers<CR>")
--- search commits for buffer
--- nmapl("fb", ":BCommits<CR>")
--- search commits
--- nmapl("fc", ":Commits<CR>")
--- search git files
--- nmapl("fg", ":GFiles<CR>")
--- search git files that have changed
--- nmapl("fG", ":GFiles?<CR>")
--- search lines within a file
--- nmapl("fl", ":BLines<CR>")
--- search for anything with fzf
--- nmapl("fz", ":FZF<CR>")
--- this ripgrep is basic and requires more filtering. All hidden files, names
--- of files, etc, are searched
--- nmapl("fr", ":Rg<CR>")
--- Ripgrep looking at all lines in all files, including hidden, but exclude
--- file names from search
--- nmapl("fa", ":Ag<CR>")
--- nmapl("fm", ":Marks<CR>")
-
 nmapsl("rc", ":tabedit /.dotfile/neovimlua/.config/nvim/init.lua<CR>")
 
 nmapsl("bc", 'let @+ = expand("%")<CR>')
 nmapsl("u !", "bcopy < uuidgen<CR>")
 -- resizing.. allow range one day
 
-nmapsl("rV", ':exe "vertical resize +10"<CR>')
-nmapsl("rv", ':exe "vertical resize -10"<CR>')
-nmapsl("rH", ':exe "resize " . (winheight(0) * 3/2)<CR>')
-nmapsl("rh", ':exe "resize " . (winheight(0) * 2/3)<CR>')
-
 nmapsl("tn", ":tabnew<CR>")
 nmapsl("tx", ":tabclose<CR>")
 nmapsl("ts", ":tab split<CR> ")
-
--- Breakout split in to new tab -- commented out since I should just learn it.
--- nmapsl("tb", "<C-W>T")
 
 if not vim.g.vscode then
 	-- window splits
@@ -174,10 +126,11 @@ nmapsl("ybl", ":CopyBufferPathL<CR>")
 nmapl("cb", ":!open % -a Google\\ Chrome<CR>")
 
 -- lsp-specific settings
+-- Some of these are the same as trouble, so they're commented out
 -- nmap("gf", "<cmd>lua vim.lsp.buf.format({ async = false })<CR>")
 nmaps("rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
--- nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
--- nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 --nmaps("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 nmaps("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>") -- no idea why but everyone does `K`
@@ -221,21 +174,11 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 -- do a search/replace of the current highlighted word
 vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
 
-vim.keymap.set("s", "<S-Tab>", function()
-	if require("luasnip").choice_active() then
-		print("in choice")
-		return "<Plug>luasnip-next-choice"
-	else
-		print("NOT in choice")
-		return "<S-Tab>"
-	end
-end, { expr = true })
-
--- Increase and decrease split height (doing w and s for wasd
--- vim.api.nvim_set_keymap('n', '<C-w>',    ':resize +2<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-s>',  ':resize -2<CR>', { noremap = true, silent = true })
-
--- Increase and decrease split width
--- vim.api.nvim_set_keymap('n', '<C-a>',  ':vertical resize -2<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-d>', ':vertical resize +2<CR>', { noremap = true, silent = true })
-
+-- this is like res (resize) horizontally but for vertically
+vim.api.nvim_create_user_command(
+  'Vres',
+  function(opts)
+    vim.cmd('vertical resize ' .. opts.args)
+  end,
+  { nargs = 1 }
+)
