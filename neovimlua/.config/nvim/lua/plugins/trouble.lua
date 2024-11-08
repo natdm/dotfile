@@ -4,27 +4,27 @@ return {
   cmd = "Trouble",
   keys = {
     {
-      "<leader>tr",
+      "<leader>gr",
       "<cmd>Trouble lsp_references toggle<cr>",
-      desc = "Diagnostics (Trouble)",
+      desc = "Goto References (Trouble)",
     },
     {
-      "<leader>td",
+      "<leader>D",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
     {
-      "<leader>tD",
+      "<leader>d",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
       desc = "Buffer Diagnostics (Trouble)",
     },
     {
-      "<leader>tl",
+      "<leader>i",
       "<cmd>Trouble lsp toggle focus=false win.position=bottom<cr>",
-      desc = "LSP Definitions / references / ... (Trouble)",
+      desc = "LSP Info / Definitions / References /... (Trouble)",
     },
     {
-      "<leader>tL",
+      "<leader>l",
       "<cmd>Trouble loclist toggle<cr>",
       desc = "Location List (Trouble)",
     },

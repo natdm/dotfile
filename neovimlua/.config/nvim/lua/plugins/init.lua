@@ -33,6 +33,7 @@ local plugins = {
 	require("plugins.lualine"),
 	require("plugins.neo-tree"),
 	require("plugins.neotest"),
+	require("plugins.octo"),
 	require("plugins.overseer"),
 	require("plugins.rhubarb"),
 	require("plugins.temporal"),
@@ -62,3 +63,4 @@ local plugins = {
 local opts = {}
 
 require("lazy").setup(plugins, opts)
+

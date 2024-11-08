@@ -1,57 +1,28 @@
 return { 
-  "github/copilot.vim", 
-  name = "copilot",
-  opts = {
-    window = {
-      layout = 'float',
-       relative = 'cursor',
-       width = 1,
-       height = 0.4,
-       row = 1
-     }
-  },
-  keys = {
-      {
-        "?",
-        function()
-          local input = vim.fn.input("Whatcha thinkin' about: ")
-          if input ~= "" then
-            require("CopilotChat").ask(input, {
-              selection = require("CopilotChat.select").visual 
-            })
-          end
-        end,
-        desc = "CopilotChat - Quick chat on visal selection",
-        mode = "v",
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
+  config = function()
+    require("copilot").setup({
+      panel = {
+        auto_refresh = false,
+        keymap = {
+          accept = "<CR>",
+          jump_prev = "[[",
+          jump_next = "]]",
+          refresh = "gr",
+          open = "<M-CR>",
+        },
       },
-      {
-        "<leader>ccq",
-        function()
-          local input = vim.fn.input("Whatcha thinkin' about: ")
-          if input ~= "" then
-            require("CopilotChat").ask(input, {
-              selection = require("CopilotChat.select").buffer 
-            })
-          end
-        end,
-        desc = "CopilotChat - Quick chat",
+      suggestion = {
+        auto_trigger = true,
+        keymap = {
+          accept = "<Tab>",
+          prev = "<M-[>",
+          next = "<M-]>",
+          dismiss = "<C-]>",
+        },
       },
-      {
-        "<leader>cch",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
-        end,
-        desc = "CopilotChat - Help actions",
-      },
-      -- Show prompts actions with fzf-lua
-      {
-        "<leader>ccp",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-        end,
-        desc = "CopilotChat - Prompt actions",
-      },
-    },
+    })
+  end,
 }

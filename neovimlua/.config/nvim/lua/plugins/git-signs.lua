@@ -1,7 +1,13 @@
 return {
   "lewis6991/gitsigns.nvim",
   name = "gitsigns",
+  event = "BufReadPre", -- won't load on startup without this
   keys = {
+    {
+      "<leader>hd",
+      "<cmd>lua require('gitsigns').diffthis(nil, { vertical = true, ignore_blank_lines = true })<CR>",
+      desc = "Diff",
+    },
     {
       "<leader>hs",
       "<cmd>lua require('gitsigns').stage_hunk()<CR>",
@@ -44,6 +50,17 @@ return {
     }
   },
   config = function()
-    require("gitsigns").setup()
+    local updatetime = vim.api.nvim_get_option_value("updatetime", { scope = "global" })
+    require("gitsigns").setup({
+      signs = { add = { text = "│" }, change = { text = "│" } },
+      auto_attach = true,
+      current_line_blame = true,
+      current_line_blame_opts = { 
+        delay = updatetime,
+      },
+      sign_priority = 1,
+      update_debounce = updatetime,
+      preview_config = { border = "rounded", row = 1, col = 0 },
+    })
   end
 }

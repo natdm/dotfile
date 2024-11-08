@@ -48,7 +48,6 @@ end
 nmap("<Space>", "")
 g.mapleader = " "
 
-nmap("<C-s>", "<cmd> lua Sig()<CR>")
 nmap("<C-c>", ":cclo<CR>")
 
 nmapsl("fx", ":set hlsearch!<CR>")
@@ -132,13 +131,11 @@ nmaps("rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
 nmaps("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 nmaps("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 --nmaps("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-nmaps("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>") -- no idea why but everyone does `K`
 nmap("f", "<cmd>lua vim.diagnostic.open_float()<CR>") -- F for float
 nmap("dn", "<cmd>lua vim.diagnostic.goto_prev()<CR>") -- dn: diag next
 nmap("dp", "<cmd>lua vim.diagnostic.goto_next()<CR>") -- dp: diag prev
-
-nmapl("rr", "<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>:e<CR>")
 
 -- Trouble diagnostics (commented out, set in the plugin)
 -- nmaps("tq", "<cmd>Trouble qflist toggle<CR>")
@@ -174,11 +171,4 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 -- do a search/replace of the current highlighted word
 vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
 
--- this is like res (resize) horizontally but for vertically
-vim.api.nvim_create_user_command(
-  'Vres',
-  function(opts)
-    vim.cmd('vertical resize ' .. opts.args)
-  end,
-  { nargs = 1 }
-)
+nmap("<C-s>", ":ToggleSplitSize<CR>")

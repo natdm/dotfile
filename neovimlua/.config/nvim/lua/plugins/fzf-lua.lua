@@ -36,12 +36,19 @@ return {
 			"<cmd>lua require('fzf-lua').git_blame()<CR>"
 		},
 		{
+			"<leader>fp", 
+			"<cmd>lua require('fzf-lua').grep_project()<CR>",
+      -- desc = "Grep lines and NOT file names"
+		},
+		{
 			"<leader>fr", 
-			"<cmd>lua require('fzf-lua').grep_project()<CR>"
+			"<cmd>lua require('fzf-lua').grep({ search = '' })<CR>",
+      -- desc = "Grep lines and file names",
 		},
 		{
 			"<leader>fw", 
-			"<cmd>lua require('fzf-lua').grep_cword()<CR>"
+			"<cmd>lua require('fzf-lua').grep_cword()<CR>",
+      desc = "Grep word under cursor"
 		},
 		{
 			"s", 
@@ -59,6 +66,10 @@ return {
   },
   config = function()
     -- calling `setup` is optional for customization
-    require("fzf-lua").setup({})
+    require("fzf-lua").setup({
+      winopts = {
+        fullscreen = true
+      }
+    })
   end
 }

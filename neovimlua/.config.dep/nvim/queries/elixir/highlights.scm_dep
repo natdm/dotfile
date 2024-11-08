@@ -1,1 +1,0 @@
-(unary_operator operand: (call target: (identifier) @keyword))
