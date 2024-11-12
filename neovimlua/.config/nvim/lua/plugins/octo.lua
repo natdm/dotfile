@@ -11,6 +11,9 @@ return {
   config = function ()
     require"octo".setup({
       picker = "fzf-lua",
+      picker_config = {
+        use_emojis = false,   
+      },
       enable_builtin = true
     })
   end

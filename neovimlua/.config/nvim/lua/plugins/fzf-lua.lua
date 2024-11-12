@@ -67,6 +67,11 @@ return {
   config = function()
     -- calling `setup` is optional for customization
     require("fzf-lua").setup({
+      keymap = {
+        fzf = {
+          ["ctrl-a"] = "toggle-all",
+        }
+      },
       winopts = {
         fullscreen = true
       }

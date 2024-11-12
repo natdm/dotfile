@@ -14,10 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	-- these seem to slow down nvim
-	-- require("plugins.nvim-tree"),
-	-- require("plugins.nvim-web-devicons"),
-
 	require("plugins.cmp"),
 	require("plugins.colortheme"),
 	require("plugins.comfortable-motion"),
@@ -25,11 +21,11 @@ local plugins = {
 	require("plugins.copilot"),
 	require("plugins.copilot-chat"),
 	require("plugins.easymotion"),
-	require("plugins.fugitive"),
+	require("plugins.neogit"),
 	require("plugins.fzf"),
 	require("plugins.fzf-lua"),
-	require("plugins.gh"),
-	require("plugins.git-signs"),
+	-- require("plugins.gh"), -- disabling for now in favor of neogit and octo
+	require("plugins.git-signs"), -- I had hoped this wouldn't be needed with neogit but I can't get neogit to show hunks
 	require("plugins.lualine"),
 	require("plugins.neo-tree"),
 	require("plugins.neotest"),
@@ -38,6 +34,7 @@ local plugins = {
 	require("plugins.rhubarb"),
 	require("plugins.temporal"),
 	require("plugins.tmux-navigator"),
+  require("plugins.transparent"),
 	require("plugins.treesitter"),
 	require("plugins.trouble"),
   require("plugins.lsp_diagnostic_manipulation"),
@@ -45,20 +42,7 @@ local plugins = {
   require("plugins.snake"),
   require("plugins.spectre"),
   require("plugins.which-key"),
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("lazy-config.null-ls")  -- Separate file for the configuration
-    end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    event = "BufReadPre",  -- Lazy load on buffer read
-    config = function()
-      require("lazy-config.lsp")  -- Separate file for LSP configuration
-    end,
-  },
+  require("plugins.lsp"),
 }
 local opts = {}
 
