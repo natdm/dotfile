@@ -172,3 +172,60 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
 
 nmap("<C-s>", ":ToggleSplitSize<CR>")
+
+local function find_node_ancestor(types, nodes, traverse, node) 
+  if not node then
+    return
+  end
+
+
+  if vim.tbl_contains(types, node:type()) then
+    table.insert(nodes, node) 
+  end
+
+  if not traverse and #nodes > 0 then
+    return
+  end
+
+  find_node_ancestor(types, nodes, traverse, node:parent())
+end
+
+local function add_async()
+  vim.api.nvim_feedkeys('t', 'n', true)
+  local line = vim.fn.getline('.')
+
+  if line:find('//') then
+    return
+  end
+
+  local text_before_cursor = line:sub(vim.fn.col('.') - 4, vim.fn.col('.') -1)
+  if text_before_cursor ~= 'awai' then
+    return
+  end
+
+  local current_node = vim.treesitter.get_node()
+  local nodes = {}
+  find_node_ancestor({
+    'function_declaration',
+    'function_expression',
+    'arrow_function',
+    -- this could traverse all the way up to make sure all things are traverse, but you don't want it for things like test-cases, so I just disable with a false flag for now.
+  }, nodes, false, current_node)
+
+  for _, node in ipairs(nodes) do
+    local row, col = node:start()
+  
+    local function_node_text = vim.treesitter.get_node_text(node, 0)
+  
+    if vim.startswith(function_node_text, 'async') then
+      return
+    end
+  
+    vim.api.nvim_buf_set_text(0, row, col, row, col, {'async '})
+  end
+
+end
+
+vim.keymap.set('i', 't', add_async, { buffer = true })
+
+nmapl('rr', ':so ~/.config/nvim/init.lua<CR>')

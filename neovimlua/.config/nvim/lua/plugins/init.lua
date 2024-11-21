@@ -20,6 +20,7 @@ local plugins = {
 	require("plugins.comment"),
 	require("plugins.copilot"),
 	require("plugins.copilot-chat"),
+	require("plugins.dadbod"),
 	require("plugins.easymotion"),
 	require("plugins.neogit"),
 	require("plugins.fzf"),
