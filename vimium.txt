@@ -1,0 +1,14 @@
+# Insert your preferred key mappings here.
+map <c-d> scrollPageDown
+map <c-u> scrollPageUp
+unmap d
+unmap u
+map s LinkHints.activateMode
+unmap f
+map S LinkHints.activateModeToOpenInNewTab
+unmap F
+
+map <c-o> goBack
+unmap H
+map <c-i> goForward
+unmap L

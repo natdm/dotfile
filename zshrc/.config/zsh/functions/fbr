@@ -1,0 +1,9 @@
+# fbr - checkout git branch
+local branches branch
+branches=$(git --no-pager branch -vv) &&
+branchesShort=$(echo "$branches" | awk '$1 == "*" {print $2} $1 != "*" {print $1}') &&
+branch=$(echo "$branchesShort" | fzf +m \
+      --header "<ctrl-d/u> scroll preview down/up, <ctrl-n/p> scroll next/prev" \
+      --bind ctrl-d:preview-down,ctrl-u:preview-up \
+      --preview='git diff main {} | bat --color=always --style="numbers,changes"') &&
+git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")

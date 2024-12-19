@@ -1,0 +1,5 @@
+2024.01.11 12:27:52 INFO  Started: Metals version 1.1.0 in folders '/Users/nathanhyland/.dotfile' for client Neovim 0.10.0-dev+gcd6458123.[0m
+2024.01.11 12:27:53 WARN  Build server is not auto-connectable.[0m
+2024.01.11 12:27:53 WARN  no build tool detected in workspace '/Users/nathanhyland/.dotfile'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+2024.01.11 12:28:17 INFO  Shutting down server[0m
+2024.01.11 12:28:17 INFO  shutting down Metals[0m

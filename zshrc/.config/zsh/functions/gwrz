@@ -1,0 +1,5 @@
+git worktree list | 
+	sed "s|$(pwd)/||g" | 
+	awk '{if($1 != ".bare") {print $1}}' |
+	fzf | 
+	xargs git worktree remove

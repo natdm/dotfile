@@ -1,0 +1,1 @@
+tmate wait tmate-read && tmate display -p '#{tmate_ssh}'

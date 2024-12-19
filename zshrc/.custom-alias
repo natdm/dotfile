@@ -1,0 +1,206 @@
+function glf() { git log --all --grep="$1"; }
+
+# Allow Ctrl-z to toggle between suspend and resume 
+function Resume {  
+	fg
+	zle push-input 
+	BUFFER=""
+	zle accept-line
+} 
+
+zle -N Resume
+bindkey "\^Z" Resume
+
+
+# fzf will list multiple lines, error on no lines, and auto-select if only one entry
+function fq1() {
+	local lines
+	lines=$(fzf --filter="$1" --no-sort)
+	count=$(echo "$lines" | wc -l)
+	if [ -z "$lines" ]; then
+		return 1
+	elif [ $count -eq 1 ]; then
+		echo "$lines"
+	else
+		echo "$lines" | fzf --no-clear --height="$((count+2))" --query="$1"
+	fi
+}
+
+function tm {
+	if [ $# -eq 0 ]; then
+		tmux new-session
+	else
+		tmux new-session -s $1
+	fi
+}
+
+function tmls {
+	tmux ls
+}
+
+function select_sess {
+	[ "$(tmls)" ] && echo $(tmls | fq1 | awk '{ print substr($1, 1, length($1)-1) }')
+}
+
+function tma {
+	if [ $# -eq 0 ]; then
+		sess=$(select_sess)
+		[ -z "$sess" ] || tmux attach -t $sess
+	else
+		tmux attach -t $1 
+	fi
+}
+
+function tmd {
+	tmux detach
+	tmls
+}
+
+function tmk {
+	if [ $# -eq 0 ]; then
+		sess=$(select_sess)
+		[ -z "$sess" ] || tmux kill-session -t $sess
+	else
+		tmux kill-session -t $1 
+	fi
+	tmls
+}
+
+function tms {
+	if [ $# -eq 0 ]; then
+		sess=$(select_sess)
+		[ -z "$sess" ] || tmux switch -t $sess
+	else
+		tmux switch -t $1 
+	fi
+}
+
+function mkcdir {
+	mkdir -p -- "$1" &&
+		cd -P -- "$1"
+	}
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+
+# open vim with exact search from fzf
+function ve {
+	nvim $(fzf -e --preview 'cat {}')
+}
+
+function fbat {
+	fzf --preview "bat --style=numbers --color=always --line-range :500 {}" $1
+}
+
+# filter_jobs will look for background jobs and reutrn %n where n is jobid
+function filter_jobs {
+	[ "$(jobs)" ] && echo $(jobs | fq1 | awk '{ print "%" substr($1, 2, length($1)-2) }')
+}
+
+# resume a background job
+function jr {
+	job=$(filter_jobs)
+	[ -z "$job" ] || fg $job
+}
+
+# kill a background job
+function jk {
+	job=$(filter_jobs)
+	[ -z "$job" ] || kill $job
+}
+
+# like normal z when used with arguments but displays an fzf prompt when used without.
+unalias z 2> /dev/null
+z() {
+	[ $# -gt 0 ] && _z "$*" && return
+	cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+
+alias zv='z && v'
+alias j='jobs'
+alias vv='nvim'
+alias v='nvim'
+alias pu='pulumi'
+alias pup='pu up'
+alias pud='pu destroy'
+# alias vim='nvim'
+# alias realvim='/usr/bin/vim'
+alias rr='ranger'
+alias zz='exit'
+alias ':q'='exit'
+alias q='exit'
+alias m='make'
+alias cc='clear'
+alias wiki='nvim ~/wiki/index.md'
+alias ra='rabbitmqadmin'
+alias gw='git worktree'
+alias gwa='gw add'
+alias gwr='gw remove'
+alias iex='iex --erl "-kernel shell_history enabled"'
+alias kctx='kubectx'
+alias kns='kubens'
+
+# Append these letters to ends of commands to attach pipes. eg: `k get pods V`
+alias -g Z='| fzf' 
+alias -g V='| v' 
+alias -g L='| less' 
+
+# if kubectl is installed, add the autocomplete and aliasing
+# if hash kubecolor 2>/dev/null; then
+# 	source <(kubectl completion zsh)
+# 	alias k='kubecolor'
+# 	compdef kubecolor=kubectl
+# elif hash kubectl 2>/dev/null; then
+# 	source <(kubectl completion zsh)
+# 	alias k='kubectl'
+# 	complete -F __start_kubectl k
+# fi
+
+# if hash gh 2>/dev/null; then
+# 	source <(gh completion -s zsh)
+# fi
+
+# autoload all functions in ~/config/zsh/functions
+export ZCONFIGDIR="$HOME/.config/zsh"
+fpath=( "$ZCONFIGDIR/functions" "${fpath[@]}" )
+autoload -Uz $fpath[1]/*(.:t)
+# git autocomplete
+autoload -Uz compinit && compinit
+dd_secret(){
+  cat <<EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: datadog
+      namespace: monitoring
+    type: Opaque
+    data:
+      api-key: $(echo -n "$DD_API_KEY" | openssl base64)
+EOF
+}
+
+hc_secret(){
+  cat <<EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: honeycomb
+      namespace: monitoring
+    type: Opaque
+    data:
+      api-key: $(echo -n "HC_API_KEY" | openssl base64)
+EOF
+}
+
+inst_otel(){
+  helm install otel-collector --set-string cluster=local -f $HOME/atomic-dev/otel-collector/values.yaml $HOME/atomic-dev/otel-collector/
+}
+
+otel_local(){
+  kubectl create namespace monitoring
+
+  dd_secret
+
+  hc_secret
+
+  inst_otel
+}
