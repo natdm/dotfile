@@ -28,6 +28,11 @@ return {
 			"<cmd>lua require('fzf-lua').treesitter()<CR>",
       desc = "Find treesitter nodes"
 		},
+    {
+      "<leader>fm", 
+      "<cmd>lua require('fzf-lua').grep({ search = '', cmd = 'git diff --name-only | xargs grep -n' })<CR>",
+      desc = "Search in modified files"
+    },
 		{
 			"<leader>fs", 
 			"<cmd>lua require('fzf-lua').git_stash()<CR>",
@@ -78,12 +83,11 @@ return {
     -- calling `setup` is optional for customization
     require("fzf-lua").setup({
       keymap = {
-        builtin = {
-          ["ctrl-d"] = "preview-page-down", -- no workie
-          ["ctrl-u"] = "preview-page-up" -- no workie
-        },
+        builtin = {},
         fzf = {
           ["ctrl-a"] = "toggle-all",
+          ["ctrl-d"] = "preview-page-down", -- no workie
+          ["ctrl-u"] = "preview-page-up" -- no workie
         }
       },
       winopts = {

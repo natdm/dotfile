@@ -6,32 +6,32 @@ return {
     {
       "<leader>gr",
       "<cmd>Trouble lsp_references toggle<cr>",
-      desc = "Goto References (Trouble)",
+      desc = "(Trouble) Goto References",
     },
     {
-      "<leader>D",
+      "<leader>gD",
       "<cmd>Trouble diagnostics toggle<cr>",
-      desc = "Diagnostics (Trouble)",
+      desc = "(Trouble) Diagnostics",
     },
     {
-      "<leader>d",
+      "<leader>gd",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-      desc = "Buffer Diagnostics (Trouble)",
+      desc = "(Trouble) Buffer Diagnostics",
     },
     {
-      "<leader>i",
+      "<leader>gi", -- NON-leader gi goes to the implementation, this shows info 
       "<cmd>Trouble lsp toggle focus=false win.position=bottom<cr>",
-      desc = "LSP Info / Definitions / References /... (Trouble)",
+      desc = "(Trouble) LSP Info / Definitions / References /...",
     },
+--     {
+--       "<leader>l", --
+--       "<cmd>Trouble loclist toggle<cr>",
+--       desc = "(Trouble) Location List",
+--     },
     {
-      "<leader>l",
-      "<cmd>Trouble loclist toggle<cr>",
-      desc = "Location List (Trouble)",
-    },
-    {
-      "<leader>q",
+      "<leader>q", -- shows the qf list but in trobule
       "<cmd>Trouble qflist toggle<cr>",
-      desc = "Quickfix List (Trouble)",
+      desc = "(Trouble) Quickfix List",
     },
   },
 }

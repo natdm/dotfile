@@ -5,9 +5,7 @@ return {
     'ibhagwan/fzf-lua',
     'nvim-tree/nvim-web-devicons',
   },
-  keys = {
-    { "<leader>O", "<cmd>Octo<cr>", desc = "Octo" }
-  },
+  lazy = false,
   config = function ()
     require"octo".setup({
       picker = "fzf-lua",

@@ -92,6 +92,7 @@ return {
         -- { name = "gh_users" },
         -- { name = "luasnip" },
         -- { name = "nvim_lsp" },
+        { name = "lazydev", group_index = 0 }, -- set group index to 0 to skip loading LuaLS completion
         { name = "nvim_lua" },
         { name = "buffer",                 keyword_length = 3, max_item_count = 10 },
         { name = "emoji" },

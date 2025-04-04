@@ -24,7 +24,19 @@ return {
 			"<cmd>lua require('neotest').summary.toggle()<CR>", 
 			desc = "Toggle test summary" 
     },
+    {
+      "<leader>ro", 
+			"<cmd>lua require('neotest').output.toggle({ enter = true })<CR>", 
+			desc = "Toggle test output" 
+    },
+    {
+      "<leader>rp", 
+			"<cmd>lua require('neotest').output_panel.toggle({ enter = true })<CR>", 
+			desc = "Toggle test panel" 
+    },
   },
+  ft = { "typescript", "javascript" },
+  pattern = { "*.spec.ts", "*.spec.js" },
   config = function ()
     require('neotest').setup({
       discovery = {
@@ -58,5 +70,19 @@ return {
         }),
       }
     })
+
+    vim.api.nvim_create_user_command('Test', function()
+      require('neotest').run.run()
+      require('neotest').summary.open()
+    end, {})
+
+    vim.api.nvim_create_user_command('TestFile', function()
+      require('neotest').run.run(vim.fn.expand('%'))
+      require('neotest').summary.open()
+    end, {})
+
+    vim.api.nvim_create_user_command('TestSummary', function()
+      require('neotest').summary.toggle()
+    end, {})
   end,
 }

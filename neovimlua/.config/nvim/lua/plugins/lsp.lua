@@ -4,9 +4,6 @@ return {
   event = "BufReadPre",
   config = function()
     local lspconfig = require("lspconfig")
-    lspconfig.gopls.setup{}
-    lspconfig.vuels.setup{}
-    lspconfig.ts_ls.setup{}
     lspconfig.eslint.setup({
       on_attach = function(client, bufnr)
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -15,6 +12,10 @@ return {
         })
       end,
     })
+    lspconfig.gopls.setup{}
+    lspconfig.lua_ls.setup{}
+    lspconfig.ts_ls.setup{}
+    lspconfig.vuels.setup{}
   end,
 }
 
