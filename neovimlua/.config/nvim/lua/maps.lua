@@ -169,7 +169,7 @@ nmaps("{{", "<cmd> lua DecHeight()<CR>")
 --
 
 -- do a search/replace of the current highlighted word
-vmap("r", "y:%s/<C-r>0//gI<left><left><left>")
+vmap("R", "y:%s/<C-r>0//gI<left><left><left>")
 
 nmap("<C-s>", ":ToggleSplitSize<CR>")
 

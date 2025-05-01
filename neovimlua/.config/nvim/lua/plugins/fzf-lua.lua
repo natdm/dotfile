@@ -29,8 +29,13 @@ return {
       desc = "Find treesitter nodes"
 		},
     {
-      "<leader>fm", 
+      "<leader>fM", 
       "<cmd>lua require('fzf-lua').grep({ search = '', cmd = 'git diff --name-only | xargs grep -n' })<CR>",
+      desc = "Search in modified files"
+    },
+    {
+      "<leader>fm",
+      "<cmd>lua require('fzf-lua').marks()<CR>",
       desc = "Search in modified files"
     },
 		{

@@ -11,6 +11,7 @@
   "codecompanion.nvim": { "branch": "main", "commit": "51fe5a782dbbd5cad8189420cb8d38fd7c245684" },
   "comfortablemotion": { "branch": "master", "commit": "e20aeafb07c6184727b29f7674530150f7ab2036" },
   "copilot.lua": { "branch": "master", "commit": "f7e800b83ccbe512f45725aac6639ba036086474" },
+  "diagnostic-window.nvim": { "branch": "main", "commit": "2b4d9618382502740c7945c4023853ee524adc4c" },
   "diagnostic_manipulation.nvim": { "branch": "main", "commit": "9cf6fa49a30ae7ab749d35d17f00b68f27061598" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "easymotion": { "branch": "master", "commit": "b3cfab2a6302b3b39f53d9fd2cd997e1127d7878" },
