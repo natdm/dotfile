@@ -1,7 +1,16 @@
 return {
   "olimorris/codecompanion.nvim",
   lazy = false,
-  config = true,
+  config = {
+    strategies = {
+      chat = {
+        adapter = "anthropic",
+      },
+      inline = {
+        adapter = "anthropic",
+      },
+    }
+  },
   keys = {
     {
       "<leader>ccc",

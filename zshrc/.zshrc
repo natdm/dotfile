@@ -195,6 +195,7 @@ source $HOME/fzf-tab-completion/zsh/fzf-zsh-completion.sh && bindkey '^I' fzf_co
 
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
+alias hc="ANTHROPIC_BASE_URL=http://localhost:8787 claude"
 
 setopt histignorespace           # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor       # get more colors
@@ -225,3 +226,4 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+export PATH="$HOME/.local/bin:$PATH"

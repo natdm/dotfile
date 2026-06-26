@@ -1,25 +1,17 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  name = "nvim-treesitter",
-  build = function()
-    require("nvim-treesitter.install").update({ with_sync = true })()
-  end,
+  branch = "main",
+  lazy = false,
+  build = ":TSUpdate",
   config = function()
-    require("nvim-treesitter.configs").setup({
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = {
-        enable = true,
-      },
+    -- Install parsers
+    require("nvim-treesitter").install({ "lua", "vim", "vimdoc", "markdown", "markdown_inline" })
+
+    -- Enable treesitter highlighting for all filetypes
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function()
+        pcall(vim.treesitter.start)
+      end,
     })
   end,
-  -- init = function()
-  --   require("nvim-treesitter.configs").setup({
-  --     -- Automatically install missing parsers when entering buffer
-  --     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  --     auto_install = true,
-  --   })
-  -- end,
 }

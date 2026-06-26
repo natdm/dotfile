@@ -115,6 +115,8 @@ z() {
 	cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
+alias x='npx'
+alias bruh='brew'
 alias zv='z && v'
 alias j='jobs'
 alias vv='nvim'

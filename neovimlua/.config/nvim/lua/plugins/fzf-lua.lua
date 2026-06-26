@@ -54,6 +54,11 @@ return {
       desc = "Find git blame (file)"
 		},
 		{
+			"<leader>fH", 
+			"<cmd>lua require('fzf-lua').git_hunks({ diff_opts = '-w' })<CR>",
+      desc = "Find git hunks (ignore whitespace)"
+		},
+		{
 			"<leader>fp", 
 			"<cmd>lua require('fzf-lua').grep_project()<CR>",
       desc = "Grep project lines"

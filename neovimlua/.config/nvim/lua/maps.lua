@@ -231,3 +231,166 @@ end
 vim.keymap.set('i', 't', add_async, { buffer = true })
 
 nmapl('rr', ':so ~/.config/nvim/init.lua<CR>')
+
+-- Extract types from a TypeScript assignability error
+local function extract_ts_types(msg)
+  local arg = msg:match("Argument of type%s+['\"]?([^'\"]+)['\"]?%s+is not assignable")
+  local param = msg:match("parameter of type%s+['\"]?([^'\"]+)['\"]?")
+  return arg, param
+end
+
+-- Get explanation lines like "Type X is not assignable to type Y."
+local function extract_ts_explanations(msg)
+  local explanations = {}
+  local start = msg:find("Types of parameters") or msg:find("Type '")
+  if start then
+    local trailing = msg:sub(start)
+    for line in trailing:gmatch("[^%.]+%.?") do
+      local trimmed = vim.trim(line)
+      if trimmed ~= "" then
+        table.insert(explanations, "- " .. trimmed)
+      end
+    end
+  end
+  return explanations
+end
+
+-- Format a TypeScript "Argument of type" diagnostic as Markdown
+local function format_ts_diagnostic(diag)
+  local msg = diag.message:gsub("\r", ""):gsub("\n", " ")
+  local arg, param = extract_ts_types(msg)
+  local content = { "# ❗ Argument Mismatch (TypeScript)" }
+
+  if arg and param then
+    table.insert(content, "## Got")
+    table.insert(content, "```ts\n" .. arg .. "\n```")
+    table.insert(content, "## Wanted")
+    table.insert(content, "```ts\n" .. param .. "\n```")
+  else
+    table.insert(content, "```ts\n" .. msg .. "\n```")
+  end
+
+  vim.list_extend(content, extract_ts_explanations(msg))
+  return content
+end
+
+-- Format generic diagnostics as Markdown
+local function format_generic_diagnostics(diagnostics)
+  local content = { "# ❗ Diagnostics" }
+
+  for i, d in ipairs(diagnostics) do
+    local msg = d.message:gsub("\r", ""):gsub("\n", " ")
+    table.insert(content, string.format("**%d. %s**", i, vim.trim(msg)))
+    if d.source then table.insert(content, "`Source: " .. d.source .. "`") end
+    if d.code then table.insert(content, "`Code: " .. tostring(d.code) .. "`") end
+    table.insert(content, "")
+  end
+
+  return content
+end
+
+local function format_ts_type_mismatch(diag)
+  local msg = diag.message:gsub("\r", ""):gsub("\n", " ")
+
+  -- Match actual (got) and expected type
+  local got = msg:match("Type%s+'([^']+)'%s+is not assignable")
+  local expected = msg:match("to type%s+'([^']+)'")
+
+  if not got or not expected then
+    return { "# ❗ Type Mismatch", "```ts\n" .. diag.message .. "\n```" }
+  end
+
+  local title = "# ❗ Type Mismatch"
+  if got:find("^%(") and got:find("%)%s*=>") then
+    title = "# ❗ Function Type Mismatch"
+  elseif got:find("^{") then
+    title = "# ❗ Object Shape Mismatch"
+  end
+
+  local content = {
+    title,
+    "## Got",
+    "```ts\n" .. got .. "\n```",
+    "## Expected",
+    "```ts\n" .. expected .. "\n```"
+  }
+
+  -- Add follow-up assignability notes
+  for line in msg:gmatch("[^%.]+%.") do
+    local trimmed = vim.trim(line)
+    if trimmed:find("is not assignable to type") or trimmed:find("missing the following properties") then
+      table.insert(content, "- " .. trimmed)
+    end
+  end
+
+  return content
+end
+
+local function format_ts_argument_mismatch(diag)
+  local msg = diag.message:gsub("\r", "") -- keep newlines for pretty-printing
+  local got = msg:match("Argument of type%s+(.-)%s+is not assignable")
+  local expected = msg:match("to parameter of type%s+(.-)[%.,]")
+
+  local content = { "# ❗ Argument Mismatch (TypeScript)" }
+
+  if got and expected then
+    table.insert(content, "## Got")
+    table.insert(content, "```ts\n" .. vim.trim(got) .. "\n```")
+    table.insert(content, "## Expected")
+    table.insert(content, "```ts\n" .. vim.trim(expected) .. "\n```")
+  else
+    table.insert(content, "```ts\n" .. diag.message .. "\n```")
+    return content
+  end
+
+  -- Extract any explanatory lines after the type mismatch
+  local explanation_start = msg:find("Property ") or msg:find("but required in type") or msg:find("missing in type")
+  if explanation_start then
+    local trailing = msg:sub(explanation_start)
+    for line in trailing:gmatch("[^\n]+") do
+      local trimmed = vim.trim(line)
+      if trimmed ~= "" then
+        table.insert(content, "- " .. trimmed)
+      end
+    end
+  end
+
+  return content
+end
+-- Main function: determines how to format diagnostics
+function ShowDiagnosticMarkdown()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local diagnostics = vim.diagnostic.get(bufnr, { lnum = line })
+
+  if #diagnostics == 0 then return end
+
+  local content = nil
+
+  for _, diag in ipairs(diagnostics) do
+    if diag.message:find("Argument of type") then
+      content = format_ts_diagnostic(diag)
+      break
+    end
+    if diag.message:find("is not assignable to type") then
+      content = format_ts_type_mismatch(diag)
+      break
+    end
+  end
+
+  if not content then
+    content = format_generic_diagnostics(diagnostics)
+  end
+
+  local opts = {
+    border = "rounded",
+    max_width = 80,
+    focusable = false,
+  }
+
+  vim.lsp.util.open_floating_preview(content, "markdown", opts)
+end
+
+nmap("F", ":lua ShowDiagnosticMarkdown()<CR>")
+
+-- Example keybinding to show it
