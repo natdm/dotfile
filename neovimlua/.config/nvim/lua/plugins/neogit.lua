@@ -1,11 +1,12 @@
 return {
   "NeogitOrg/neogit",
   dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "sindrets/diffview.nvim",        -- optional - Diff integration
-
-    -- Only one of these is needed.
-    "ibhagwan/fzf-lua",              -- optional
+    "nvim-lua/plenary.nvim",
+    "sindrets/diffview.nvim",
+    "ibhagwan/fzf-lua",
   },
-  config = true
+  keys = {
+    { "<leader>gg", "<cmd>Neogit<CR>", desc = "Open Neogit" },
+  },
+  config = true,
 }
